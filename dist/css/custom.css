@@ -1,0 +1,115 @@
+.modal-body > div > img.img-circle{
+	max-width: 40px;
+}
+.assigned-agents, 
+.status,
+.conv-timeline{
+	float: left;
+	width: 70%;
+}
+.status-priorities,
+.priority,
+.ticket-actions{
+	float: right;
+	width: 30%;
+}
+.conv-timeline,
+.ticket-actions{
+	margin-top: 50px;
+}
+.conv-timeline{
+	border-right-style: solid;
+	border-right-color: #D2D6DE;
+    border-right-width: thin;
+    padding-right: 10px;
+}
+.conv-timeline > button{
+	margin-right: 25px;
+}
+.ticket-actions{
+    padding-left: 10px;
+}
+.ticket-actions .box-header .box-title{
+	font-size: 13px;
+}
+.ticket-actions .box-header .box-title > a{
+	color: #000;
+}
+.clearfix::before,
+.clearfix::after {
+  content: " ";
+  display: table;
+}
+.tweet-reply{
+	padding-top: 25px;
+}
+.feed{
+	float: left;
+	width: 50%;
+	padding-right: 7px;
+}
+.feed > .box-solid > .box-body{
+	overflow-y: scroll;
+	height: 520px;
+}
+.support-team{
+	float: right;
+	width: 50%;
+	padding-left: 7px;
+}
+.feed > .box-solid > .box-header,
+.tickets > .box-solid > .box-header,
+.support-team > .box-solid > .box-header{
+	background-color: #374850;
+	color: #FFF;
+}
+.support-team > .box-solid > .box-body{
+	overflow-y: scroll;
+	height: 231px;
+}
+/*.tickets > .box > .box-body{
+	overflow-y: scroll;
+	height: 222px;
+}*/
+.tickets > .nav-tabs-custom{
+	background-color: #374850;
+}
+.tickets > .nav-tabs-custom >.nav-tabs > li.header,
+.tickets > .nav-tabs-custom > .nav-tabs > li > a{
+	color: #FFF;
+}
+.tickets > .nav-tabs-custom > .nav-tabs > li > a:hover{
+	color: #999;
+}
+.tickets > .nav-tabs-custom > .nav-tabs > li.active > a{
+	color: #444;
+}
+.tickets > .nav-tabs-custom > .nav-tabs > li.active {
+    border-top-color: #DD4B39;
+}
+.tickets > .nav-tabs-custom>.tab-content{
+	overflow-y: scroll;
+	height: 225px;
+}
+.callout-ticket-bg{
+	background-color: #F9F9F9;
+	border-left-width: 4px; 
+	border-left-color: #DD4B39;
+	margin-bottom: 10px;
+	padding: 5px;
+}
+.callout-ticket-bg > h5 > a{
+	color: #000;
+	text-decoration: none;
+}
+.callout-ticket-bg > h5 > a:hover{
+	color: #D47367;
+}
+.callout-ticket-bg > h5{
+	float: left;
+	max-width: 80%;
+}
+.callout-ticket-bg > button{
+	float: right;
+	max-width: 20%;
+}
