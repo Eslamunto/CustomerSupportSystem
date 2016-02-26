@@ -59,7 +59,8 @@
 }
 .feed > .box-solid > .box-header,
 .tickets > .box-solid > .box-header,
-.support-team > .box-solid > .box-header{
+.support-team > .box-solid > .box-header,
+.support-team-stat > .box-solid > .box-header{
 	background-color: #374850;
 	color: #FFF;
 }
