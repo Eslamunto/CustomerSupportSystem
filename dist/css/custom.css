@@ -52,7 +52,8 @@
 	overflow-y: scroll;
 	height: 520px;
 }
-.support-team{
+.support-team,
+.supervisor-tickets{
 	float: right;
 	width: 50%;
 	padding-left: 7px;
@@ -60,13 +61,20 @@
 .feed > .box-solid > .box-header,
 .tickets > .box-solid > .box-header,
 .support-team > .box-solid > .box-header,
-.support-team-stat > .box-solid > .box-header{
+.support-team-stat > .box-solid > .box-header,
+.unassigned-tickets > .box-solid > .box-header,
+.my-tickets > .box-solid > .box-header{
 	background-color: #374850;
 	color: #FFF;
 }
 .support-team > .box-solid > .box-body{
 	overflow-y: scroll;
 	height: 231px;
+}
+.unassigned-tickets > .box > .box-body,
+.my-tickets > .box > .box-body{
+	overflow-y: scroll;
+	height: 444px;
 }
 /*.tickets > .box > .box-body{
 	overflow-y: scroll;
