@@ -113,3 +113,12 @@
 	float: right;
 	max-width: 20%;
 }
+.admin-feed{
+	float: left;
+	width: 50%;
+	padding-right: 7px;
+}
+.admin-feed > .box-solid > .box-body{
+	overflow-y: scroll;
+	height: 650px;
+}
