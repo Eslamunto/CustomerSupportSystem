@@ -26,6 +26,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <link rel="stylesheet" type="text/css" href="dist/css/custom.css">
 
+    
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -68,7 +70,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </a>
 
         <!-- Header Navbar -->
-        <nav class="navbar navbar-static-top" role="navigation">
+        <nav class="navbar navbar-fixed-top" role="navigation">
           <!-- Sidebar toggle button-->
           <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>
@@ -146,15 +148,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
           <!-- Sidebar Menu -->
           <ul class="sidebar-menu">
-            <li class="header">Agent</li>
+            <li class="header">SUPPORT AGENT</li>
             <!-- Optionally, you can add icons to the links -->
-
-            <li class="treeview">
-              <a href="#"><i class="fa fa-ticket"></i> <span>Tickets</span> <i class="fa fa-angle-left pull-right"></i></a>
-              <ul class="treeview-menu">
-                <li><a href="AgentTicket.html"><i class="fa fa-ticket"></i> <span>Current Tickets</span></a></li>
-                <li><a href="AgentTicketHistory.html"><i class="fa fa-history"></i> <span>History</span></a></li>
-              </ul>
+            <li>
+              <a href="AgentTicket.html"><i class="fa fa-ticket"></i> <span>Tickets</span></a>
+            </li>
+            <li class="active">
+              <a href="#"><i class="fa fa-history"></i> <span>History</span></a>
             </li>
           </ul><!-- /.sidebar-menu -->
         </section>
@@ -166,8 +166,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <ol class="breadcrumb">
-            <li><a href="#"><span class="glyphicon glyphicon-home"></span></i>Home</a></li>
-            <li class="active">Feed</li>
+            <li><span class="glyphicon glyphicon-home"></span></i> Home</li>
+            <li><a href="AgentTicket.html">Tickets</a></li>
+            <li class="active">History</li>
           </ol>
         </section>
         <br>
@@ -177,217 +178,204 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="plugins/datatables/dataTables.bootstrap.css">
     <!-- Theme style -->
           <!-- Your Page Content Here -->
-<div class="box">
+          <div class="box box-primary">
                 <div class="box-header">
-                  <h3 class="box-title">Data Table With Full Features</h3>
+                  <h3 class="box-title">Agent Tickets History</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
                   <table id="example2" class="table table-bordered table-striped">
                     <thead>
                       <tr>
                         <th>Ticket Title</th>
-                        <th>Customer name</th>
-                        <th>Customer user name</th>
+                        <th>Customer Name</th>
+                        <th>Customer Email</th>
                         <th>Status</th>
-                        <th>Date</th>
                         <th>Priority</th>
+                        <th>Created On</th>
                       </tr>
                     </thead>
                     <tbody>
-
                       <tr>
                         <td>Ticket Title</td>
                         <td>Foo Bar</td>
-                        <td>@foo_bar</td>
-                        <td>Done</td>
-                        <td> 01/01/2016 10:00:00</td>
-                        <td>High</td>
-                      </tr>
-
-                      <tr>
-                        <td>Ticket Title</td>
-                        <td>Foo Bar</td>
-                        <td>@foo_bar</td>
-                        <td>Done</td>
-                        <td> 01/01/2016 10:00:00</td>
-                        <td>High</td>
+                        <td>foo_bar@email.com</td>
+                        <td><span class="label bg-black">Closed</span></td>
+                        <td><span class="label bg-red">High</span></td>
+                        <td> 01/03/2016 10:00:00</td>
                       </tr>
 
                       <tr>
                         <td>Ticket Title</td>
                         <td>Foo Bar</td>
-                        <td>@foo_bar</td>
-                        <td>Done</td>
-                        <td> 01/01/2016 10:00:00</td>
-                        <td>High</td>
+                        <td>foo_bar@email.com</td>
+                        <td><span class="label bg-black">Closed</span></td>
+                        <td><span class="label bg-red">High</span></td>
+                        <td> 01/03/2016 10:00:00</td>
                       </tr>
 
                       <tr>
                         <td>Ticket Title</td>
                         <td>Foo Bar</td>
-                        <td>@foo_bar</td>
-                        <td>Done</td>
-                        <td> 01/01/2016 10:00:00</td>
-                        <td>High</td>
+                        <td>foo_bar@email.com</td>
+                        <td><span class="label bg-black">Closed</span></td>
+                        <td><span class="label bg-red">High</span></td>
+                        <td> 01/03/2016 10:00:00</td>
+                      </tr>
+
+                      <tr>
+                        <td>Ticket Title</td>
+                        <td>Foo Bar</td>
+                        <td>foo_bar@email.com</td>
+                        <td><span class="label bg-black">Closed</span></td>
+                        <td><span class="label bg-red">High</span></td>
+                        <td> 01/03/2016 10:00:00</td>
+                      </tr>
+                      <tr>
+                        <td>Ticket Title</td>
+                        <td>Lorem Ipsum</td>
+                        <td>lorem_ipsum@email.com</td>
+                        <td><span class="label bg-aqua">Opened</span></td>
+                        <td><span class="label bg-red">High</span></td>
+                        <td> 01/03/2016 10:00:00</td>
+                      </tr>
+                      <tr>
+                        <td>Ticket Title</td>
+                        <td>Lorem Ipsum</td>
+                        <td>lorem_ipsum@email.com</td>
+                        <td><span class="label bg-aqua">Opened</span></td>
+                        <td><span class="label bg-red">High</span></td>
+                        <td> 01/03/2016 10:00:00</td>
                       </tr>
 
                       <tr>
                         <td>Ticket Title</td>
                         <td>Lorem Ipsum</td>
-                        <td>@Lorem_ipsum</td>
-                        <td>Pending</td>
+                        <td>lorem_ipsum@email.com</td>
+                        <td><span class="label bg-aqua">Opened</span></td>
+                        <td><span class="label bg-yellow">Medium</span></td>
                         <td> 01/03/2016 10:00:00</td>
-                        <td>High</td>
                       </tr>
                       <tr>
                         <td>Ticket Title</td>
                         <td>Lorem Ipsum</td>
-                        <td>@Lorem_ipsum</td>
-                        <td>Pending</td>
+                        <td>lorem_ipsum@email.com</td>
+                        <td><span class="label bg-aqua">Opened</span></td>
+                        <td><span class="label bg-yellow">Medium</span></td>
                         <td> 01/03/2016 10:00:00</td>
-                        <td>High</td>
-                      </tr>
-
-                      <tr>
-                        <td>Ticket Title</td>
-                        <td>Lorem Ipsum</td>
-                        <td>@Lorem_ipsum</td>
-                        <td>Pending</td>
-                        <td> 01/03/2016 10:00:00</td>
-                        <td>High</td>
                       </tr>
                       <tr>
                         <td>Ticket Title</td>
                         <td>Lorem Ipsum</td>
-                        <td>@Lorem_ipsum</td>
-                        <td>Pending</td>
+                        <td>lorem_ipsum@email.com</td>
+                        <td><span class="label bg-purple">Pending</span></td>
+                        <td><span class="label bg-yellow">Medium</span></td>
                         <td> 01/03/2016 10:00:00</td>
-                        <td>High</td>
                       </tr>
                       <tr>
                         <td>Ticket Title</td>
                         <td>Lorem Ipsum</td>
-                        <td>@Lorem_ipsum</td>
-                        <td>Pending</td>
+                        <td>lorem_ipsum@email.com</td>
+                        <td><span class="label bg-purple">Pending</span></td>
+                        <td><span class="label bg-yellow">Medium</span></td>
                         <td> 01/03/2016 10:00:00</td>
-                        <td>High</td>
                       </tr>
                       <tr>
                         <td>Ticket Title</td>
                         <td>Lorem Ipsum</td>
-                        <td>@Lorem_ipsum</td>
-                        <td>Pending</td>
+                        <td>lorem_ipsum@email.com</td>
+                        <td><span class="label bg-purple">Pending</span></td>
+                        <td><span class="label bg-yellow">Medium</span></td>
                         <td> 01/03/2016 10:00:00</td>
-                        <td>High</td>
                       </tr>
                       <tr>
                         <td>Ticket Title</td>
                         <td>Lorem Ipsum</td>
-                        <td>@Lorem_ipsum</td>
-                        <td>Pending</td>
+                        <td>lorem_ipsum@email.com</td>
+                        <td><span class="label bg-purple">Pending</span></td>
+                        <td><span class="label bg-green">Low</span></td>
                         <td> 01/03/2016 10:00:00</td>
-                        <td>High</td>
                       </tr>
                       <tr>
                         <td>Ticket Title</td>
                         <td>Lorem Ipsum</td>
-                        <td>@Lorem_ipsum</td>
-                        <td>Pending</td>
+                        <td>lorem_ipsum@email.com</td>
+                        <td><span class="label bg-purple">Pending</span></td>
+                        <td><span class="label bg-green">Low</span></td>
                         <td> 01/03/2016 10:00:00</td>
-                        <td>High</td>
                       </tr>
                       <tr>
                         <td>Ticket Title</td>
                         <td>Lorem Ipsum</td>
-                        <td>@Lorem_ipsum</td>
-                        <td>Pending</td>
+                        <td>lorem_ipsum@email.com</td>
+                        <td><span class="label bg-aqua">Opened</span></td>
+                        <td><span class="label bg-green">Low</span></td>
                         <td> 01/03/2016 10:00:00</td>
-                        <td>High</td>
                       </tr>
                       <tr>
                         <td>Ticket Title</td>
                         <td>Lorem Ipsum</td>
-                        <td>@Lorem_ipsum</td>
-                        <td>Pending</td>
+                        <td>lorem_ipsum@email.com</td>
+                        <td><span class="label bg-aqua">Opened</span></td>
+                        <td><span class="label bg-green">Low</span></td>
                         <td> 01/03/2016 10:00:00</td>
-                        <td>High</td>
                       </tr>
                       <tr>
                         <td>Ticket Title</td>
                         <td>Lorem Ipsum</td>
-                        <td>@Lorem_ipsum</td>
-                        <td>Pending</td>
+                        <td>lorem_ipsum@email.com</td>
+                        <td><span class="label bg-aqua">Opened</span></td>
+                        <td><span class="label bg-green">Low</span></td>
                         <td> 01/03/2016 10:00:00</td>
-                        <td>High</td>
                       </tr>
                       <tr>
                         <td>Ticket Title</td>
                         <td>Lorem Ipsum</td>
-                        <td>@Lorem_ipsum</td>
-                        <td>Pending</td>
+                        <td>lorem_ipsum@email.com</td>
+                        <td><span class="label bg-black">Closed</span></td>
+                        <td><span class="label bg-green">Low</span></td>
                         <td> 01/03/2016 10:00:00</td>
-                        <td>High</td>
                       </tr>
                       <tr>
                         <td>Ticket Title</td>
                         <td>Lorem Ipsum</td>
-                        <td>@Lorem_ipsum</td>
-                        <td>Pending</td>
+                        <td>lorem_ipsum@email.com</td>
+                        <td><span class="label bg-black">Closed</span></td>
+                        <td><span class="label bg-red">High</span></td>
                         <td> 01/03/2016 10:00:00</td>
-                        <td>High</td>
                       </tr>
                       <tr>
                         <td>Ticket Title</td>
                         <td>Lorem Ipsum</td>
-                        <td>@Lorem_ipsum</td>
-                        <td>Pending</td>
+                        <td>lorem_ipsum@email.com</td>
+                        <td><span class="label bg-black">Closed</span></td>
+                        <td><span class="label bg-red">High</span></td>
                         <td> 01/03/2016 10:00:00</td>
-                        <td>High</td>
                       </tr>
                       <tr>
                         <td>Ticket Title</td>
                         <td>Lorem Ipsum</td>
-                        <td>@Lorem_ipsum</td>
-                        <td>Pending</td>
+                        <td>lorem_ipsum@email.com</td>
+                        <td><span class="label bg-purple">Pending</span></td>
+                        <td><span class="label bg-red">High</span></td>
                         <td> 01/03/2016 10:00:00</td>
-                        <td>High</td>
                       </tr>
                       <tr>
                         <td>Ticket Title</td>
                         <td>Lorem Ipsum</td>
-                        <td>@Lorem_ipsum</td>
-                        <td>Pending</td>
+                        <td>lorem_ipsum@email.com</td>
+                        <td><span class="label bg-purple">Pending</span></td>
+                        <td><span class="label bg-red">High</span></td>
                         <td> 01/03/2016 10:00:00</td>
-                        <td>High</td>
-                      </tr>
-                      <tr>
-                        <td>Ticket Title</td>
-                        <td>Lorem Ipsum</td>
-                        <td>@Lorem_ipsum</td>
-                        <td>Pending</td>
-                        <td> 01/03/2016 10:00:00</td>
-                        <td>High</td>
                       </tr>
                       <tr>
                         <td>Ticket Title</td>
                         <td>Dummy Ipsum</td>
-                        <td>@Lorem_ipsum</td>
-                        <td>Pending</td>
+                        <td>lorem_ipsum@email.com</td>
+                        <td><span class="label bg-purple">Pending</span></td>
+                        <td><span class="label bg-red">High</span></td>
                         <td> 01/03/2016 10:00:00</td>
-                        <td>High</td>
                       </tr>
-
                     </tbody>
-                    <tfoot>
-                      <tr>
-                        <th>Ticket Title</th>
-                        <th>Customer name</th>
-                        <th>Customer user name</th>
-                        <th>Status</th>
-                        <th>Date</th>
-                        <th>Priority</th>
-                      </tr>
-                    </tfoot>
                   </table>
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
