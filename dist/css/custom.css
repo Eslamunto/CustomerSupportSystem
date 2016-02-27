@@ -1,5 +1,32 @@
+section.content{
+	margin-top: 10px;
+}
+section.content-header{
+	margin-top: 50px;
+}
+header.main-header,
+aside.main-sidebar{
+	position: fixed;
+}
+.modal-body > .status-priorities > .agents{
+	margin-bottom: 20px;
+	margin-left: 7px;
+}
+.modal-body > .status-priorities > .agents > img.img-circle{
+	max-width: 40px;
+	padding: 1.5px;
+}
+.status-priorities > div > table{
+	margin-left: 7px;
+}
 .modal-body > div > img.img-circle{
 	max-width: 40px;
+}
+.assigned-agents > .box{
+	width: 390px;
+}
+.assigned-agents > .box > .box-body{
+	height:159px;
 }
 .assigned-agents, 
 .status,
@@ -12,10 +39,10 @@
 .ticket-actions{
 	float: right;
 	width: 30%;
+	margin-top: 10px;
 }
-.conv-timeline,
-.ticket-actions{
-	margin-top: 50px;
+.conv-timeline{
+	margin-top: 10px;
 }
 .conv-timeline{
 	border-right-style: solid;
@@ -25,6 +52,10 @@
 }
 .conv-timeline > button{
 	margin-right: 25px;
+}
+.scroll-timeline{
+	overflow-y: scroll;
+	height: 400px;
 }
 .ticket-actions{
     padding-left: 10px;
