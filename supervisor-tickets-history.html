@@ -7,7 +7,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>CS | Customers</title>
+    <title>CS | Tickets History</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
@@ -151,14 +151,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <li class="header">SUPPORT SUPERVISOR</li>
             <!-- Optionally, you can add icons to the links -->
             <li><a href="supervisor-feed.html"><i class="fa fa-feed"></i> <span>Feed</span></a></li>
-            <li class="treeview">
+            <li class="treeview active">
               <a href="#"><i class="fa fa-optin-monster"></i> <span>Team Activity</span> <i class="fa fa-angle-left pull-right"></i></a>
               <ul class="treeview-menu">
                 <li><a href="supervisor-team-agents.html"><i class="fa fa-user"></i> <span>Support Agents</span></a></li>
-                <li><a href="supervisor-tickets-history.html"><i class="fa fa-ticket"></i> <span>Tickets History</span></a></li>
+                <li><a href="#"><i class="fa fa-ticket"></i> <span>Tickets History</span></a></li>
               </ul>
             </li>
-            <li class="active"><a href="#"><i class="fa fa-group"></i> <span>Customers</span></a></li>
+            <li><a href="supervisor-customers.html"><i class="fa fa-group"></i><span>Customers</span></a></li>
           </ul><!-- /.sidebar-menu -->
         </section>
         <!-- /.sidebar -->
@@ -171,7 +171,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <ol class="breadcrumb">
             <li><a href="#"><span class="glyphicon glyphicon-home"></span></i>Home</a></li>
             <li class="active">Team Activity</li>
-            <li class="active">Customers</li>
+            <li class="active">Tickets History</li>
           </ol>
         </section>
         <br>
@@ -179,140 +179,162 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <section class="content">
           <div class="box box-primary">
             <div class="box-header">
-              <h3 class="box-title">System Customers</h3>
+              <h3 class="box-title">Team Tickets History</h3>
             </div>
             <div class="box-body">
               <table id="systemCustomers" class="table table-bordered table-striped">
                 <thead>
                   <tr>
-                    <th>Name</th>
-                    <th>E-mail</th>
-                    <th>Twitter Account</th>
-                    <th>Phone Number</th>
-                    <th>Complains</th>
-                    <th>Action</th>
+                    <th>Ticket Title</th>
+                    <th>Assigned To</th>
+                    <th>Assignee Role</th>
+                    <th>Status</th>
+                    <th>Priority</th>
+                    <th>Customer Name</th>
+                    <th>Customer E-mail</th>
+                    <th>Created On</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>Customer Name</td>
+                    <td>Ticket Tittle</td>
+                    <td>Assignee Name</td>
+                    <td>Agent</td>
+                    <td><span class="label bg-aqua">Opened</span></td>
+                    <td><span class="label bg-red">High</span></td>
+                    <td>Name</td>
                     <td>customer@email.com</td>
-                    <td>@username</td>
-                    <td>01x-xxx-xxx-xx</td>
-                    <td>5</td>
-                    <td><a href="#" data-toggle="modal" data-target="#editCustomer">Edit</a></td>
+                    <td>dd/mm/yyyy 00:00:00</td>
                   </tr>
                   <tr>
-                    <td>Customer Name</td>
+                    <td>Ticket Tittle</td>
+                    <td>Assignee Name</td>
+                    <td>Agent</td>
+                    <td><span class="label bg-aqua">Opened</span></td>
+                    <td><span class="label bg-red">High</span></td>
+                    <td>Name</td>
                     <td>customer@email.com</td>
-                    <td>@username</td>
-                    <td>01x-xxx-xxx-xx</td>
-                    <td>2</td>
-                    <td><a href="#" data-toggle="modal" data-target="#editCustomer">Edit</a></td>
+                    <td>dd/mm/yyyy 00:00:00</td>
                   </tr>
                   <tr>
-                    <td>Customer Name</td>
+                    <td>Ticket Tittle</td>
+                    <td>Assignee Name</td>
+                    <td>Agent</td>
+                    <td><span class="label bg-black">Closed</span></td>
+                    <td><span class="label bg-red">High</span></td>
+                    <td>Name</td>
                     <td>customer@email.com</td>
-                    <td>@username</td>
-                    <td>01x-xxx-xxx-xx</td>
-                    <td>1</td>
-                    <td><a href="#" data-toggle="modal" data-target="#editCustomer">Edit</a></td>
+                    <td>dd/mm/yyyy 00:00:00</td>
                   </tr>
                   <tr>
-                    <td>Customer Name</td>
+                    <td>Ticket Tittle</td>
+                    <td>Assignee Name</td>
+                    <td>Supervisor</td>
+                    <td><span class="label bg-black">Closed</span></td>
+                    <td><span class="label bg-red">High</span></td>
+                    <td>Name</td>
                     <td>customer@email.com</td>
-                    <td>@username</td>
-                    <td>01x-xxx-xxx-xx</td>
-                    <td>3</td>
-                    <td><a href="#" data-toggle="modal" data-target="#editCustomer">Edit</a></td>
+                    <td>dd/mm/yyyy 00:00:00</td>
                   </tr>
                   <tr>
-                    <td>Customer Name</td>
+                    <td>Ticket Tittle</td>
+                    <td>Assignee Name</td>
+                    <td>Supervisor</td>
+                    <td><span class="label bg-aqua">Opened</span></td>
+                    <td><span class="label bg-red">High</span></td>
+                    <td>Name</td>
                     <td>customer@email.com</td>
-                    <td>@username</td>
-                    <td>01x-xxx-xxx-xx</td>
-                    <td>4</td>
-                    <td><a href="#" data-toggle="modal" data-target="#editCustomer">Edit</a></td>
+                    <td>dd/mm/yyyy 00:00:00</td>
                   </tr>
                   <tr>
-                    <td>Customer Name</td>
+                    <td>Ticket Tittle</td>
+                    <td>Assignee Name</td>
+                    <td>Supervisor</td>
+                    <td><span class="label bg-aqua">Opened</span></td>
+                    <td><span class="label bg-yellow">Medium</span></td>
+                    <td>Name</td>
                     <td>customer@email.com</td>
-                    <td>@username</td>
-                    <td>01x-xxx-xxx-xx</td>
-                    <td>4</td>
-                    <td><a href="#" data-toggle="modal" data-target="#editCustomer">Edit</a></td>
+                    <td>dd/mm/yyyy 00:00:00</td>
                   </tr>
                   <tr>
-                    <td>Customer Name</td>
+                    <td>Ticket Tittle</td>
+                    <td>Assignee Name</td>
+                    <td>Agent</td>
+                    <td><span class="label bg-purple">Pending</span></td>
+                    <td><span class="label bg-yellow">Medium</span></td>
+                    <td>Name</td>
                     <td>customer@email.com</td>
-                    <td>@username</td>
-                    <td>01x-xxx-xxx-xx</td>
-                    <td>2</td>
-                    <td><a href="#" data-toggle="modal" data-target="#editCustomer">Edit</a></td>
+                    <td>dd/mm/yyyy 00:00:00</td>
                   </tr>
                   <tr>
-                    <td>Customer Name</td>
+                    <td>Ticket Tittle</td>
+                    <td>Assignee Name</td>
+                    <td>Supervisor</td>
+                    <td><span class="label bg-aqua">Opened</span></td>
+                    <td><span class="label bg-yellow">Medium</span></td>
+                    <td>Name</td>
                     <td>customer@email.com</td>
-                    <td>@username</td>
-                    <td>01x-xxx-xxx-xx</td>
-                    <td>4</td>
-                    <td><a href="#" data-toggle="modal" data-target="#editCustomer">Edit</a></td>
+                    <td>dd/mm/yyyy 00:00:00</td>
                   </tr>
                   <tr>
-                    <td>Customer Name</td>
+                    <td>Ticket Tittle</td>
+                    <td>Assignee Name</td>
+                    <td>Agent</td>
+                    <td><span class="label bg-aqua">Opened</span></td>
+                    <td><span class="label bg-yellow">Medium</span></td>
+                    <td>Name</td>
                     <td>customer@email.com</td>
-                    <td>@username</td>
-                    <td>01x-xxx-xxx-xx</td>
-                    <td>2</td>
-                    <td><a href="#" data-toggle="modal" data-target="#editCustomer">Edit</a></td>
+                    <td>dd/mm/yyyy 00:00:00</td>
                   </tr>
                   <tr>
-                    <td>Customer Name</td>
+                    <td>Ticket Tittle</td>
+                    <td>Assignee Name</td>
+                    <td>Agent</td>
+                    <td><span class="label bg-purple">Pending</span></td>
+                    <td><span class="label bg-green">Low</span></td>
+                    <td>Name</td>
                     <td>customer@email.com</td>
-                    <td>@username</td>
-                    <td>01x-xxx-xxx-xx</td>
-                    <td>5</td>
-                    <td><a href="#" data-toggle="modal" data-target="#editCustomer">Edit</a></td>
+                    <td>dd/mm/yyyy 00:00:00</td>
                   </tr>
                   <tr>
-                    <td>Customer Name</td>
+                    <td>Ticket Tittle</td>
+                    <td>Assignee Name</td>
+                    <td>Agent</td>
+                    <td><span class="label bg-black">Closed</span></td>
+                    <td><span class="label bg-green">Low</span></td>
+                    <td>Name</td>
                     <td>customer@email.com</td>
-                    <td>@username</td>
-                    <td>01x-xxx-xxx-xx</td>
-                    <td>1</td>
-                    <td><a href="#" data-toggle="modal" data-target="#editCustomer">Edit</a></td>
+                    <td>dd/mm/yyyy 00:00:00</td>
                   </tr>
                   <tr>
-                    <td>Customer Name</td>
+                    <td>Ticket Tittle</td>
+                    <td>Assignee Name</td>
+                    <td>Agent</td>
+                    <td><span class="label bg-aqua">Opened</span></td>
+                    <td><span class="label bg-green">Low</span></td>
+                    <td>Name</td>
                     <td>customer@email.com</td>
-                    <td>@username</td>
-                    <td>01x-xxx-xxx-xx</td>
-                    <td>1</td>
-                    <td><a href="#" data-toggle="modal" data-target="#editCustomer">Edit</a></td>
+                    <td>dd/mm/yyyy 00:00:00</td>
                   </tr>
                   <tr>
-                    <td>Customer Name</td>
+                    <td>Ticket Tittle</td>
+                    <td>Assignee Name</td>
+                    <td>Agent</td>
+                    <td><span class="label bg-purple">Pending</span></td>
+                    <td><span class="label bg-green">Low</span></td>
+                    <td>Name</td>
                     <td>customer@email.com</td>
-                    <td>@username</td>
-                    <td>01x-xxx-xxx-xx</td>
-                    <td>5</td>
-                    <td><a href="#" data-toggle="modal" data-target="#editCustomer">Edit</a></td>
+                    <td>dd/mm/yyyy 00:00:00</td>
                   </tr>
                   <tr>
-                    <td>Customer Name</td>
+                    <td>Ticket Tittle</td>
+                    <td>Assignee Name</td>
+                    <td>Agent</td>
+                    <td><span class="label bg-purple">Pending</span></td>
+                    <td><span class="label bg-green">Low</span></td>
+                    <td>Name</td>
                     <td>customer@email.com</td>
-                    <td>@username</td>
-                    <td>01x-xxx-xxx-xx</td>
-                    <td>3</td>
-                    <td><a href="#" data-toggle="modal" data-target="#editCustomer">Edit</a></td>
-                  </tr>
-                  <tr>
-                    <td>Customer Name</td>
-                    <td>customer@email.com</td>
-                    <td>@username</td>
-                    <td>01x-xxx-xxx-xx</td>
-                    <td>2</td>
-                    <td><a href="#" data-toggle="modal" data-target="#editCustomer">Edit</a></td>
+                    <td>dd/mm/yyyy 00:00:00</td>
                   </tr>
                 </tbody>
               </table>
