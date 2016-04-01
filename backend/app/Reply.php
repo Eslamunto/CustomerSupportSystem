@@ -19,7 +19,7 @@ class Reply extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
-    public functiorepliable()
+    public function replyable()
     {
         return $this->morphTo();
     }
