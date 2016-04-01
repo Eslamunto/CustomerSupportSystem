@@ -12,5 +12,8 @@ class Status extends Model
      * @var string
      */
     protected $table = 'status';
+    function ticket(){
+        return $this->hasMany('App\Ticket');
+    }
 
 }

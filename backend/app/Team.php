@@ -12,4 +12,10 @@ class Team extends Model
      * @var string
      */
     protected $table = 'team';
+    function users(){
+        return $this->hasMany('App\User');
+    }
+    function department(){
+        return $this->belongsTo('App\Department');
+    }
 }
