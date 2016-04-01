@@ -14,12 +14,14 @@ class CreateTicketTable extends Migration
     {
         Schema::create('ticket', function (Blueprint $table) {
             $table->increments('id')->unique();
-            $table->string('title');
-            $table->integer('status');
-            $table->integer('priority');
-            $table->dateTime('creationDate');
-            $table->integer('mainTweetId');
             $table->string('description');
+            $table->integer('statusId');
+            $table->integer('priorityId');
+            $table->integer('customerId');
+            $table->integer('departmentId');
+            $table->integer('postId');
+            $table->string('description');
+            $table->string('title');
             $table->timestamps();
         });
     }

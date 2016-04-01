@@ -14,9 +14,10 @@ class CreateCustomerTable extends Migration
     {
         Schema::create('customer', function (Blueprint $table) {
             $table->increments('id')->unique();
-            $table->integer('userId');
+            $table->string('name');
+            $table->string('phone');
             $table->string('twitterUsername');
-            $table->string('phoneNumber');
+            $table->string('facebookUsername');
             $table->timestamps();
         });
     }

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStatusTable extends Migration
+class CreatePostsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,9 +12,10 @@ class CreateStatusTable extends Migration
      */
     public function up()
     {
-        Schema::create('status', function (Blueprint $table) {
-            $table->increments('id')->unique();
-            $table->string('name');
+        Schema::create('posts', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('postId');
+            $table->string('postType');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ class CreateStatusTable extends Migration
      */
     public function down()
     {
-        Schema::drop('status');
+        Schema::drop('posts');
     }
 }
