@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTable extends Migration
+class CreateTicketTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,14 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('ticket', function (Blueprint $table) {
             $table->increments('id')->unique();
-            $table->string('firstName');
-            $table->string('lastName');
-            $table->rememberToken();
+            $table->string('title');
+            $table->integer('status');
+            $table->integer('priority');
+            $table->dateTime('creationDate');
+            $table->integer('mainTweetId');
+            $table->string('description');
             $table->timestamps();
         });
     }
@@ -28,6 +31,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('users');
+        Schema::drop('ticket');
     }
 }
