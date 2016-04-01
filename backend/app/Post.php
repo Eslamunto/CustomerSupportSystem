@@ -12,4 +12,11 @@ class Post extends Model
      * @var string
      */
     protected $table = 'posts';
+    function ticket(){
+        return $this->belongsTo('App\Ticket');
+    }
+    public function postable()
+    {
+        return $this->morphTo();
+    }
 }

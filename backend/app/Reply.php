@@ -12,4 +12,15 @@ class Reply extends Model
      * @var string
      */
     protected $table = 'replies';
+    function post(){
+        return $this->belongsTo('App\Post');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     */
+    public functiorepliable()
+    {
+        return $this->morphTo();
+    }
 }

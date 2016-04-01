@@ -12,6 +12,8 @@ class Priority extends Model
      * @var string
      */
     protected $table = 'priority';
-
+    function ticket(){
+        return $this->hasMany('App\Ticket');
+    }
 
 }
