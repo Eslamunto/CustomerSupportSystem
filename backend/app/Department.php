@@ -11,7 +11,7 @@ class Department extends Model
      *
      * @var string
      */
-    protected $table = 'departments';
+    protected $table = 'department';
     function Team(){
         return $this->hasMany('App\Team');
     }
