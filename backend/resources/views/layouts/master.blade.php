@@ -98,11 +98,11 @@
                     </div>
                 </div>
                 
-                @if(Auth::user()->role == 0) 
+                @if(Auth::user()->role == 0)  
                     <!-- Sidebar Menu -->
                     <ul class="sidebar-menu">
                         <li class="header">ADMIN</li>
-                        <li class="active"><a href="admin-feed.html"><i class="fa fa-rss"></i> <span>Feed</span></a></li>
+                        <li class="active"><a href="#"><i class="fa fa-rss"></i> <span>Feed</span></a></li>
                         <li class="treeview">
                             <a href="#"><i class="fa fa-optin-monster"></i> <span>Employees</span> <i
                                     class="fa fa-angle-left pull-right"></i></a>

@@ -5,8 +5,8 @@
 @endsection
 
 @section('content')
-    <div class="new-ticket">
-        <button type="button" class="btn bg-blue" data-toggle="modal" data-target="#addTicket">
+    <div class="new-ticket clearfix">
+        <button type="button" class="btn bg-blue pull-right" data-toggle="modal" data-target="#addTicket">
             <i class="fa fa-plus"></i>  Add Ticket
         </button>
     </div>

@@ -7,7 +7,7 @@
 @section('content')
     <div class="box box-primary">
         <div class="box-header">
-            <h3 class="box-title">System Support Agents</h3>
+            <h3 class="box-title"><b>System Support Agents</b></h3>
             <div class="pull-right">
                 <button type="button" class="btn bg-blue btn-sm" data-toggle="modal" data-target="#addAgent">
                     <i class="fa fa-plus"></i>  New Agent

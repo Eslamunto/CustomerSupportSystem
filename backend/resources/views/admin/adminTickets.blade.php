@@ -7,10 +7,12 @@
 @section('content')
     <div class="box box-primary">
         <div class="box-header">
-            <h3 class="box-title">System Tickets</h3>
-            <button type="button" class="btn bg-blue btn-sm" data-toggle="modal" data-target="#addTicket">
-                    <i class="fa fa-plus"></i>  New Ticket
-            </button> 
+            <h3 class="box-title"><b>System Tickets</b></h3>
+            <div class="pull-right">
+                <button type="button" class="btn bg-blue btn-sm" data-toggle="modal" data-target="#addTicket">
+                        <i class="fa fa-plus"></i>  New Ticket
+                </button> 
+            </div>
         </div>
         <div class="box-body">
             <table id="systemTickets" class="table table-bordered table-striped">

@@ -7,7 +7,7 @@
 @section('content')
     <div class="box box-primary">
         <div class="box-header">
-            <h3 class="box-title">Agent Tickets History</h3>
+            <h3 class="box-title"><b>Agent Tickets History</b></h3>
         </div><!-- /.box-header -->
         <div class="box-body">
             <table id="agentTicketsHistory" class="table table-bordered table-striped">

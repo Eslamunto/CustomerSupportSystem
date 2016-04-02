@@ -1,3 +1,5 @@
+@extends('layouts.master')
+
 @section('title')
     Agent | Customers
 @endsection
@@ -5,7 +7,7 @@
 @section('content')
     <div class="box box-primary">
         <div class="box-header">
-            <h3 class="box-title">System Customers</h3>
+            <h3 class="box-title"><b>System Customers</b></h3>
             <div class="pull-right">
                 <button type="button" class="btn bg-blue btn-sm" data-toggle="modal" data-target="#addCustomer">
                     <i class="fa fa-plus"></i>  New Customer

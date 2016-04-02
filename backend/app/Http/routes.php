@@ -17,5 +17,5 @@ Route::get('/', function () {
 
 Route::get('/test', function(){
 	return view('layouts.master');
-	// return view('admin.adminFeed');
+	// return view('supervisor.supervisorFeed');
 });
