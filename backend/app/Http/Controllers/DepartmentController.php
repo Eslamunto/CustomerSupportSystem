@@ -8,9 +8,18 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth as Auth;
 
 class DepartmentController extends Controller
 {
+
+
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -19,9 +28,14 @@ class DepartmentController extends Controller
     public function index()
     {
         // get all the departments
-        $departments = Department::all();
+        if(Auth::user()->role == 0) {
+            $departments = Department::all();
 
-        return view('department.index', [ 'departments' => $departments]);
+            return view('department.index', ['departments' => $departments, ]);
+        }
+        else {
+            return redirect('/admin');
+        }
     }
 
     /**
