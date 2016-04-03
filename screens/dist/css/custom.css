@@ -94,7 +94,8 @@ aside.main-sidebar{
 .support-team > .box-solid > .box-header,
 .support-team-stat > .box-solid > .box-header,
 .unassigned-tickets > .box-solid > .box-header,
-.my-tickets > .box-solid > .box-header{
+.my-tickets > .box-solid > .box-header,
+.settings > .box-solid > .box-header{
 	background-color: #374850;
 	color: #FFF;
 }
