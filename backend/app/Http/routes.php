@@ -24,8 +24,28 @@ Route::group(['middleware' => 'auth'], function () {
             return view('admin.adminFeed');
         });
 
-    });
+        Route::get('/settings', [ 
+            'as' => 'adminSettings',
+            function(){
+            return view('admin.adminSettings');
+        }]);
 
+        Route::post('/status', [
+            'as' => 'newStatus', 
+            'uses' => 'StatusController@store'
+        ]);
+
+        Route::put('/status/{id}', [
+            'as' => 'updateStatus',
+            'uses' => 'StatusController@update'
+        ]);
+
+        Route::delete('status/{id}', [
+            'as' => 'deleteStatus',
+            'uses' => 'StatusController@destroy'
+        ]);
+
+    });
 
 
     Route::group(['middleware' => 'supervisor', 'prefix' => 'supervisor'], function () {
@@ -52,3 +72,4 @@ Route::get('/test', function(){
 });
 
 Route::resource('department', 'DepartmentController');
+
