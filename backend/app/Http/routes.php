@@ -20,9 +20,56 @@ Route::group(['middleware' => 'auth'], function () {
         ]);
 
     Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
+        //Admin home
         Route::get('/', function () {
             return view('admin.adminFeed');
         });
+
+        //Admin agent's resources
+        Route::get('index/agents',[
+            'as'=>'indexAgents',
+            'uses'=>'AgentController@index'
+        ]);
+        Route::get('create/agent',[
+            'as'=>'getCreateAgent',
+            'uses'=>'AgentController@getCreate'
+        ]);
+        Route::post('create/agent',[
+            'as'=>'createAgent',
+            'uses'=>'AgentController@postCreate'
+        ]);
+        Route::get('delete/agent/{id}', [
+            'as'=>'deleteAgent',
+            'use'=>'AgentController@destroy'
+        ]);
+        Route::put('edit/agent/{id}', [
+            'as'=> 'agentUpdate',
+            'uses'=> 'AgentController@update'
+        ]);
+
+        //Admin supervisor's resources
+        Route::get('index/supervisor',[
+            'as'=>'indexSupervisor',
+            'uses'=>'SupervisorController@index'
+        ]);
+        Route::get('create/supervisor',[
+            'as'=>'getCreateSupervisor',
+            'uses'=>'SupervisorController@getCreate'
+        ]);
+        Route::post('create/supervisor',[
+            'as'=>'createSupervisor',
+            'uses'=>'SupervisorController@postCreate'
+        ]);
+        Route::delete('delete/supervisor/{id}', [
+            'as'=>'deleteSupervisor',
+            'use'=>'SupervisorController@destroy'
+        ]);
+        Route::put('edit/supervisor/{id}', [
+            'as'=> 'supervisorUpdate',
+            'uses'=> 'SupervisorController@update'
+        ]);
+
+        Route::resource('department', 'DepartmentController');
 
     });
 
@@ -51,4 +98,4 @@ Route::get('/test', function(){
 	// return view('supervisor.supervisorFeed');
 });
 
-Route::resource('department', 'DepartmentController');
+
