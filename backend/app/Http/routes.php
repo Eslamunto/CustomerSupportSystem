@@ -11,33 +11,34 @@
 |
 */
 Route::auth();
-Route::get('/', function () {
-    return view('welcome')->with(array('role'=>'guest'));
-});
+
 //
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('/', [
+        'as' => 'index',
+        'uses'=> 'HomeController@index'
+        ]);
 
-
-    Route::group(['middleware' => 'admin'], function () {
-        Route::get('/admin', function () {
-            return view('welcome')->with(array('role'=>'admin'));
+    Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
+        Route::get('/', function () {
+            return view('admin.adminFeed');
         });
 
     });
 
 
 
-    Route::group(['middleware' => 'supervisor'], function () {
-        Route::get('/supervisor', function () {
-            return view('welcome')->with(array('role'=>'supervisor'));
+    Route::group(['middleware' => 'supervisor', 'prefix' => 'supervisor'], function () {
+        Route::get('/', function () {
+            return view('supervisor.supervisorFeed');
         });
 
     });
 
 
-    Route::group(['middleware' => 'agent'], function () {
-        Route::get('/agent', function () {
-            return view('welcome')->with(array('role'=>'agent'));
+    Route::group(['middleware' => 'agent', 'prefix' => 'agent'], function () {
+        Route::get('/', function () {
+            return view('agent.agentFeed');
         });
 
     });
