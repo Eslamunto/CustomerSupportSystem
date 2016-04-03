@@ -43,7 +43,17 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/', function () {
             return view('supervisor.supervisorFeed');
         });
-
+        Route::get('/customers',function(){
+            return view('supervisor.supervisorCustomers');
+        });
+        Route::get('create/customer', function()
+        {
+            return View::make('supervisor.supervisorCustomers');
+        });
+        Route::post('create/customer',[
+            'as'=>'createCustomer',
+            'uses'=>'CustomerController@postCreate'
+        ]);
     });
 
 
@@ -51,6 +61,17 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/', function () {
             return view('agent.agentFeed');
         });
+        Route::get('/customers',function(){
+            return view('agent.agentCustomers');
+        });
+        Route::get('create/customer', function()
+        {
+            return View::make('agent.agentCustomers');
+        });
+        Route::post('create/customer',[
+            'as'=>'createCustomer',
+            'uses'=>'CustomerController@postCreate'
+        ]);
 
     });
 
