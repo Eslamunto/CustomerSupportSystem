@@ -19,7 +19,6 @@ class AgentMiddleware
         if(!Auth::guest() && Auth::user()->role == 2){
             return $next($request);
         }else {
-            //return redirect('/');
             return response('unauthorized', 401);
         }
     }

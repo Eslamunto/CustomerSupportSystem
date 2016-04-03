@@ -15,7 +15,7 @@ class Post extends Model
     function ticket(){
         return $this->belongsTo('App\Ticket');
     }
-    public function postable()
+    public function postble()
     {
         return $this->morphTo();
     }

@@ -20,7 +20,6 @@ class AdminMiddleware
         if(!Auth::guest() && Auth::user()->role == 0){
             return $next($request);
         }else {
-            //return redirect('/');
             return response('unauthorized', 401);
         }
     }
