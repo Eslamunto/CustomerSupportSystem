@@ -23,6 +23,22 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/', function () {
             return view('admin.adminFeed');
         });
+        Route::get('index/agents',[
+            'as'=>'indexAgents',
+            'uses'=>'AgentController@index'
+        ]);
+        Route::get('create/agent',[
+            'as'=>'getCreateAgent',
+            'uses'=>'AgentController@getCreate'
+        ]);
+        Route::post('create/agent',[
+            'as'=>'createAgent',
+            'uses'=>'AgentController@postCreate'
+        ]);
+        Route::delete('delete/agent/{id}', [
+            'as'=>'deleteAgent',
+            'use'=>'AgentController@destroy'
+        ]);
 
     });
 
