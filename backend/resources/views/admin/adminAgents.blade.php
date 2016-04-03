@@ -27,156 +27,30 @@
                     </tr>
                 </thead>
                 <tbody>
+                @foreach($agents as $key => $agent)
                     <tr>
-                        <td>Agent Name</td>
-                        <td>customer@email.com</td>
-                        <td>Name</td>
-                        <td>Name</td>
+                        <td>{{$agent->name}}</td>
+                        <td>{{$agent->email}}</td>
+                        <td>{{$agent->email}}</td>
+                        <td>{{$agent->email}}</td>
+                        {{--<td>{{Team::find($agent->teamid)->name}}</td>--}}
+                        {{--<td>{{$agent->team()}}</td>--}}
                         <td>5</td>
                         <td>
-                            <a href="#" data-toggle="modal" data-target="#editAgent">Edit</a> | <a href="#">Delete</a> 
+                            <a href="#" data-toggle="modal" data-target="#editAgent">Edit</a> | <a href="{{route('deleteAgent', $agent->id)}}">Delete</a>
+                            <script>
+                                $("a[data-method='delete']").click(function(){
+                                    $.ajax({
+                                        url: this.getAttribute('href'),
+                                        type: 'DELETE'
+                                    })
+                                    return false
+                                })
+                            </script>
                         </td>
                     </tr>
-                    <tr>
-                        <td>Agent Name</td>
-                        <td>customer@email.com</td>
-                        <td>Name</td>
-                        <td>Name</td>
-                        <td>2</td>
-                        <td>
-                            <a href="#" data-toggle="modal" data-target="#editAgent">Edit</a> | <a href="#">Delete</a> 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Agent Name</td>
-                        <td>customer@email.com</td>
-                        <td>Name</td>
-                        <td>Name</td>
-                        <td>1</td>
-                        <td>
-                            <a href="#" data-toggle="modal" data-target="#editAgent">Edit</a> | <a href="#">Delete</a> 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Agent Name</td>
-                        <td>customer@email.com</td>
-                        <td>Name</td>
-                        <td>Name</td>
-                        <td>3</td>
-                        <td>
-                            <a href="#" data-toggle="modal" data-target="#editAgent">Edit</a> | <a href="#">Delete</a> 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Agent Name</td>
-                        <td>customer@email.com</td>
-                        <td>Name</td>
-                        <td>Name</td>
-                        <td>4</td>
-                        <td>
-                            <a href="#" data-toggle="modal" data-target="#editAgent">Edit</a> | <a href="#">Delete</a> 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Agent Name</td>
-                        <td>customer@email.com</td>
-                        <td>Name</td>
-                        <td>Name</td>
-                        <td>4</td>
-                        <td>
-                            <a href="#" data-toggle="modal" data-target="#editAgent">Edit</a> | <a href="#">Delete</a> 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Agent Name</td>
-                        <td>customer@email.com</td>
-                        <td>Name</td>
-                        <td>Name</td>
-                        <td>2</td>
-                        <td>
-                            <a href="#" data-toggle="modal" data-target="#editAgent">Edit</a> | <a href="#">Delete</a> 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Agent Name</td>
-                        <td>customer@email.com</td>
-                        <td>Name</td>
-                        <td>Name</td>
-                        <td>4</td>
-                        <td>
-                            <a href="#" data-toggle="modal" data-target="#editAgent">Edit</a> | <a href="#">Delete</a> 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Agent Name</td>
-                        <td>customer@email.com</td>
-                        <td>Name</td>
-                        <td>Name</td>
-                        <td>2</td>
-                        <td>
-                            <a href="#" data-toggle="modal" data-target="#editAgent">Edit</a> | <a href="#">Delete</a> 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Agent Name</td>
-                        <td>customer@email.com</td>
-                        <td>Name</td>
-                        <td>Name</td>
-                        <td>5</td>
-                        <td>
-                            <a href="#" data-toggle="modal" data-target="#editAgent">Edit</a> | <a href="#">Delete</a> 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Agent Name</td>
-                        <td>customer@email.com</td>
-                        <td>Name</td>
-                        <td>Name</td>
-                        <td>1</td>
-                        <td>
-                            <a href="#" data-toggle="modal" data-target="#editAgent">Edit</a> | <a href="#">Delete</a> 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Agent Name</td>
-                        <td>customer@email.com</td>
-                        <td>Name</td>
-                        <td>Name</td>
-                        <td>1</td>
-                        <td>
-                            <a href="#" data-toggle="modal" data-target="#editAgent">Edit</a> | <a href="#">Delete</a> 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Agent Name</td>
-                        <td>customer@email.com</td>
-                        <td>Name</td>
-                        <td>Name</td>
-                        <td>5</td>
-                        <td>
-                            <a href="#" data-toggle="modal" data-target="#editAgent">Edit</a> | <a href="#">Delete</a> 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Agent Name</td>
-                        <td>customer@email.com</td>
-                        <td>Name</td>
-                        <td>Name</td>
-                        <td>3</td>
-                        <td>
-                            <a href="#" data-toggle="modal" data-target="#editAgent">Edit</a> | <a href="#">Delete</a> 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Agent Name</td>
-                        <td>customer@email.com</td>
-                        <td>Name</td>
-                        <td>Name</td>
-                        <td>2</td>
-                        <td>
-                            <a href="#" data-toggle="modal" data-target="#editAgent">Edit</a> | <a href="#">Delete</a> 
-                        </td>
-                    </tr>
+                @endforeach
+
                 </tbody>
             </table>
         </div>
@@ -189,6 +63,7 @@
 
 @section('scripts')
     <!-- DataTables -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     {{ HTML::script('plugins/datatables/jquery.dataTables.min.js') }}
     {{ HTML::script('plugins/datatables/dataTables.bootstrap.min.js') }}
     <!-- SlimScroll -->
