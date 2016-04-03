@@ -12,6 +12,14 @@ class Status extends Model
      * @var string
      */
     protected $table = 'status';
+
+    /**
+     * Fillable fields
+     * 
+     * @var array
+     */
+    protected $fillable = ['name'];
+
     function ticket(){
         return $this->hasMany('App\Ticket');
     }
