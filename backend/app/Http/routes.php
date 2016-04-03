@@ -23,6 +23,17 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/', function () {
             return view('admin.adminFeed');
         });
+        Route::get('/customers',function(){
+            return view('admin.adminCustomers');
+        });
+        Route::get('create/customer', function()
+        {
+            return View::make('admin.adminCustomers');
+        });
+        Route::post('create/customer',[
+            'as'=>'createCustomer',
+            'uses'=>'CustomerController@postCreate'
+        ]);
 
     });
 
