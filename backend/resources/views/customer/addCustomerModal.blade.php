@@ -15,7 +15,15 @@
                     </div><!-- /.box-header -->
                     <div class="box-body">
                         <!-- form start -->
-                        <form action="{{ Route('createCustomer') }}" method="POST" class="form-horizontal">
+                          @if(Auth::user()->role == 0)
+                            $action = {{ Route('createCustomerAdmin') }}
+                        @elseif (Auth::user()->role == 1)
+                            $action =  {{ Route('createCustomerSupervisor') }}
+                        @else
+                            $action = {{ Route('createCustomerAgent') }}
+                        @endif
+
+                        <form action="<?php $action ?>"  method="POST" class="form-horizontal">
                             {!! csrf_field() !!}
                             <div class="form-group">
                                 <label for="CustomerName">Customer Name</label>

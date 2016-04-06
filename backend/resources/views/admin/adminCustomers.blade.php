@@ -15,6 +15,8 @@
             </div>
         </div>
         <div class="box-body">
+            <?php $customers = \App\Customer::all() ?>
+
             <table id="systemCustomers" class="table table-bordered table-striped">
                 <thead>
                     <tr>
@@ -27,156 +29,19 @@
                     </tr>
                 </thead>
                 <tbody>
+                @foreach ($customers as $customer)
                     <tr>
-                        <td>Customer Name</td>
-                        <td>01x-xxx-xxx-xx</td>
-                        <td>username</td>
-                        <td>username</td>
-                        <td>5</td>
+                        <td>{{ $customer->name }} </td>
+                        <td>{{ $customer->phone }}</td>
+                        <td>{{ $customer->twitterUsername }}</td>
+                        <td>{{ $customer->facebookUsername }}</td>
+                        <td>7</td>
                         <td>
-                            <a href="#" data-toggle="modal" data-target="#editCustomer">Edit</a> | <a href="#">Delete</a> 
+                            <a href="#" data-toggle="modal" data-target="#editCustomer">Edit</a> | <a href="#">Delete</a>
                         </td>
                     </tr>
-                    <tr>
-                        <td>Customer Name</td>
-                        <td>01x-xxx-xxx-xx</td>
-                        <td>username</td>
-                        <td>username</td>
-                        <td>2</td>
-                        <td>
-                            <a href="#" data-toggle="modal" data-target="#editCustomer">Edit</a> | <a href="#">Delete</a> 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Customer Name</td>
-                        <td>01x-xxx-xxx-xx</td>
-                        <td>username</td>
-                        <td>username</td>
-                        <td>1</td>
-                        <td>
-                            <a href="#" data-toggle="modal" data-target="#editCustomer">Edit</a> | <a href="#">Delete</a> 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Customer Name</td>
-                        <td>01x-xxx-xxx-xx</td>
-                        <td>username</td>
-                        <td>username</td>
-                        <td>3</td>
-                        <td>
-                            <a href="#" data-toggle="modal" data-target="#editCustomer">Edit</a> | <a href="#">Delete</a> 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Customer Name</td>
-                        <td>01x-xxx-xxx-xx</td>
-                        <td>username</td>
-                        <td>username</td>
-                        <td>4</td>
-                        <td>
-                            <a href="#" data-toggle="modal" data-target="#editCustomer">Edit</a> | <a href="#">Delete</a> 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Customer Name</td>
-                        <td>01x-xxx-xxx-xx</td>
-                        <td>username</td>
-                        <td>username</td>
-                        <td>4</td>
-                        <td>
-                            <a href="#" data-toggle="modal" data-target="#editCustomer">Edit</a> | <a href="#">Delete</a> 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Customer Name</td>
-                        <td>01x-xxx-xxx-xx</td>
-                        <td>username</td>
-                        <td>username</td>
-                        <td>2</td>
-                        <td>
-                            <a href="#" data-toggle="modal" data-target="#editCustomer">Edit</a> | <a href="#">Delete</a> 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Customer Name</td>
-                        <td>01x-xxx-xxx-xx</td>
-                        <td>username</td>
-                        <td>username</td>
-                        <td>4</td>
-                        <td>
-                            <a href="#" data-toggle="modal" data-target="#editCustomer">Edit</a> | <a href="#">Delete</a> 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Customer Name</td>
-                        <td>01x-xxx-xxx-xx</td>
-                        <td>username</td>
-                        <td>username</td>
-                        <td>2</td>
-                        <td>
-                            <a href="#" data-toggle="modal" data-target="#editCustomer">Edit</a> | <a href="#">Delete</a> 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Customer Name</td>
-                        <td>01x-xxx-xxx-xx</td>
-                        <td>username</td>
-                        <td>username</td>
-                        <td>5</td>
-                        <td>
-                            <a href="#" data-toggle="modal" data-target="#editCustomer">Edit</a> | <a href="#">Delete</a> 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Customer Name</td>
-                        <td>01x-xxx-xxx-xx</td>
-                        <td>username</td>
-                        <td>username</td>
-                        <td>1</td>
-                        <td>
-                            <a href="#" data-toggle="modal" data-target="#editCustomer">Edit</a> | <a href="#">Delete</a> 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Customer Name</td>
-                        <td>01x-xxx-xxx-xx</td>
-                        <td>username</td>
-                        <td>username</td>
-                        <td>1</td>
-                        <td>
-                            <a href="#" data-toggle="modal" data-target="#editCustomer">Edit</a> | <a href="#">Delete</a> 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Customer Name</td>
-                        <td>01x-xxx-xxx-xx</td>
-                        <td>username</td>
-                        <td>username</td>
-                        <td>5</td>
-                        <td>
-                            <a href="#" data-toggle="modal" data-target="#editCustomer">Edit</a> | <a href="#">Delete</a> 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Customer Name</td>
-                        <td>01x-xxx-xxx-xx</td>
-                        <td>username</td>
-                        <td>username</td>
-                        <td>3</td>
-                        <td>
-                            <a href="#" data-toggle="modal" data-target="#editCustomer">Edit</a> | <a href="#">Delete</a> 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Customer Name</td>
-                        <td>01x-xxx-xxx-xx</td>
-                        <td>username</td>
-                        <td>username</td>
-                        <td>2</td>
-                        <td>
-                            <a href="#" data-toggle="modal" data-target="#editCustomer">Edit</a> | <a href="#">Delete</a> 
-                        </td>
-                    </tr>
+                @endforeach
+
                 </tbody>
             </table>
         </div>
