@@ -10,7 +10,66 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+Route::auth();
 
-Route::get('/', function () {
-    return view('welcome');
+//
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/', [
+        'as' => 'index',
+        'uses'=> 'HomeController@index'
+        ]);
+
+    Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
+        Route::get('/', function () {
+            return view('admin.adminFeed');
+        });
+
+        Route::get('/settings', [ 
+            'as' => 'adminSettings',
+            function(){
+            return view('admin.adminSettings');
+        }]);
+
+        Route::post('/status', [
+            'as' => 'newStatus', 
+            'uses' => 'StatusController@store'
+        ]);
+
+        Route::put('/status/{id}', [
+            'as' => 'updateStatus',
+            'uses' => 'StatusController@update'
+        ]);
+
+        Route::delete('status/{id}', [
+            'as' => 'deleteStatus',
+            'uses' => 'StatusController@destroy'
+        ]);
+
+    });
+
+
+    Route::group(['middleware' => 'supervisor', 'prefix' => 'supervisor'], function () {
+        Route::get('/', function () {
+            return view('supervisor.supervisorFeed');
+        });
+
+    });
+
+
+    Route::group(['middleware' => 'agent', 'prefix' => 'agent'], function () {
+        Route::get('/', function () {
+            return view('agent.agentFeed');
+        });
+
+    });
+
+    Route::get('/home', 'HomeController@index');
 });
+
+Route::get('/test', function(){
+	return view('layouts.master');
+	// return view('supervisor.supervisorFeed');
+});
+
+Route::resource('department', 'DepartmentController');
+
