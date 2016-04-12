@@ -23,7 +23,6 @@
         </div>
     @endif
 
-
     <div class="settings">
         <div class="col-md-12">
             <!-- Twitter -->
@@ -107,6 +106,9 @@
                 <div class="box box-primary">
                     <div class="box-header with-border">
                         <h4 class="box-title">Ticket Status</h4>
+                        <button class="btn btn-xs bg-blue pull-right" data-toggle="modal" data-target="#addStatus">
+                            Add &nbsp&nbsp<i class="fa fa-plus"></i>
+                        </button>
                     </div>
                     <div class="box-body">
                         <!-- the events -->
@@ -115,6 +117,7 @@
                                 <thead>
                                     <th>#</th>
                                     <th>Title</th>
+                                    <th>Color</th>
                                     <th>Action</th>
                                 </thead>
                                 <tbody>
@@ -124,22 +127,13 @@
                                             <td> {{ $count }} </td>
                                             <td> {{ $status->name }} </td>
                                             <td>
-                                                <div class="clearfix">
-                                                    <div class="col-md-1">
-                                                        <button class="btn btn-xs bg-blue update-status-button" data-update-link="{{ Route('updateStatus', $status->id) }}" data-toggle="modal" data-target="#editStatus"><i class="fa fa-edit"></i>
-                                                        </button>
-                                                    </div>
-                                                    <div class="col-md-1">
-                                                        <form action="{{ Route('deleteStatus', $status->id) }}" method="POST">
-                                                            {!! csrf_field() !!}
-                                                            {!! method_field('delete') !!}
-                                                            <div class="input-group">
-                                                                <button class="btn btn-danger btn-xs" type="submit"><i class="fa fa-trash"></i></button> 
-                                                            </div>  
-                                                        </form>
-                                                    </div>
-                                                    <div class="col-md-6"></div> 
-                                                </div>
+                                                <span class="label" style="background-color:{{ $status->color }};">
+                                                    color
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <a href="" class="update-status-button" data-update-link="{{ Route('updateStatus', $status->id) }}" data-toggle="modal" data-target="#editStatus"> Edit </a> |
+                                                <a href="{{ Route('deleteStatus', $status->id) }}" data-method="delete" data-token="{{ csrf_token() }}" data-confirm="Are you sure you want to delete '{{ $status->name }}' ?"> Delete </a>
                                             </td>
                                         </tr>
                                         <?php $count++ ?>
@@ -147,16 +141,6 @@
                                 </tbody>
                             </table>
                             <br>
-                            <form action="{{ Route('newStatus') }}" method="POST">
-                                {{ csrf_field() }}
-                                <div class="input-group">
-                                    <input id="new-event" type="text" class="form-control" placeholder="Create New Status" name="name">
-                                    <div class="input-group-btn">
-                                        <button id="add-new-event" type="submit" class="btn bg-blue btn-flat">Add</button>
-                                    </div><!-- /btn-group -->
-                                </div>
-                                <br>
-                            </form>
                         </div>
                     </div><!-- /.box-body -->
                 </div><!-- /. box -->
@@ -200,6 +184,7 @@
     </div>
     
     @include('status.editTicketStatus')
+    @include('status.addTicketStatus')
 
 @endsection
 
@@ -208,5 +193,34 @@
         $('.update-status-button').on('click', function () {
             $('#update-status-form').attr('action', $(this).data('update-link'));
         });
+
+        $('[data-method]').click(function(e) {
+            e.preventDefault();
+            // If the user confirm the delete
+            if (confirm($(this).data('confirm'))) {
+                // Get the route URL
+                var url = $(this).prop('href');
+                // Get the token
+                var token = $(this).data('token');
+                //Get the method type
+                var method = $(this).data('method');
+                // Create a form element
+                var $form = $('<form/>', {action: url, method: 'post'});
+                // Add the DELETE hidden input method
+                var $inputMethod = $('<input/>', {type: 'hidden', name: '_method', value: method});
+                // Add the token hidden input
+                var $inputToken = $('<input/>', {type: 'hidden', name: '_token', value: token});
+                // Append the inputs to the form, hide the form, append the form to the <body>, SUBMIT !
+                $form.append($inputMethod, $inputToken).hide().appendTo('body').submit();
+            }
+        });
+
+        $(function() {
+            $('#cp1').colorpicker();
+         });
+
+        $(function() {
+            $('#cp2').colorpicker();
+         });
     </script>
 @endsection
