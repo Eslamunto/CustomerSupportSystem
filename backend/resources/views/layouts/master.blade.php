@@ -28,7 +28,7 @@
         <!-- Main Header -->
         <header class="main-header">
             <!-- Logo -->
-            <a href="index2.html" class="logo">
+            <a href="{{URL('/')}}" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini"><b>C</b>S</span>
                 <!-- logo for regular state and mobile devices -->
@@ -107,7 +107,7 @@
                             <a href="#"><i class="fa fa-optin-monster"></i> <span>Employees</span> <i
                                     class="fa fa-angle-left pull-right"></i></a>
                             <ul class="treeview-menu">
-                                <li><a href="{{route('indexSupervisor')}}">Supervisor</a></li>
+                                <li><a href="{{route('indexSupervisors')}}">Supervisor</a></li>
                                 <li><a href="{{route('indexAgents')}}">Agent</a></li>
                             </ul>
                         </li>

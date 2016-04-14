@@ -38,9 +38,9 @@ Route::group(['middleware' => 'auth'], function () {
             'as'=>'createAgent',
             'uses'=>'AgentController@postCreate'
         ]);
-        Route::get('delete/agent/{id}', [
+        Route::delete('delete/agent/{id}', [
             'as'=>'deleteAgent',
-            'use'=>'AgentController@destroy'
+            'uses'=>'AgentController@destroy'
         ]);
         Route::put('edit/agent/{id}', [
             'as'=> 'agentUpdate',
@@ -49,7 +49,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         //Admin supervisor's resources
         Route::get('index/supervisor',[
-            'as'=>'indexSupervisor',
+            'as'=>'indexSupervisors',
             'uses'=>'SupervisorController@index'
         ]);
         Route::get('create/supervisor',[
@@ -62,13 +62,20 @@ Route::group(['middleware' => 'auth'], function () {
         ]);
         Route::delete('delete/supervisor/{id}', [
             'as'=>'deleteSupervisor',
-            'use'=>'SupervisorController@destroy'
+            'uses'=>'SupervisorController@destroy'
         ]);
         Route::put('edit/supervisor/{id}', [
-            'as'=> 'supervisorUpdate',
+            'as'=> 'updateSupervisor',
             'uses'=> 'SupervisorController@update'
         ]);
 
+        //Teams
+        Route::get('department/{departmentId}/teams', [
+            'as' => 'departmentTeams',
+            'uses'=> 'TeamController@departmentTeam'
+        ]);
+
+        //depatment
         Route::resource('department', 'DepartmentController');
 
     });

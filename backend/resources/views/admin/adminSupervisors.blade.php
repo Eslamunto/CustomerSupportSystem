@@ -33,19 +33,11 @@
                         <td>{{$supervisor->email}}</td>
                         <td>{{$supervisor->teamid}}</td>
                         <td>{{$supervisor->teamid}}</td>
-                        <td>5</td>
+                        <td></td>
                         <td>
-                            <a href="#" data-toggle="modal" data-target="#editAgent">Edit</a> | {{}}<a data-method="delete" href="{{route('deleteAgent', $supervisor->id)}}">Delete</a>
+                            <a href="#" data-toggle="modal" data-target="#editSupervisors">Edit</a> | <a data-method='delete' href="{{route('deleteSupervisor', $supervisor->id)}}">Delete</a>
 
-                            <script>
-                                $("a[data-method='delete']").click(function(){
-                                    $.ajax({
-                                        url: this.getAttribute('href'),
-                                        type: 'DELETE'
-                                    })
-                                    return false
-                                })
-                            </script>
+
                         </td>
                     </tr>
                 @endforeach
@@ -54,14 +46,13 @@
         </div>
     </div>
     
-    {{--@include('supervisor.addSupervisorModal')--}}
-    {{--@include('supervisor.editSupervisorModal')--}}
+    @include('supervisor.addSupervisorModal')
+    @include('supervisor.editSupervisorModal')
 
 @endsection
 
 @section('scripts')
-    <!-- DataTables -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
     {{ HTML::script('plugins/datatables/jquery.dataTables.min.js') }}
     {{ HTML::script('plugins/datatables/dataTables.bootstrap.min.js') }}
     <!-- SlimScroll -->
@@ -73,5 +64,15 @@
         $(function () {
             $("#systemSupervisors").DataTable();
         });
-    </script> 
+    </script>
+    <script>
+        window.onload = function () {
+            $("a[data-method='delete']").click(function(){
+                $.ajax({
+                    url: this.getAttribute('href'),
+                    type: 'DELETE'
+                });
+                return false;
+            }); }
+    </script>
 @endsection

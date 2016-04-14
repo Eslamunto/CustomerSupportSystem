@@ -10,8 +10,8 @@
             <h3 class="box-title"><b>System Support Agents</b></h3>
             <div class="pull-right">
                 <button type="button" class="btn bg-blue btn-sm" data-toggle="modal" data-target="#addAgent">
-                    <i class="fa fa-plus"></i>  New Agent
-                </button> 
+                    <i class="fa fa-plus"> New Agent</i>
+                </button>
             </div>
         </div>
         <div class="box-body">
@@ -37,16 +37,7 @@
                         {{--<td>{{$agent->team()}}</td>--}}
                         <td>5</td>
                         <td>
-                            <a href="#" data-toggle="modal" data-target="#editAgent">Edit</a> | <a href="{{route('deleteAgent', $agent->id)}}">Delete</a>
-                            <script>
-                                $("a[data-method='delete']").click(function(){
-                                    $.ajax({
-                                        url: this.getAttribute('href'),
-                                        type: 'DELETE'
-                                    })
-                                    return false
-                                })
-                            </script>
+                            <a href="#" data-toggle="modal" data-target="#adminEditAgent">Edit</a> | <a data-method='delete' data-token="{{ csrf_token() }}" href="{{route('deleteAgent', $agent->id)}}">Delete</a>
                         </td>
                     </tr>
                 @endforeach
@@ -55,7 +46,7 @@
             </table>
         </div>
     </div>
-    
+
     @include('agent.addAgentModal')
     @include('agent.editAgentModal')
 
@@ -63,7 +54,6 @@
 
 @section('scripts')
     <!-- DataTables -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     {{ HTML::script('plugins/datatables/jquery.dataTables.min.js') }}
     {{ HTML::script('plugins/datatables/dataTables.bootstrap.min.js') }}
     <!-- SlimScroll -->
@@ -75,5 +65,16 @@
         $(function () {
             $("#systemAgents").DataTable();
         });
-    </script> 
+    </script>
+    <script>
+        window.onload = function () {
+            $("a[data-method='delete']").click(function(){
+                $.ajax({
+                    url: this.getAttribute('href'),
+                    type: 'post',
+                    data: {_method: 'delete', _token :token}
+                });
+                return false;
+            }); }
+    </script>
 @endsection

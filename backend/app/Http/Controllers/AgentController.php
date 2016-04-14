@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User as User;
+use App\Department as Department;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Validator as Validator;
 use Illuminate\Support\Facades\Input as Input;
@@ -13,8 +14,9 @@ class AgentController extends Controller
     public function index(){
         $agents = User::where('role','=','2')->get();
         //$view = view('admin.adminAgents');
+        $departments = Department::all();
         return response()
-            ->view('admin.adminAgents', [ 'agents' => $agents]);
+            ->view('admin.adminAgents', [ 'agents' => $agents, 'departments'=>$departments]);
 //        return response()
 //            ->view('admin.agentTest', [ 'agents' => $agents]);
     }
@@ -70,11 +72,14 @@ class AgentController extends Controller
         return redirect()->route('indexAgents');
 
     }
-    public function destroy($id){
+    public function destroy($id, $request){
         $agent = User::find($id);
-        $agent->delete();
-        // redirect
-       // Session::flash('message', 'Successfully deleted the Agent!');
-        return redirect()->route('indexAgent');
+        if ( $request->ajax() ) {
+
+            $agent->delete();
+            // redirect
+            // Session::flash('message', 'Successfully deleted the Agent!');
+        }
+        return redirect()->route('indexAgents');
     }
 }

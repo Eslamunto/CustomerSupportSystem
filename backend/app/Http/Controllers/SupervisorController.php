@@ -15,7 +15,7 @@ class SupervisorController extends Controller
     public function index(){
         $supervisors = User::where('role','=','1')->get();
         //$view = view('admin.adminAgents');
-        response()
+        return response()
             ->view('admin.adminSupervisors', [ 'supervisors' => $supervisors]);
     }
     public function getCreate(){
@@ -75,6 +75,6 @@ class SupervisorController extends Controller
         $supervisor->delete();
         // redirect
         // Session::flash('message', 'Successfully deleted the Agent!');
-        return redirect()->route('indexAgent');
+        return redirect()->route('indexSupervisors');
     }
 }
