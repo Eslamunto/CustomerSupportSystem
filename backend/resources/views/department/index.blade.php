@@ -33,7 +33,7 @@
             <li>{{ $value->id }}</li>
             <li>{{ $value->name }}</li>
 
-            {!! Form::open(array('url' => 'department/' . $value->id)) !!}
+            {!! Form::open(array('url' => 'admin/department/' . $value->id)) !!}
             {{--//<input type="hidden" formmethod="DELETE">--}}
             {!! Form::hidden('_method', 'DELETE') !!}
 
