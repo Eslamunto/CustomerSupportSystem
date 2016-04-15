@@ -27,7 +27,7 @@ class AddForeignKeysToTableTicket extends Migration
                 ->onDelete('cascade')->onUpdate('cascade');
             
             $table->integer('departmentId')->nullable()->unsigned()->change();
-            $table->foreign('departmentId')->references('id')->on('department')
+            $table->foreign('departmentId')->references('id')->on('departments')
                 ->onDelete('set null')->onUpdate('cascade'); 
 
             $table->integer('postId')->nullable()->unsigned()->change();
