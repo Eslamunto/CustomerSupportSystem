@@ -15,7 +15,7 @@ class AddDepartmentIdForeignKeyToTableTeam extends Migration
         Schema::table('team', function (Blueprint $table) {
             //
             $table->integer('departmentId')->nullable()->unsigned()->change();
-            $table->foreign('departmentId')->references('id')->on('department')
+            $table->foreign('departmentId')->references('id')->on('departments')
                 ->onDelete('cascade')->onUpdate('cascade');
         });
     }
