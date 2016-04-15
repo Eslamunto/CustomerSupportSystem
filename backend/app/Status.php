@@ -18,7 +18,9 @@ class Status extends Model
      * 
      * @var array
      */
-    protected $fillable = ['name'];
+    protected $fillable = [
+        'name', 'color',
+    ];
 
     function ticket(){
         return $this->hasMany('App\Ticket');

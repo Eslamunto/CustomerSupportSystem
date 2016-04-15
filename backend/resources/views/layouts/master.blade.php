@@ -18,6 +18,7 @@
     <!-- Theme style -->
     {{ HTML::style('dist/css/AdminLTE.min.css') }}
     {{ HTML::style('dist/css/skins/_all-skins.min.css') }}
+    {{ HTML::style('dist/css/bootstrap-colorpicker.min.css') }}
     {{ HTML::style('dist/css/custom.css') }}
     {{ HTML::style('plugins/datatables/dataTables.bootstrap.css') }}
 
@@ -186,6 +187,8 @@
         {{ HTML::script('dist/js/app.min.js') }}
         
         {{ HTML::script('dist/js/agentTicket.js') }}  
+
+        {{ HTML::script('dist/js/bootstrap-colorpicker.min.js') }}
 
         @yield('scripts')  
     </div>    
