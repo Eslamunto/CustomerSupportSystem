@@ -22,6 +22,9 @@ class Ticket extends Model
      */
     protected $table = 'ticket';
 
+    function user(){
+        return $this->belongsTo('App\UserTicket');
+    }
     function department(){
         return $this->belongsTo('App\Department');
     }

@@ -51,7 +51,7 @@ class DepartmentController extends Controller
 
         // redirect
 //        Session::flash('message', 'Successfully created department!');
-        return Redirect('department');
+        return Redirect('admin/department');
     }
 
     /**
@@ -99,7 +99,7 @@ class DepartmentController extends Controller
 
         // redirect
 //        Session::flash('message', 'Successfully created department!');
-        return Redirect('department');
+        return Redirect('admin/department');
     }
 
     /**
@@ -114,6 +114,6 @@ class DepartmentController extends Controller
         $department = Department::find($id);
         $department->delete();
 
-        return Redirect::to('department');
+        return Redirect::to('admin/department');
     }
 }
