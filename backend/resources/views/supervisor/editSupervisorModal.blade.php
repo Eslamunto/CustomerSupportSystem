@@ -18,11 +18,6 @@
                         <form role="form" method="post" action="" id="editForm">
                             <input type="hidden" name="_method" value="put" />
                             {{ csrf_field() }}
-                            @if($errors->has())
-                                @foreach ($errors->all() as $error)
-                                    <div>{{ $error }}</div>
-                                @endforeach
-                            @endif
                             <div class="box-body">
                                 <div class="form-group">
                                     <label for="CustomerName">Supervisor Name</label>

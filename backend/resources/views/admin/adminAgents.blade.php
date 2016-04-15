@@ -11,6 +11,14 @@
             {{ Session::get('message') }}
         </div>
     @endif
+    @if($errors->has())
+        <div class="alert alert-danger alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            @foreach ($errors->all() as $error)
+                <p>{{ $error }}</p>
+            @endforeach
+        </div>
+    @endif
     <div class="box box-primary">
         <div class="box-header">
             <h3 class="box-title"><b>System Support Agents</b></h3>

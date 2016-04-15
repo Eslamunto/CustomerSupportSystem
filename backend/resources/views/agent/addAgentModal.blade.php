@@ -17,11 +17,6 @@
                         <!-- form start -->
                         <form role="form" method="post" action="{!! route('createAgent') !!}">
                             {{ csrf_field() }}
-                            @if($errors->has())
-                                @foreach ($errors->all() as $error)
-                                    <div>{{ $error }}</div>
-                                @endforeach
-                            @endif
                             <div class="box-body">
                                 <div class="form-group">
                                     <label for="CustomerName">Agent Name</label>

@@ -17,11 +17,6 @@
                         <!-- form start -->
                         <form role="form" method="post" action="{!! route('createSupervisor') !!}">
                             {{ csrf_field() }}
-                            @if($errors->has())
-                                @foreach ($errors->all() as $error)
-                                    <div>{{ $error }}</div>
-                                @endforeach
-                            @endif
                             <div class="box-body">
                                 <div class="form-group">
                                     <label for="CustomerName">Supervisor Name</label>
