@@ -78,8 +78,31 @@ Route::group(['middleware' => 'auth'], function () {
         //depatment
         Route::resource('department', 'DepartmentController');
 
-    });
 
+
+        Route::get('/settings', [ 
+            'as' => 'adminSettings',
+            function(){
+            return view('admin.adminSettings');
+        }]);
+
+
+        Route::post('/status', [
+            'as' => 'newStatus', 
+            'uses' => 'StatusController@store'
+        ]);
+
+        Route::put('/status/{id}', [
+            'as' => 'updateStatus',
+            'uses' => 'StatusController@update'
+        ]);
+
+        Route::delete('status/{id}', [
+            'as' => 'deleteStatus',
+            'uses' => 'StatusController@destroy'
+        ]);
+
+    });
 
 
     Route::group(['middleware' => 'supervisor', 'prefix' => 'supervisor'], function () {
@@ -97,12 +120,13 @@ Route::group(['middleware' => 'auth'], function () {
 
     });
 
-    Route::get('/home', 'HomeController@index');
-});
+ });
 
 Route::get('/test', function(){
 	return view('layouts.master');
 	// return view('supervisor.supervisorFeed');
 });
+
+Route::resource('department', 'DepartmentController');
 
 

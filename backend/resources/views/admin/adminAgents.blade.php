@@ -5,6 +5,12 @@
 @endsection
 
 @section('content')
+    @if(Session::has('message'))
+        <div class="alert alert-success alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            {{ Session::get('message') }}
+        </div>
+    @endif
     <div class="box box-primary">
         <div class="box-header">
             <h3 class="box-title"><b>System Support Agents</b></h3>
@@ -37,7 +43,7 @@
                         {{--<td>{{$agent->team()}}</td>--}}
                         <td>5</td>
                         <td>
-                            <a href="#" data-toggle="modal" data-target="#adminEditAgent">Edit</a> | <a data-method='delete' data-token="{{ csrf_token() }}" href="{{route('deleteAgent', $agent->id)}}">Delete</a>
+                            <a href="#" data-toggle="modal" data-target="#adminEditAgent">Edit</a> | <a data-method='delete' data-token="{{ csrf_token() }}" href="{{route('deleteAgent', $agent->id)}} "  data-confirm="Are you sure you want to delete '{{ $agent->name }}' ?">Delete</a>
                         </td>
                     </tr>
                 @endforeach
@@ -68,13 +74,41 @@
     </script>
     <script>
         window.onload = function () {
-            $("a[data-method='delete']").click(function(){
-                $.ajax({
-                    url: this.getAttribute('href'),
-                    type: 'post',
-                    data: {_method: 'delete', _token :token}
+            $('[data-method]').click(function(e) {
+                e.preventDefault();
+                // If the user confirm the delete
+                if (confirm($(this).data('confirm'))) {
+                    // Get the route URL
+                    var url = $(this).prop('href');
+                    // Get the token
+                    var token = $(this).data('token');
+                    //Get the method type
+                    var method = $(this).data('method');
+                    // Create a form element
+                    var $form = $('<form/>', {action: url, method: 'post'});
+                    // Add the DELETE hidden input method
+                    var $inputMethod = $('<input/>', {type: 'hidden', name: '_method', value: method});
+                    // Add the token hidden input
+                    var $inputToken = $('<input/>', {type: 'hidden', name: '_token', value: token});
+                    // Append the inputs to the form, hide the form, append the form to the <body>, SUBMIT !
+                    $form.append($inputMethod, $inputToken).hide().appendTo('body').submit();
+                }
+            });
+
+            $('#teams').hide();
+            $('#departments').change(function () {
+                $('#teamsOptions').empty();
+                var id = $('#departments').val();
+                var route = '../../admin/department/' + id + '/teams';
+                $.getJSON(route, function (json) {
+                    $.each(json, function(i, field){
+                        $('#teamsOptions').append("<option value='"+ field.id +"'>" + field.name + "</option>");
+                    });
+                    $('#teams').show();
                 });
-                return false;
-            }); }
+
+            });
+
+        }
     </script>
 @endsection

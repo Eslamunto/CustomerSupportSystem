@@ -15,7 +15,13 @@
                             <h3 class="box-title">New Agent</h3>
                         </div><!-- /.box-header -->
                         <!-- form start -->
-                        <form role="form">
+                        <form role="form" method="post" action="{!! route('createAgent') !!}">
+                            {{ csrf_field() }}
+                            @if($errors->has())
+                                @foreach ($errors->all() as $error)
+                                    <div>{{ $error }}</div>
+                                @endforeach
+                            @endif
                             <div class="box-body">
                                 <div class="form-group">
                                     <label for="CustomerName">Agent Name</label>
@@ -26,24 +32,23 @@
                                     <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
                                 </div>
                                 <div class="form-group">
-                                    <label for="CustomerEmail">PAssword</label>
+                                    <label for="CustomerEmail">Password</label>
                                     <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password">
                                 </div>
 
                             <div class="form-group">
                                 <label>Department</label>
-                                <select class="form-control" name="department">
+                                <select class="form-control" id="departments">
+                                    <option>--</option>
                                      @foreach($departments as $key=> $department)
                                          <option value="{{$department->id}}">{{$department->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" id="teams" >
                                 <label>Team</label>
-                                <select class="form-control">
-                                    <option>Agent 1</option>
-                                    <option>Agent 2</option>
-                                    <option>Agent 3</option>
+                                <select class="form-control" id="teamsOptions" name="teamid">
+
                                 </select>
                             </div>
                         </div><!-- /.box-body -->

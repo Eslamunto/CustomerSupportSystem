@@ -33,7 +33,7 @@ class AgentController extends Controller
         );
         $validator = Validator::make(Input::all(), $rules);
         if ($validator->fails()) {
-            return redirect()->route('getCreateAgent')
+            return redirect()->route('indexAgents')
                 ->withErrors($validator)
                 ->withInput(Input::except('password'));
         } else {
@@ -72,14 +72,12 @@ class AgentController extends Controller
         return redirect()->route('indexAgents');
 
     }
-    public function destroy($id, $request){
+    public function destroy($id){
         $agent = User::find($id);
-        if ( $request->ajax() ) {
 
             $agent->delete();
-            // redirect
             // Session::flash('message', 'Successfully deleted the Agent!');
-        }
+
         return redirect()->route('indexAgents');
     }
 }

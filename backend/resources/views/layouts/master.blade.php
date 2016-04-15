@@ -89,7 +89,9 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel">
                     <div class="pull-left image">
+
                         <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
+
                     </div>
                     <div class="pull-left info">
                         <p>{{ Auth::user()->name }}</p>
@@ -116,7 +118,7 @@
                         <li><a href="#"><i class="fa fa-ticket"></i> <span>Tickets</span></a></li>
                         <li><a href="#"><i class="fa fa-puzzle-piece"></i> <span>Departments</span></a></li>
                         <li><a href="#"><i class="fa fa-tachometer"></i> <span>Dashboard</span></a></li>
-                        <li><a href="#"><i class="fa fa-cogs"></i> <span>Settings</span></a></li>
+                        <li><a href="{{route('adminSettings')}}"><i class="fa fa-cogs"></i> <span>Settings</span></a></li>
                     </ul><!-- /.sidebar-menu --> 
                 @elseif (Auth::user()->role == 1) 
                     <!-- Sidebar Menu -->
