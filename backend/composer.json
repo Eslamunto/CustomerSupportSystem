@@ -8,7 +8,9 @@
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
         "laravelcollective/html": "5.2.*",
-        "doctrine/dbal": "^2.5"
+        "doctrine/dbal": "^2.5",
+        "mjolnic/bootstrap-colorpicker": "^2.3",
+        "abraham/twitteroauth": "^0.6.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
