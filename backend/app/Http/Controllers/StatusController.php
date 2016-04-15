@@ -41,7 +41,8 @@ class StatusController extends Controller
     {
         //
         $validator = Validator::make($request->all(), [
-            'name' => 'required'
+            'name' => 'required',
+            'color' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -90,7 +91,8 @@ class StatusController extends Controller
     {
         //
         $validator = Validator::make($request->all(), [
-            'name' => 'required'
+            'name' => 'required_without_all:color',
+            'color' => 'required_without_all:name'
         ]);
 
         if ($validator->fails()) {
@@ -99,7 +101,10 @@ class StatusController extends Controller
                 ->withInput($request->all());
         } else {
             $status = Status::find($id);
-            $status->name = $request->name;
+            if($request->name != '')
+                $status->name = $request->name;
+            if($request->color != '#00aabb')
+                $status->color = $request->color;
             $status->save();
 
             Session::flash('message', 'Ticket Status is updated Successfully !');
