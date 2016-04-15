@@ -25,7 +25,7 @@
                             </div>
 
                             <button type="submit" class="btn btn-default">
-                                <i class="fa fa-plus"></i> Add Task
+                                <i class="fa fa-plus"></i> Add Department
                             </button>
 
                         </form>
