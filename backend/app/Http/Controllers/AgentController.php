@@ -12,13 +12,19 @@ use Illuminate\Support\Facades\Session as Session;
 class AgentController extends Controller
 {
     public function index(){
-        $agents = User::where('role','=','2')->get();
+        $agents = User::with('team')->where('role','=','2')->get();
         //$view = view('admin.adminAgents');
+
         $departments = Department::all();
+
         return response()
             ->view('admin.adminAgents', [ 'agents' => $agents, 'departments'=>$departments]);
 //        return response()
 //            ->view('admin.agentTest', [ 'agents' => $agents]);
+    }
+    public function show($id){
+        $agent = User::find($id);
+        return $agent->toJson();
     }
     public function getCreate(){
         $view = view('newagent');
@@ -27,7 +33,7 @@ class AgentController extends Controller
     public function postCreate(){
         $rules = array(
             'name'       => 'required',
-            'email'      => 'required|email',
+            'email'      => 'required|email|unique:users',
             'teamid' => 'required|numeric',
             'password' => 'required'
         );
@@ -56,27 +62,48 @@ class AgentController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update($id){
-        $name = Input::get('name');
-        $password = Input::get('password');
-        $email = Input::get('email');
-        $role = Input::get('role');
-        $teamid = Input::get('teamid');
-        $agent = User::find($id);
-        $agent->name = (! empty($name)) ? $name : $agent->name;
-        $agent->name = (!empty($email))? Input::get('email') : $agent->email;
-        $agent->name = (!empty(Hash::make($password)))? Hash::make($password) : $agent->password;
-        $agent->name = (!empty($role))? $role: $agent->role;
-        $agent->name = (!empty($teamid))? $teamid: $agent->teamid;
-        $agent->save();
-        Session::flash('message', 'Successfully update agent!');
-        return redirect()->route('indexAgents');
+        $rules = array(
+            'email'      => 'email',
+            'teamId'    =>  'numeric',
+            'role'      =>  'numeric'
+        );
+        $updateValidator = Validator::make(Input::all(), $rules);
+        if ($updateValidator->fails()) {
+            return redirect()->route('indexAgents')
+                ->withErrors($updateValidator);
+        }else {
+            $name = Input::get('name');
+            $password = Input::get('password');
+            $email = Input::get('email');
+            $role = Input::get('role');
+            $teamid = Input::get('teamid');
+            $agent = User::find($id);
+            $agent->name = (!empty($name) && $name != '')
+                ? $name
+                : $agent->name;
+            $agent->email = (!empty($email) && $email != '' && $email != $agent->email)
+                ? $email
+                : $agent->email;
+            $agent->password = (!empty(Hash::make($password)) && $password != '')
+                ? Hash::make($password)
+                : $agent->password;
+            $agent->role = (!empty($role) && $role != '')
+                ? $role
+                : $agent->role;
+            $agent->teamId = (!empty($teamid) && $teamid != '')
+                ? $teamid
+                : $agent->teamId;
+            $agent->save();
+            Session::flash('message', 'Successfully update agent!');
+            return redirect()->route('indexAgents');
+        }
 
     }
     public function destroy($id){
         $agent = User::find($id);
 
             $agent->delete();
-            // Session::flash('message', 'Successfully deleted the Agent!');
+             Session::flash('message', 'Successfully deleted the Agent!');
 
         return redirect()->route('indexAgents');
     }

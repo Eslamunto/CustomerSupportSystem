@@ -6,51 +6,58 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">Add Agent</h4>
+                <h4 class="modal-title">Edit Agent</h4>
             </div>
             <div class="modal-body">
                 <div id="AddNewAgent">
                     <div class="box box-primary" id>
                         <div class="box-header with-border">
-                            <h3 class="box-title">New Agent</h3>
+                            <h3 class="box-title">Update Agent information</h3>
                         </div><!-- /.box-header -->
                         <!-- form start -->
-                        <form role="form">
+                        <form role="form" method="post" action="" id="editForm">
+                            <input type="hidden" name="_method" value="put" />
+                            {{ csrf_field() }}
+                            @if($errors->has())
+                                @foreach ($errors->all() as $error)
+                                    <div>{{ $error }}</div>
+                                @endforeach
+                            @endif
                             <div class="box-body">
                                 <div class="form-group">
                                     <label for="CustomerName">Agent Name</label>
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name">
+                                    <input type="text" class="form-control" id="editName" name="name" placeholder="Enter Name">
                                 </div>
                                 <div class="form-group">
                                     <label for="CustomerEmail">Email address</label>
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+                                    <input type="email" class="form-control" id="editEmail" name="email" placeholder="Enter email">
                                 </div>
                                 <div class="form-group">
-                                    <label for="CustomerEmail">PAssword</label>
+                                    <label for="CustomerEmail">Password</label>
                                     <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password">
                                 </div>
+                                <div class="form-group" id="role" >
+                                    <label>Role</label>
+                                    <select class="form-control"  name="role">
+                                        <option value="2">Agent</option>
+                                        <option value="1">Supervisor</option>
 
+
+                                    </select>
+                                </div>
                                 <div class="form-group">
                                     <label>Department</label>
-                                    <select class="form-control" name="department" id="selectDepartment">
+                                    <select class="form-control" id="editDepartments">
+                                        <option>--</option>
                                         @foreach($departments as $key=> $department)
                                             <option value="{{$department->id}}">{{$department->name}}</option>
                                         @endforeach
                                     </select>
-                                    <script>
-                                        window.onload = function () {
-                                            $('#selectDepartment').on('change', function() {
-                                                alert( this.value ); // or $(this).val()
-                                            });
-                                        }
-                                    </script>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" id="editTeams" >
                                     <label>Team</label>
-                                    <select class="form-control">
-                                        <option>Agent 1</option>
-                                        <option>Agent 2</option>
-                                        <option>Agent 3</option>
+                                    <select class="form-control" id="teamsOptionsEdit" name="teamid">
+
                                     </select>
                                 </div>
                             </div><!-- /.box-body -->
@@ -63,4 +70,4 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-    </div>
+</div>

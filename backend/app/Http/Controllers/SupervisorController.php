@@ -21,6 +21,10 @@ class SupervisorController extends Controller
 //        return response()
 //            ->view('admin.agentTest', [ 'agents' => $agents]);
     }
+    public function show($id){
+        $supervisor = User::find($id);
+        return $supervisor->toJson();
+    }
     public function getCreate(){
         $view = view('newagent');
         return $view;
@@ -28,7 +32,7 @@ class SupervisorController extends Controller
     public function postCreate(){
         $rules = array(
             'name'       => 'required',
-            'email'      => 'required|email',
+            'email'      => 'required|email|unique:users',
             'teamid' => 'required|numeric',
             'password' => 'required'
         );
@@ -59,28 +63,53 @@ class SupervisorController extends Controller
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update($id){
-        $name = Input::get('name');
-        $password = Input::get('password');
-        $email = Input::get('email');
-        $role = Input::get('role');
-        $teamid = Input::get('teamid');
-        $supervisors = User::find($id);
-        $supervisors->name = (! empty($name)) ? $name : $supervisors->name;
-        $supervisors->name = (!empty($email))? Input::get('email') : $supervisors->email;
-        $supervisors->name = (!empty(Hash::make($password)))? Hash::make($password) : $supervisors->password;
-        $supervisors->name = (!empty($role))? $role: $supervisors->role;
-        $supervisors->name = (!empty($teamid))? $teamid: $supervisors->teamid;
-        $supervisors->save();
-        Session::flash('message', 'Successfully update supervisor!');
-        return redirect()->route('indexSupervisors');
+        $rules = array(
+            'email'      => 'email',
+            'teamId'    =>  'numeric',
+            'role'      =>  'numeric'
+        );
+        $updateValidator = Validator::make(Input::all(), $rules);
+        if ($updateValidator->fails()) {
+            return redirect()->route('indexSupervisors')
+                ->withErrors($updateValidator);
+        }else {
+            $name = Input::get('name');
+            $password = Input::get('password');
+            $email = Input::get('email');
+            $role = Input::get('role');
+            $teamid = Input::get('teamid');
+            $supervisor = User::find($id);
+            $supervisor->name = (!empty($name) && $name != '')
+                ? $name
+                : $supervisor->name;
+            $supervisor->email = (!empty($email) && $email != '' && $email != $supervisor->email)
+                ? $email
+                : $supervisor->email;
+            $supervisor->password = (!empty(Hash::make($password)) && $password != '')
+                ? Hash::make($password)
+                : $supervisor->password;
+            $supervisor->role = (!empty($role) && $role != '')
+                ? $role
+                : $supervisor->role;
+            $supervisor->teamId = (!empty($teamid) && $teamid != '')
+                ? $teamid
+                : $supervisor->teamId;
+            $supervisor->save();
+            Session::flash('message', 'Successfully update supervisor!');
+            return redirect()->route('indexSupervisors');
+        }
 
     }
     public function destroy($id){
         $supervisors = User::find($id);
 
         $supervisors->delete();
-        // Session::flash('message', 'Successfully deleted the Agent!');
+         Session::flash('message', 'Successfully deleted the Supervisor!');
 
         return redirect()->route('indexSupervisors');
     }

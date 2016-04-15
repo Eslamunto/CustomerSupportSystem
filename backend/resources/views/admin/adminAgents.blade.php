@@ -37,13 +37,24 @@
                     <tr>
                         <td>{{$agent->name}}</td>
                         <td>{{$agent->email}}</td>
-                        <td>{{$agent->email}}</td>
-                        <td>{{$agent->email}}</td>
-                        {{--<td>{{Team::find($agent->teamid)->name}}</td>--}}
-                        {{--<td>{{$agent->team()}}</td>--}}
-                        <td>5</td>
+                        <td>{{App\Department::find(App\Team::find($agent->teamId)->departmentId)->name}}</td>
+                        <td>{{App\Team::find($agent->teamId)->name}}</td>
+                        <td>{{count(App\UserTicket::where('userId','=',$agent->id)->get())}}</td>
+                        <script>
+                            var agentId = 0 ;
+                            function setAgentId(id){
+                                agentId = id;
+                                route = '../show/agent/' + id;
+
+                                $.getJSON(route, function(agent){
+                                    $('#editName').val(agent.name);
+                                    $('#editEmail').val(agent.email);
+                                });
+                                $('#editForm').attr("action", "../edit/agent/"+agentId);
+                            }
+                        </script>
                         <td>
-                            <a href="#" data-toggle="modal" data-target="#adminEditAgent">Edit</a> | <a data-method='delete' data-token="{{ csrf_token() }}" href="{{route('deleteAgent', $agent->id)}} "  data-confirm="Are you sure you want to delete '{{ $agent->name }}' ?">Delete</a>
+                            <a href="#" onclick="setAgentId({{$agent->id}})" data-toggle="modal" data-target="#adminEditAgent">Edit</a> | <a data-method='delete' data-token="{{ csrf_token() }}" href="{{route('deleteAgent', $agent->id)}} "  data-confirm="Are you sure you want to delete '{{ $agent->name }}' ?">Delete</a>
                         </td>
                     </tr>
                 @endforeach
@@ -73,6 +84,8 @@
         });
     </script>
     <script>
+
+
         window.onload = function () {
             $('[data-method]').click(function(e) {
                 e.preventDefault();
@@ -96,6 +109,19 @@
             });
 
             $('#teams').hide();
+            $('#editTeams').hide();
+            $('#editDepartments').change(function () {
+                $('#teamsOptionsEdit').empty();
+                var id = $('#editDepartments').val();
+                var route = '../../admin/department/' + id + '/teams';
+                $.getJSON(route, function (json) {
+                    $.each(json, function(i, field){
+                        $('#teamsOptionsEdit').append("<option value='"+ field.id +"'>" + field.name + "</option>");
+                    });
+                    $('#editTeams').show();
+                });
+
+            });
             $('#departments').change(function () {
                 $('#teamsOptions').empty();
                 var id = $('#departments').val();

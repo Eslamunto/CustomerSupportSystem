@@ -30,6 +30,11 @@ Route::group(['middleware' => 'auth'], function () {
             'as'=>'indexAgents',
             'uses'=>'AgentController@index'
         ]);
+        Route::get('show/agent/{id}',[
+            'as'=>'showAgent',
+            'uses'=>'AgentController@show'
+        ]);
+
         Route::get('create/agent',[
             'as'=>'getCreateAgent',
             'uses'=>'AgentController@getCreate'
@@ -51,6 +56,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('index/supervisor',[
             'as'=>'indexSupervisors',
             'uses'=>'SupervisorController@index'
+        ]);
+        Route::get('show/supervisor/{id}',[
+            'as'=>'showSupervisor',
+            'uses'=>'SupervisorController@show'
         ]);
         Route::get('create/supervisor',[
             'as'=>'getCreateSupervisor',

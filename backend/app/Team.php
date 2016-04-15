@@ -26,6 +26,6 @@ class Team extends Model
         return $this->hasMany('App\User');
     }
     function department(){
-        return $this->belongsTo('App\Department');
+        return $this->belongsTo('App\Department', 'departmentId');
     }
 }

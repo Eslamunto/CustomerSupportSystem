@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="box-body">
-            <table id="systemSupervisor" class="table table-bordered table-striped">
+            <table id="systemSupervisors" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                     <th>Name</th>
@@ -37,13 +37,24 @@
                     <tr>
                         <td>{{$supervisors->name}}</td>
                         <td>{{$supervisors->email}}</td>
-                        <td>{{$supervisors->email}}</td>
-                        <td>{{$supervisors->email}}</td>
-                        {{--<td>{{Team::find($Supervisors->teamid)->name}}</td>--}}
-                        {{--<td>{{$Supervisors->team()}}</td>--}}
-                        <td>5</td>
+                        <td>{{App\Department::find(App\Team::find($supervisors->teamId)->departmentId)->name}}</td>
+                        <td>{{App\Team::find($supervisors->teamId)->name}}</td>
+                        <td>{{count(App\UserTicket::where('userId','=',$supervisors->id)->get())}}</td>
+                        <script>
+                            var supervisorId = 0 ;
+                            function setSupervisorId(id){
+                                agentId = id;
+                                route = '../show/supervisor/' + id;
+
+                                $.getJSON(route, function(supervisor){
+                                    $('#editName').val(supervisor.name);
+                                    $('#editEmail').val(supervisor.email);
+                                });
+                                $('#editForm').attr("action", "../edit/supervisor/"+agentId);
+                            }
+                        </script>
                         <td>
-                            <a href="#" data-toggle="modal" data-target="#adminEditSupervisor">Edit</a> | <a data-method='delete' data-token="{{ csrf_token() }}" href="{{route('deleteSupervisor', $supervisors->id)}} "  data-confirm="Are you sure you want to delete '{{ $supervisors->name }}' ?">Delete</a>
+                            <a href="#" onclick="setSupervisorId({{$supervisors->id}})" data-toggle="modal" data-target="#adminEditSupervisor">Edit</a> | <a data-method='delete' data-token="{{ csrf_token() }}" href="{{route('deleteSupervisor', $supervisors->id)}} "  data-confirm="Are you sure you want to delete '{{ $supervisors->name }}' ?">Delete</a>
                         </td>
                     </tr>
                 @endforeach
@@ -69,7 +80,7 @@
             <!-- page script -->
     <script>
         $(function () {
-            $("#systemSupervisor").DataTable();
+            $("#systemSupervisors").DataTable();
         });
     </script>
     <script>
@@ -96,6 +107,19 @@
             });
 
             $('#teams').hide();
+            $('#editTeams').hide();
+            $('#editDepartments').change(function () {
+                $('#teamsOptionsEdit').empty();
+                var id = $('#editDepartments').val();
+                var route = '../../admin/department/' + id + '/teams';
+                $.getJSON(route, function (json) {
+                    $.each(json, function(i, field){
+                        $('#teamsOptionsEdit').append("<option value='"+ field.id +"'>" + field.name + "</option>");
+                    });
+                    $('#editTeams').show();
+                });
+
+            });
             $('#departments').change(function () {
                 $('#teamsOptions').empty();
                 var id = $('#departments').val();
