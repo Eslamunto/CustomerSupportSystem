@@ -1,7 +1,29 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: joseph-wahba
- * Date: 4/15/16
- * Time: 11:04 PM
- */
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+ class Status extends Model
+ {
+        /**
+         * The table associated with the model.
+         *
+         * @var string
+         */
+        protected $table = 'status';
+
+     /**
+      * Fillable fields
+      *
+      * @var array
+      */
+     protected $fillable = [
+                'name', 'color',
+            ];
+
+     function ticket(){
+                return $this->hasMany('App\Ticket');
+     }
+
+ }
