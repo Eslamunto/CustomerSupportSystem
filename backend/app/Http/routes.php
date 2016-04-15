@@ -45,6 +45,8 @@ Route::group(['middleware' => 'auth'], function () {
             'uses' => 'StatusController@destroy'
         ]);
 
+        Route::resource('department', 'DepartmentController');
+
     });
 
 
@@ -71,5 +73,4 @@ Route::get('/test', function(){
 	// return view('supervisor.supervisorFeed');
 });
 
-Route::resource('department', 'DepartmentController');
 

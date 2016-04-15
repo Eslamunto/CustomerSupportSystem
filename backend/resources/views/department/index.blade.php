@@ -5,6 +5,23 @@
 @endsection
 
 @section('content')
+    @if(Session::has('message'))
+        <div class="alert alert-success alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            {{ Session::get('message') }}
+        </div>
+    @endif
+    @if($errors->any())
+        <div class="alert alert-danger alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4> Error Creating new Department</h4>
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="settings">
 
         <div class="box box-primary">
@@ -29,7 +46,7 @@
                     <tr>
                         <td>{{ $value->name }}</td>
                         <td>
-                            <a href="#" data-toggle="modal" data-target="#editDepartment-{{ $value->id }}">Edit</a> | {!! Form::open(array('url' => 'department/' . $value->id, 'class' => 'department-delete-form')) !!}
+                            <a href="#" data-toggle="modal" data-target="#editDepartment-{{ $value->id }}">Edit</a> | {!! Form::open(array('url' => 'admin/department/' . $value->id, 'class' => 'department-delete-form')) !!}
                             {{--<input type="hidden" formmethod="DELETE">--}}
                             {!! Form::hidden('_method', 'DELETE') !!}
 
@@ -53,7 +70,7 @@
                                                 </div><!-- /.box-header -->
                                                 <div class="box-body">
 
-                                                    {!! Form::model($departments, array('route' => array('department.update',  $value->id  ), 'method' => 'PUT')) !!}
+                                                    {!! Form::model($departments, array('route' => array('admin.department.update',  $value->id  ), 'method' => 'PUT')) !!}
 
                                                         <div class="form-group">
                                                             <label for="name">Name</label>
@@ -102,12 +119,6 @@
             </script>
         @endsection
 
-        <h1>All the Departments</h1>
-
-
-
-
-            </ul>
 
     </div>
 

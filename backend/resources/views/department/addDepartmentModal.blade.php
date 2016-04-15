@@ -16,7 +16,7 @@
                     <div class="box-body">
 
 
-                        <form action="{{ url('department') }}" method="POST" class="form-horizontal">
+                        <form action="{{ url('admin/department') }}" method="POST" class="form-horizontal">
                             {!! csrf_field() !!}
                             <div class="form-group">
                                 <label for="name">Name</label>

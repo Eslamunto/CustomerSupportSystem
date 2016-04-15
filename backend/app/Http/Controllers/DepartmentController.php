@@ -9,6 +9,8 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth as Auth;
+use Illuminate\Support\Facades\Validator as Validator;
+use Illuminate\Support\Facades\Session as Session;
 
 class DepartmentController extends Controller
 {
@@ -53,19 +55,24 @@ class DepartmentController extends Controller
      *
      * @return Response
      */
-    public function store()
+    public function store(Request $request)
     {
-        //@TODO: Authentication ADMIN CAN ONLY DO THIS
-        //@TODO: validate (read laravel validation)
-        //@TODO: check how redirection works
 
-        $department = new Department();
-        $department->name =  Input::get('name');
-        $department->save();
+        $validator = Validator::make($request->all(), [
+            'name' => 'required'
+        ]);
 
-        // redirect
-//        Session::flash('message', 'Successfully created department!');
-        return Redirect('department');
+        if ($validator->fails()) {
+            return redirect('admin/department')
+                ->withErrors($validator);
+        } else {
+            $department = new Department();
+            $department->name =  Input::get('name');
+            $department->save();
+
+            Session::flash('message', 'Department  ' . $request->name . ' was created Successfully !');
+            return Redirect('admin/department');
+        }
     }
 
     /**
@@ -79,7 +86,7 @@ class DepartmentController extends Controller
         // get the department
         $department = Department::find($id);
 
-        return view('department.show', [ 'department' => $department]);
+        return view('admin.department.show', [ 'department' => $department]);
     }
 
     /**
@@ -93,7 +100,7 @@ class DepartmentController extends Controller
         // get the department
         $department = Department::find($id);
 
-        return view('department.edit', [ 'department' => $department]);
+        return view('admin.department.edit', [ 'department' => $department]);
     }
 
     /**
@@ -102,18 +109,25 @@ class DepartmentController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function update(Request $request, $id)
     {
-        //@TODO: validate (read laravel validation)
-        //@TODO: check how redirection works
+        $validator = Validator::make($request->all(), [
+            'name' => 'required'
+        ]);
 
-        $department = Department::find($id);
-        $department->name =  Input::get('name');
-        $department->save();
+        if ($validator->fails()) {
+            return redirect('admin/department')
+                ->withErrors($validator);
+        }
+        else {
+            $department = Department::find($id);
+            $department->name = Input::get('name');
+            $department->save();
 
-        // redirect
+            // redirect
 //        Session::flash('message', 'Successfully created department!');
-        return Redirect('department');
+            return Redirect('admin/department');
+        }
     }
 
     /**
@@ -128,6 +142,6 @@ class DepartmentController extends Controller
         $department = Department::find($id);
         $department->delete();
 
-        return Redirect::to('department');
+        return Redirect::to('admin/department');
     }
 }
