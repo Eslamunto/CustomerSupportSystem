@@ -11,18 +11,34 @@
 |
 */
 Route::auth();
-
 //
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [
         'as' => 'index',
         'uses'=> 'HomeController@index'
-        ]);
+    ]);
+
+    Route::get('auth/logout', [
+        'as' => 'logoutNew',
+        'uses' => 'Auth\AuthController@getLogout'
+    ]);
+
+    Route::get('/twitterAuth', [
+        'as' => 'twitterAuthentication',
+        'uses' => 'SocialProviderController@twitterAuthenticateAndAuthorize'
+    ]);
+
+    Route::get('/callback', [
+        'as' => 'twitterCallback', 
+        'uses' => 'SocialProviderController@twitterCallback'
+    ]);
 
     Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
-        Route::get('/', function () {
+        Route::get('/', [
+            'as' => 'adminIndex',
+            function () {
             return view('admin.adminFeed');
-        });
+        }]);
 
         Route::get('/settings', [ 
             'as' => 'adminSettings',
@@ -68,7 +84,6 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::get('/test', function(){
 	return view('layouts.master');
-	// return view('supervisor.supervisorFeed');
 });
 
 Route::resource('department', 'DepartmentController');

@@ -4,7 +4,29 @@
 	Admin | Feed
 @endsection
 
+@section('twitter')
+    {{-- @if (Session::has('verified') && Session::get('verified') == 'true' ) --}}
+        {{-- <li> Successfully Connected to, {{ Session::get('name') }} </li> --}}
+    {{-- @else --}}
+        {{-- <li><button id="twitterButton" data-link="{{ Route('twitterAuthentication') }}" class="twitter-conn-btn btn btn-sm btn-info"> --}}
+            {{-- <i class="fa fa-twitter"></i>&nbsp&nbsp --}}
+            {{-- <span>Connect to Twitter</span></button> --}}
+        {{-- </li>  --}}
+    {{-- @endif --}}
+    @if (Session::has('account_id'))
+        <li class="text-info">
+            <a>Connected to {{ Session::get('account_screen_name') }}. </a>
+        </li>
+    @else 
+        <li><button id="twitterButton" data-link="{{ Route('twitterAuthentication') }}" class="twitter-conn-btn btn btn-sm btn-info">
+            <i class="fa fa-twitter"></i>&nbsp&nbsp
+            <span>Connect to Twitter</span></button>
+        </li> 
+    @endif    
+@endsection
+
 @section('content')
+    {{-- {{ dd(Session::All()) }} --}}
     <div class="clearfix">
         <div class="admin-feed">
             <!-- Tweets Feed -->

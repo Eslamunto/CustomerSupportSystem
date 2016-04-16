@@ -72,7 +72,8 @@
                                     <a href="#" class="btn btn-default btn-flat">Profile</a>
                                 </div>
                                 <div class="pull-right">
-                                    <a href="{{ URL('logout') }}" class="btn btn-default btn-flat">Log out</a>
+                                    {{-- <a href="{{ URL('logout') }}" class="btn btn-default btn-flat">Log out</a> --}}
+                                    <a href="{{ Route('logoutNew') }}" class="btn btn-default btn-flat">Log out</a>
                                 </div>
                             </li>
                         </ul>
@@ -99,29 +100,26 @@
                     </div>
                 </div>
                 
+                <!-- Sidebar Menu -->
+                <ul class="sidebar-menu">
                 @if(Auth::user()->role == 0)  
-                    <!-- Sidebar Menu -->
-                    <ul class="sidebar-menu">
-                        <li class="header">ADMIN</li>
-                        <li class="active"><a href="#"><i class="fa fa-rss"></i> <span>Feed</span></a></li>
-                        <li class="treeview">
-                            <a href="#"><i class="fa fa-optin-monster"></i> <span>Employees</span> <i
-                                    class="fa fa-angle-left pull-right"></i></a>
-                            <ul class="treeview-menu">
-                                <li><a href="#">Supervisor</a></li>
-                                <li><a href="#">Agent</a></li>
-                            </ul>
-                        </li>
-                        <!-- Optionally, you can add icons to the links -->
-                        <li><a href="#"><i class="fa fa-group"></i> <span>Customers</span></a></li>
-                        <li><a href="#"><i class="fa fa-ticket"></i> <span>Tickets</span></a></li>
-                        <li><a href="#"><i class="fa fa-puzzle-piece"></i> <span>Departments</span></a></li>
-                        <li><a href="#"><i class="fa fa-tachometer"></i> <span>Dashboard</span></a></li>
-                        <li><a href="#"><i class="fa fa-cogs"></i> <span>Settings</span></a></li>
-                    </ul><!-- /.sidebar-menu --> 
+                    <li class="header">ADMIN</li>
+                    <li class="active"><a href="#"><i class="fa fa-rss"></i> <span>Feed</span></a></li>
+                    <li class="treeview">
+                        <a href="#"><i class="fa fa-optin-monster"></i> <span>Employees</span> <i
+                                class="fa fa-angle-left pull-right"></i></a>
+                        <ul class="treeview-menu">
+                            <li><a href="#">Supervisor</a></li>
+                            <li><a href="#">Agent</a></li>
+                        </ul>
+                    </li>
+                    <!-- Optionally, you can add icons to the links -->
+                    <li><a href="#"><i class="fa fa-group"></i> <span>Customers</span></a></li>
+                    <li><a href="#"><i class="fa fa-ticket"></i> <span>Tickets</span></a></li>
+                    <li><a href="#"><i class="fa fa-puzzle-piece"></i> <span>Departments</span></a></li>
+                    <li><a href="#"><i class="fa fa-tachometer"></i> <span>Dashboard</span></a></li>
+                    <li><a href="#"><i class="fa fa-cogs"></i> <span>Settings</span></a></li>
                 @elseif (Auth::user()->role == 1) 
-                    <!-- Sidebar Menu -->
-                    <ul class="sidebar-menu">
                     <li class="header">SUPPORT SUPERVISOR</li>
                     <!-- Optionally, you can add icons to the links -->
                     <li class="active"><a href="#"><i class="fa fa-feed"></i> <span>Feed</span></a></li>
@@ -133,23 +131,38 @@
                       </ul>
                     </li>
                     <li><a href="#"><i class="fa fa-group"></i> <span>Customers</span></a></li>
-                    </ul><!-- /.sidebar-menu -->
+                    {{-- <li><button id="twitterButton" data-link="{{ Route('twitterAuthentication') }}" class="twitter-conn-btn btn btn-sm btn-info">
+                        <i class="fa fa-twitter"></i>&nbsp&nbsp
+                        <span>Connect to Twitter</span></button>
+                    </li> --}}
                 @else 
-                    <!-- Sidebar Menu -->
-                    <ul class="sidebar-menu">
-                        <li class="header"> SUPPORT AGENT</li>
-                        <!-- Optionally, you can add icons to the links -->
-                        <li class="active">
-                          <a href="#"><i class="fa fa-ticket"></i> <span>Tickets Feed</span></a>
-                        </li>
-                        <li>
-                          <a href="#"><i class="fa fa-history"></i> <span>Tickets History</span></a>
-                        </li>
-                        <li>
-                          <a href="#"><i class="fa fa-group"></i> <span>Cutomers</span></a>
-                        </li>
-                    </ul><!-- /.sidebar-menu -->
-                @endif 
+                    <li class="header"> SUPPORT AGENT</li>
+                    <!-- Optionally, you can add icons to the links -->
+                    <li class="active">
+                      <a href="#"><i class="fa fa-ticket"></i> <span>Tickets Feed</span></a>
+                    </li>
+                    <li>
+                      <a href="#"><i class="fa fa-history"></i> <span>Tickets History</span></a>
+                    </li>
+                    <li>
+                      <a href="#"><i class="fa fa-group"></i> <span>Cutomers</span></a>
+                    </li>
+                    {{-- <li><button id="twitterButton" data-link="{{ Route('twitterAuthentication') }}" class="twitter-conn-btn btn btn-sm btn-info">
+                        <i class="fa fa-twitter"></i>&nbsp&nbsp
+                        <span>Connect to Twitter</span></button>
+                    </li> --}}
+                @endif
+                @yield('twitter') 
+                {{-- @if (Session::has('verified')) --}}
+                    {{-- <b>Hello, {{ Session::get('name') }} </b> --}}
+                {{-- @else --}}
+                    {{-- <b>No Session</b> --}}
+                {{-- @endif --}}
+                    {{-- <li><button id="twitterButton" data-link="{{ Route('twitterAuthentication') }}" class="twitter-conn-btn btn btn-sm btn-info">
+                        <i class="fa fa-twitter"></i>&nbsp&nbsp
+                        <span>Connect to Twitter</span></button>
+                    </li>  --}}
+                </ul><!-- /.sidebar-menu -->
             </section>
             <!-- /.sidebar -->
         </aside>
@@ -189,6 +202,13 @@
         {{ HTML::script('dist/js/agentTicket.js') }}  
 
         {{ HTML::script('dist/js/bootstrap-colorpicker.min.js') }}
+
+        <script type="text/javascript">
+            document.getElementById("twitterButton").onclick = function () {
+                var url = $(this).data('link');
+                location.href = url;
+            };
+        </script>
 
         @yield('scripts')  
     </div>    
