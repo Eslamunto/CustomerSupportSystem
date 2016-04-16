@@ -188,3 +188,11 @@ aside.main-sidebar{
 .department-delete-form {
     display: inline;
 }
+
+.add-department-modal-reset {
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: middle;
+    margin-right: 0;
+    margin-left: 0;
+}

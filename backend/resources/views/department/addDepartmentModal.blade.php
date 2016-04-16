@@ -18,7 +18,7 @@
 
                         <form action="{{ url('admin/department') }}" method="POST" class="form-horizontal">
                             {!! csrf_field() !!}
-                            <div class="form-group">
+                            <div class="form-group add-department-modal-reset" style="margin-right: 0; margin-left: 0;">
                                 <label for="name">Name</label>
                                 <input type="text" name="name" id="name">
 
@@ -30,17 +30,6 @@
 
                         </form>
 
-
-                        {{--<!-- form start -->--}}
-                        {{--<form role="form">--}}
-                            {{--<div class="form-group">--}}
-                                {{--<label for="CustomerName">Department Name</label>--}}
-                                {{--<input type="text" class="form-control" id="name" placeholder="Customer Name">--}}
-                            {{--</div>--}}
-                            {{--<button type="submit" class="btn btn-primary bg-blue pull-right">--}}
-                                {{--<i class="fa fa-edit"></i> Save Changes--}}
-                            {{--</button>--}}
-                        {{--</form>--}}
                     </div><!-- /.box-body -->
                 </div><!-- /.box -->
             </div>
