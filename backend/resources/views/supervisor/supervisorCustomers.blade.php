@@ -5,6 +5,22 @@
 @endsection
 
 @section('content')
+    @if(Session::has('message'))
+        <div class="alert alert-success alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            {{ Session::get('message') }}
+        </div>
+    @endif
+    @if (count($errors) > 0)
+        <div class="alert alert-danger">
+            <h4> Please Fix The Following Error(s)</h4>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="box box-primary">
         <div class="box-header">
             <h3 class="box-title"><b>System Customers</b></h3>
@@ -25,7 +41,6 @@
                     <th>Twitter Account</th>
                     <th>Facebook Account</th>
                     <th>Complains</th>
-                    <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -36,11 +51,10 @@
                         <td>{{ $customer->twitterUsername }}</td>
                         <td>{{ $customer->facebookUsername }}</td>
                         <td>7</td>
-                        <td>
-                            <a href="#" data-toggle="modal" data-target="#editCustomer">Edit</a> | <a href="#">Delete</a>
-                        </td>
+
                     </tr>
                 @endforeach
+
                 </tbody>
             </table>
         </div>
@@ -61,6 +75,30 @@
     {{ HTML::script('plugins/fastclick/fastclick.min.js') }}
             <!-- page script -->
     <script>
+        $('.update-customer-button').on('click', function () {
+            $('#update-customer-form').attr('action', $(this).data('update-route'));
+        });
+
+        $('[data-method]').click(function(e) {
+            e.preventDefault();
+            // If the user confirm the delete
+            if (confirm($(this).data('confirm'))) {
+                // Get the route URL
+                var url = $(this).prop('href');
+                // Get the token
+                var token = $(this).data('token');
+                //Get the method type
+                var method = $(this).data('method');
+                // Create a form element
+                var $form = $('<form/>', {action: url, method: 'post'});
+                // Add the DELETE hidden input method
+                var $inputMethod = $('<input/>', {type: 'hidden', name: '_method', value: method});
+                // Add the token hidden input
+                var $inputToken = $('<input/>', {type: 'hidden', name: '_token', value: token});
+                // Append the inputs to the form, hide the form, append the form to the <body>, SUBMIT !
+                $form.append($inputMethod, $inputToken).hide().appendTo('body').submit();
+            }
+        });
         $(function () {
             $("#systemCustomers").DataTable();
         });

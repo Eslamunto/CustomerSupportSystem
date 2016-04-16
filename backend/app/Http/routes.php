@@ -34,6 +34,14 @@ Route::group(['middleware' => 'auth'], function () {
             'as'=>'createCustomerAdmin',
             'uses'=>'CustomerController@postCreate'
         ]);
+        Route::put('/customer/{id}', [
+            'as' => 'updateCustomer',
+            'uses' => 'CustomerController@postUpdate'
+        ]);
+        Route::delete('customer/{id}', [
+            'as' => 'deleteCustomer',
+            'uses' => 'CustomerController@destroy'
+        ]);
 
     });
 
