@@ -23,8 +23,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-    
-    function team(){
-        return $this->belongsTo('App\Team');
+
+    public function team(){
+        return $this->belongsTo('App\Team', 'teamId');
     }
+    public function ticket(){
+        return $this->hasMany('App\UserTicket');
+    }
+
 }

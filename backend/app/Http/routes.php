@@ -20,15 +20,81 @@ Route::group(['middleware' => 'auth'], function () {
         ]);
 
     Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
+        //Admin home
         Route::get('/', function () {
             return view('admin.adminFeed');
         });
+
+        //Admin agent's resources
+        Route::get('index/agents',[
+            'as'=>'indexAgents',
+            'uses'=>'AgentController@index'
+        ]);
+        Route::get('show/agent/{id}',[
+            'as'=>'showAgent',
+            'uses'=>'AgentController@show'
+        ]);
+
+        Route::get('create/agent',[
+            'as'=>'getCreateAgent',
+            'uses'=>'AgentController@getCreate'
+        ]);
+        Route::post('create/agent',[
+            'as'=>'createAgent',
+            'uses'=>'AgentController@postCreate'
+        ]);
+        Route::delete('delete/agent/{id}', [
+            'as'=>'deleteAgent',
+            'uses'=>'AgentController@destroy'
+        ]);
+        Route::put('edit/agent/{id}', [
+            'as'=> 'agentUpdate',
+            'uses'=> 'AgentController@update'
+        ]);
+
+        //Admin supervisor's resources
+        Route::get('index/supervisor',[
+            'as'=>'indexSupervisors',
+            'uses'=>'SupervisorController@index'
+        ]);
+        Route::get('show/supervisor/{id}',[
+            'as'=>'showSupervisor',
+            'uses'=>'SupervisorController@show'
+        ]);
+        Route::get('create/supervisor',[
+            'as'=>'getCreateSupervisor',
+            'uses'=>'SupervisorController@getCreate'
+        ]);
+        Route::post('create/supervisor',[
+            'as'=>'createSupervisor',
+            'uses'=>'SupervisorController@postCreate'
+        ]);
+        Route::delete('delete/supervisor/{id}', [
+            'as'=>'deleteSupervisor',
+            'uses'=>'SupervisorController@destroy'
+        ]);
+        Route::put('edit/supervisor/{id}', [
+            'as'=> 'updateSupervisor',
+            'uses'=> 'SupervisorController@update'
+        ]);
+
+        //Teams
+        Route::get('department/{departmentId}/teams', [
+            'as' => 'departmentTeams',
+            'uses'=> 'TeamController@departmentTeam'
+        ]);
+
+        //depatment
+        Route::resource('department', 'DepartmentController');
+
+
 
         Route::get('/settings', [ 
             'as' => 'adminSettings',
             function(){
             return view('admin.adminSettings');
         }]);
+
 
         Route::post('/status', [
             'as' => 'newStatus', 
@@ -65,12 +131,12 @@ Route::group(['middleware' => 'auth'], function () {
 
     });
 
-    Route::get('/home', 'HomeController@index');
-});
+ });
 
 Route::get('/test', function(){
 	return view('layouts.master');
 	// return view('supervisor.supervisorFeed');
 });
+
 
 

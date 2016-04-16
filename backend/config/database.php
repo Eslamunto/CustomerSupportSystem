@@ -60,7 +60,7 @@ return [
             'username' => env('DB_USERNAME', 'root'),
             'password' => env('DB_PASSWORD', 'toor'),
             'unix_socket' => '/Applications/MAMP/tmp/mysql/mysql.sock',
-            'cgit harset' => 'utf8',
+            'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix' => '',
             'strict' => false,

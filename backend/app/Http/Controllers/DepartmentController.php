@@ -58,6 +58,7 @@ class DepartmentController extends Controller
     public function store(Request $request)
     {
 
+
         $validator = Validator::make($request->all(), [
             'name' => 'required'
         ]);
@@ -126,6 +127,7 @@ class DepartmentController extends Controller
 
             // redirect
 //        Session::flash('message', 'Successfully created department!');
+
             return Redirect('admin/department');
         }
     }
