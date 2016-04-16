@@ -54,6 +54,44 @@
                             {!! Form::close() !!}
 
                             <!-- Edit customer modal -->
+                            {{--<div class="modal fade" id="editDepartment-{{ $value->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">--}}
+                                {{--<div class="modal-dialog">--}}
+                                    {{--<div class="modal-content">--}}
+                                        {{--<div class="modal-header bg-blue">--}}
+                                            {{--<button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
+                                                {{--<span aria-hidden="true">&times;</span>--}}
+                                            {{--</button>--}}
+                                            {{--<h4 class="modal-title">Edit Department</h4>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="modal-body">--}}
+                                            {{--<div class="box box-primary">--}}
+                                                {{--<div class="box-header with-border">--}}
+                                                    {{--<h3 class="box-title">Department Information</h3>--}}
+                                                {{--</div><!-- /.box-header -->--}}
+                                                {{--<div class="box-body">--}}
+
+                                                    {{--{!! Form::model($departments, array('route' => array('admin.department.update',  $value->id  ), 'method' => 'PUT')) !!}--}}
+
+                                                        {{--<div class="form-group">--}}
+                                                            {{--<label for="name">Name</label>--}}
+                                                            {{--<input type="text" name="name" id="name">--}}
+                                                        {{--</div>--}}
+
+
+                                                        {{--<button type="submit" class="btn btn-default">--}}
+                                                            {{--<i class="fa fa-plus"></i> Edit Department--}}
+                                                        {{--</button>--}}
+                                                    {{--{!! Form::close() !!}--}}
+
+                                                {{--</div><!-- /.box-body -->--}}
+                                            {{--</div><!-- /.box -->--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+
+                            {{--####--}}
+
                             <div class="modal fade" id="editDepartment-{{ $value->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -64,22 +102,17 @@
                                             <h4 class="modal-title">Edit Department</h4>
                                         </div>
                                         <div class="modal-body">
-                                            <div class="box box-primary">
-                                                <div class="box-header with-border">
-                                                    <h3 class="box-title">Department Information</h3>
-                                                </div><!-- /.box-header -->
+                                            <div>
                                                 <div class="box-body">
-
+                                                    <!-- form start -->
                                                     {!! Form::model($departments, array('route' => array('admin.department.update',  $value->id  ), 'method' => 'PUT')) !!}
 
-                                                        <div class="form-group">
-                                                            <label for="name">Name</label>
-                                                            <input type="text" name="name" id="name">
+                                                    <div class="form-group" style="display: block;margin-bottom: 15px;">
+                                                            <label for="TicketName" style="display: block;">Department Name</label>
+                                                            <input type="text" class="form-control" style="display: block; width: 100%;" id="name" placeholder="Department Name" name="name">
                                                         </div>
-
-
-                                                        <button type="submit" class="btn btn-default">
-                                                            <i class="fa fa-plus"></i> Edit Department
+                                                        <button type="submit" class="btn btn-primary btn-sm bg-blue pull-right">
+                                                            <i class="fa fa-edit"></i> Save Changes
                                                         </button>
                                                     {!! Form::close() !!}
 
