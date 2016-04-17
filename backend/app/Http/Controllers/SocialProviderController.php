@@ -24,7 +24,7 @@ class SocialProviderController extends Controller
         $this->middleware('auth');
     }
 
-    public static function getTwitterKeys()
+    public function getTwitterKeys()
     {
     	$twitter_account = SocialProvider::where('provider', 'twitter')->get();
 
@@ -44,7 +44,7 @@ class SocialProviderController extends Controller
 
     public function twitterAuthenticateAndAuthorize(Request $request) 
     {
-    	$twitter_keys = SocialProviderController::getTwitterKeys();
+    	$twitter_keys = $this->getTwitterKeys();
 
     	$connection = new TwitterOAuth($twitter_keys['CONSUMER_KEY'], $twitter_keys['CONSUMER_SECRET']);
   
@@ -65,7 +65,7 @@ class SocialProviderController extends Controller
 
     public function twitterCallback(Request $request)
     {
-    	$twitter_keys = SocialProviderController::getTwitterKeys();
+    	$twitter_keys = $this->getTwitterKeys();
 
     	if($request->has('oauth_verifier') && $request->session()->has('oauth_token') 
     		&& $request->session()->has('oauth_token_secret')) {
