@@ -131,10 +131,6 @@
                       </ul>
                     </li>
                     <li><a href="#"><i class="fa fa-group"></i> <span>Customers</span></a></li>
-                    {{-- <li><button id="twitterButton" data-link="{{ Route('twitterAuthentication') }}" class="twitter-conn-btn btn btn-sm btn-info">
-                        <i class="fa fa-twitter"></i>&nbsp&nbsp
-                        <span>Connect to Twitter</span></button>
-                    </li> --}}
                 @else 
                     <li class="header"> SUPPORT AGENT</li>
                     <!-- Optionally, you can add icons to the links -->
@@ -147,21 +143,25 @@
                     <li>
                       <a href="#"><i class="fa fa-group"></i> <span>Cutomers</span></a>
                     </li>
-                    {{-- <li><button id="twitterButton" data-link="{{ Route('twitterAuthentication') }}" class="twitter-conn-btn btn btn-sm btn-info">
-                        <i class="fa fa-twitter"></i>&nbsp&nbsp
-                        <span>Connect to Twitter</span></button>
-                    </li> --}}
                 @endif
-                @yield('twitter') 
-                {{-- @if (Session::has('verified')) --}}
-                    {{-- <b>Hello, {{ Session::get('name') }} </b> --}}
-                {{-- @else --}}
-                    {{-- <b>No Session</b> --}}
-                {{-- @endif --}}
-                    {{-- <li><button id="twitterButton" data-link="{{ Route('twitterAuthentication') }}" class="twitter-conn-btn btn btn-sm btn-info">
+                <li class="header">TWITTER ACCOUNT</li>
+                @if (Session::has('account_id'))
+                    <div class="user-panel">
+                        <div class="pull-left image">
+                            <img src="{{ Session::get('account_avatar') }}" class="img-circle" alt="User Image">
+                        </div>
+                        <div class="pull-left info">
+                            <p><span>@</span>{{ Session::get('account_screen_name') }}</p>
+                            <!-- Status -->
+                            <a href="#"><i class="fa fa-circle text-success"></i> Connected</a>
+                        </div>
+                    </div>
+                @else 
+                    <li><button id="twitterButton" data-link="{{ Route('twitterAuthentication') }}" class="twitter-conn-btn btn btn-sm btn-info">
                         <i class="fa fa-twitter"></i>&nbsp&nbsp
                         <span>Connect to Twitter</span></button>
-                    </li>  --}}
+                    </li> 
+                @endif   
                 </ul><!-- /.sidebar-menu -->
             </section>
             <!-- /.sidebar -->
@@ -177,7 +177,7 @@
             </section>
             <br>
 
-            <section class="content">
+            <section class="content clearfix">
                 @yield('content')
             </section>
         </div>

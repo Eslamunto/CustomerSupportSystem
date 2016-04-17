@@ -14,9 +14,6 @@ use Illuminate\Support\Collection;
 
 class SocialProviderController extends Controller
 {
-	const CONSUMER_KEY = "9HkAuku5omdAmseF6Y028QgVu";
-    const CONSUMER_SECRET = "TyhYZCgUOevxIBCUIyrQHezfCkv6zppG8SbCyTRIOqllhvCYlD";
-
     /**
      * Create a new controller instance.
      *
@@ -27,9 +24,30 @@ class SocialProviderController extends Controller
         $this->middleware('auth');
     }
 
+    public static function getTwitterKeys()
+    {
+    	$twitter_account = SocialProvider::where('provider', 'twitter')->get();
+
+    	//If the Keys do not exist in the database, get them from .env file
+    	if($twitter_account->isEmpty()) {
+    		$consumer_key = env('CONSUMER_KEY');
+    		$consumer_secret = env('CONSUMER_SECRET');
+    	} else {
+    		$consumer_key = $twitter_account->first()->consumer_key;
+    		$consumer_secret = $twitter_account->first()->consumer_secret;
+    	}
+
+    	$twitter_keys = array('CONSUMER_KEY' => $consumer_key, 'CONSUMER_SECRET' => $consumer_secret);
+
+    	return $twitter_keys;
+    }
+
     public function twitterAuthenticateAndAuthorize(Request $request) 
     {
-    	$connection = new TwitterOAuth(self::CONSUMER_KEY, self::CONSUMER_SECRET);
+    	$twitter_keys = SocialProviderController::getTwitterKeys();
+
+    	$connection = new TwitterOAuth($twitter_keys['CONSUMER_KEY'], $twitter_keys['CONSUMER_SECRET']);
+  
         $request_token = $connection->oauth('oauth/request_token', 
         	array('oauth_callback' => Route('twitterCallback')));
 
@@ -38,20 +56,21 @@ class SocialProviderController extends Controller
             $request->session()->put('oauth_token_secret', $request_token['oauth_token_secret']);
 
             $url = $connection->url('oauth/authorize', array('oauth_token' => $request_token['oauth_token']));
-            var_dump($url);
+            // dd($url);
             return redirect($url);
         } else {
-        	var_dump($request_token);
             exit('Error getting request_token');
         }
     }
 
     public function twitterCallback(Request $request)
     {
+    	$twitter_keys = SocialProviderController::getTwitterKeys();
+
     	if($request->has('oauth_verifier') && $request->session()->has('oauth_token') 
     		&& $request->session()->has('oauth_token_secret')) {
 
-    		$connection = new TwitterOAuth(self::CONSUMER_KEY, self::CONSUMER_SECRET, 
+    		$connection = new TwitterOAuth($twitter_keys['CONSUMER_KEY'], $twitter_keys['CONSUMER_SECRET'], 
     		$request->session()->get('oauth_token') , $request->session()->get('oauth_token_secret'));
 
     		$verified_access_token = $connection->oauth("oauth/access_token", 
@@ -60,7 +79,7 @@ class SocialProviderController extends Controller
     		//If we want to save the whole access token in the session
     		// $request->session()->put('access_token', $verified_access_token);
 
-    		$verified_connection = new TwitterOAuth(self::CONSUMER_KEY, self::CONSUMER_SECRET, 
+    		$verified_connection = new TwitterOAuth($twitter_keys['CONSUMER_KEY'], $twitter_keys['CONSUMER_SECRET'], 
     			$verified_access_token['oauth_token'], $verified_access_token['oauth_token_secret']);
 
     		$twitter_account = $verified_connection->get("account/verify_credentials");
@@ -70,10 +89,10 @@ class SocialProviderController extends Controller
 
     		$request->session()->put('account_id', $db_twitter_account->account_id);
     		$request->session()->put('account_screen_name', $db_twitter_account->account_screen_name);
+    		$request->session()->put('account_avatar', $db_twitter_account->account_avatar);
     		$request->session()->put('oauth_provider', $db_twitter_account->provider);
     		$request->session()->put('oauth_token', $db_twitter_account->oauth_token);
     		$request->session()->put('oauth_token_secret', $db_twitter_account->oauth_secret_token);
-
     		// dd($request->session());
 
     		return redirect()->route('index');
@@ -92,7 +111,6 @@ class SocialProviderController extends Controller
     public function findOrCreateAccount($twitter_account, $verified_access_token)
     {
     	$account = SocialProvider::where('provider', 'twitter')->where('account_id', $twitter_account->id_str)->get();
-
     	// dd($account->first());
 
     	//If the account does not exist in the database
