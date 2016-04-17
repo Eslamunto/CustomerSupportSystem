@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -11,13 +10,27 @@
 |
 */
 Route::auth();
-
 //
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [
         'as' => 'index',
         'uses'=> 'HomeController@index'
-        ]);
+    ]);
+
+    Route::get('auth/logout', [
+        'as' => 'logoutNew',
+        'uses' => 'Auth\AuthController@getLogout'
+    ]);
+
+    Route::get('/twitterAuth', [
+        'as' => 'twitterAuthentication',
+        'uses' => 'SocialProviderController@twitterAuthenticateAndAuthorize'
+    ]);
+
+    Route::get('/callback', [
+        'as' => 'twitterCallback', 
+        'uses' => 'SocialProviderController@twitterCallback'
+    ]);
 
     Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
         //Admin home
@@ -84,18 +97,17 @@ Route::group(['middleware' => 'auth'], function () {
             'uses'=> 'TeamController@departmentTeam'
         ]);
 
-        //depatment
+        //Depatments
         Route::resource('department', 'DepartmentController');
 
-
-
+        //Settings
         Route::get('/settings', [ 
             'as' => 'adminSettings',
             function(){
             return view('admin.adminSettings');
         }]);
 
-
+        //Ticket Statuses
         Route::post('/status', [
             'as' => 'newStatus', 
             'uses' => 'StatusController@store'
@@ -110,9 +122,6 @@ Route::group(['middleware' => 'auth'], function () {
             'as' => 'deleteStatus',
             'uses' => 'StatusController@destroy'
         ]);
-
-        Route::resource('department', 'DepartmentController');
-
     });
 
 
@@ -135,7 +144,6 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::get('/test', function(){
 	return view('layouts.master');
-	// return view('supervisor.supervisorFeed');
 });
 
 

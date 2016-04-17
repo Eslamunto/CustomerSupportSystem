@@ -24,7 +24,7 @@
             <h3 class="box-title"><b>System Support Agents</b></h3>
             <div class="pull-right">
                 <button type="button" class="btn bg-blue btn-sm" data-toggle="modal" data-target="#addAgent">
-                    <i class="fa fa-plus"> New Agent</i>
+                    <i class="fa fa-plus"></i> New Agent
                 </button>
             </div>
         </div>

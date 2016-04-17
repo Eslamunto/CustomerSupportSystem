@@ -25,7 +25,7 @@
             <h3 class="box-title"><b>System Support Supervisors</b></h3>
             <div class="pull-right">
                 <button type="button" class="btn bg-blue btn-sm" data-toggle="modal" data-target="#addSupervisor">
-                    <i class="fa fa-plus"> New Supervisor</i>
+                    <i class="fa fa-plus"></i> New Supervisor
                 </button>
             </div>
         </div>
