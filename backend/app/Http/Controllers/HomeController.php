@@ -6,9 +6,6 @@ use App\Http\Requests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth as Auth;
 
-use Abraham\TwitterOAuth\TwitterOAuth;
-use Session;
-
 class HomeController extends Controller
 {
     /**

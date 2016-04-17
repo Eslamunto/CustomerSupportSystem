@@ -123,8 +123,8 @@ class SocialProviderController extends Controller
     			'account_name'=> $twitter_account->name,
     			'account_screen_name' => $twitter_account->screen_name,
     			'account_avatar' => $twitter_account->profile_image_url,
-    			'consumer_key' => self::CONSUMER_KEY,
-    			'consumer_secret' => self::CONSUMER_SECRET,
+    			'consumer_key' => env('CONSUMER_KEY'),
+    			'consumer_secret' => env('CONSUMER_SECRET'),
     		]);
 
     		return $new_account;
