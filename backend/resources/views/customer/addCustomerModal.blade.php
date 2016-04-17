@@ -1,4 +1,11 @@
 <!-- add customer modal -->
+@if(!empty(Session::get('error_code')) && Session::get('error_code') == 5)
+    <script>
+        $(function() {
+            $('#myModal').modal('show');
+        });
+    </script>
+@endif
 <div class="modal fade" id="addCustomer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -15,7 +22,14 @@
                     </div><!-- /.box-header -->
                     <div class="box-body">
                         <!-- form start -->
-                        <form action="{{ Route('createCustomer') }}" method="POST" class="form-horizontal">
+                        @if(Auth::user()->role == 0)
+                            <?php $action = "{{ Route('createCustomerAdmin') }}" ?>
+                        @elseif (Auth::user()->role == 1)
+                            <?php $action =  "{{ Route('createCustomerSupervisor') }}" ?>
+                        @else
+                            <?php $action = "{{ Route('createCustomerAgent') }}" ?>
+                        @endif
+                        <form action="<?php $action ?>"  method="POST" class="form-horizontal">
                             {!! csrf_field() !!}
                             <div class="form-group">
                                 <label for="CustomerName">Customer Name</label>
@@ -27,6 +41,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="CustomerTwitter">Twitter Account</label>
+                                <input type="text" class="form-control" id="twitterUsername" name="twitterUsername" placeholder="@username">
+                            </div>
+                            <div class="form-group">
+                                <label for="CustomerFacebook">Facebook Account</label>
+                                <input type="text" class="form-control" id="facebookUsername" name="facebookUsername" placeholder="Username or Email">
                                 <input type="text" class="form-control" id="customerTwitter" name="customerTwitter" placeholder="@username">
                             </div>
                             <div class="form-group">
