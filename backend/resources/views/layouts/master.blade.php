@@ -18,6 +18,7 @@
     <!-- Theme style -->
     {{ HTML::style('dist/css/AdminLTE.min.css') }}
     {{ HTML::style('dist/css/skins/_all-skins.min.css') }}
+    {{ HTML::style('dist/css/bootstrap-colorpicker.min.css') }}
     {{ HTML::style('dist/css/custom.css') }}
     {{ HTML::style('plugins/datatables/dataTables.bootstrap.css') }}
 
@@ -28,7 +29,7 @@
         <!-- Main Header -->
         <header class="main-header">
             <!-- Logo -->
-            <a href="index2.html" class="logo">
+            <a href="{{URL('/')}}" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini"><b>C</b>S</span>
                 <!-- logo for regular state and mobile devices -->
@@ -61,7 +62,7 @@
                                         {{ Auth::user()->name }} - Support Supervisor
                                     @else
                                         {{ Auth::user()->name }} - Support Agent
-                                    @endif        
+                                    @endif
                                 </p>
                             </li>
                             <!-- Menu Body -->
@@ -71,7 +72,8 @@
                                     <a href="#" class="btn btn-default btn-flat">Profile</a>
                                 </div>
                                 <div class="pull-right">
-                                    <a href="{{ URL('logout') }}" class="btn btn-default btn-flat">Log out</a>
+                                    {{-- <a href="{{ URL('logout') }}" class="btn btn-default btn-flat">Log out</a> --}}
+                                    <a href="{{ Route('logoutNew') }}" class="btn btn-default btn-flat">Log out</a>
                                 </div>
                             </li>
                         </ul>
@@ -89,7 +91,9 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel">
                     <div class="pull-left image">
-                        <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+
+                        <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
+
                     </div>
                     <div class="pull-left info">
                         <p>{{ Auth::user()->name }}</p>
@@ -98,27 +102,26 @@
                     </div>
                 </div>
                 
+                <!-- Sidebar Menu -->
+                <ul class="sidebar-menu">
                 @if(Auth::user()->role == 0)  
-                    <!-- Sidebar Menu -->
-                    <ul class="sidebar-menu">
-                        <li class="header">ADMIN</li>
-                        <li class="active"><a href="#"><i class="fa fa-rss"></i> <span>Feed</span></a></li>
-                        <li class="treeview">
-                            <a href="#"><i class="fa fa-optin-monster"></i> <span>Employees</span> <i
-                                    class="fa fa-angle-left pull-right"></i></a>
-                            <ul class="treeview-menu">
-                                <li><a href="#">Supervisor</a></li>
-                                <li><a href="#">Agent</a></li>
-                            </ul>
-                        </li>
-                        <!-- Optionally, you can add icons to the links -->
-                        <li><a href="#"><i class="fa fa-group"></i> <span>Customers</span></a></li>
-                        <li><a href="#"><i class="fa fa-ticket"></i> <span>Tickets</span></a></li>
-                        <li><a href="#"><i class="fa fa-puzzle-piece"></i> <span>Departments</span></a></li>
-                        <li><a href="#"><i class="fa fa-tachometer"></i> <span>Dashboard</span></a></li>
-                        <li><a href="#"><i class="fa fa-cogs"></i> <span>Settings</span></a></li>
-                    </ul><!-- /.sidebar-menu --> 
-                @elseif (Auth::user()->role == 1) 
+                    <li class="header">ADMIN</li>
+                    <li class="active"><a href="#"><i class="fa fa-rss"></i> <span>Feed</span></a></li>
+                    <li class="treeview">
+                        <a href="#"><i class="fa fa-optin-monster"></i> <span>Employees</span> <i
+                                class="fa fa-angle-left pull-right"></i></a>
+                        <ul class="treeview-menu">
+                            <li><a href="{{route('indexSupervisors')}}">Supervisors</a></li>
+                            <li><a href="{{route('indexAgents')}}">Agents</a></li>
+                        </ul>
+                    </li>
+                    <!-- Optionally, you can add icons to the links -->
+                    <li><a href="#"><i class="fa fa-group"></i> <span>Customers</span></a></li>
+                    <li><a href="#"><i class="fa fa-ticket"></i> <span>Tickets</span></a></li>
+                    <li><a href="{{ URL::route('admin.department.index') }}"><i class="fa fa-puzzle-piece"></i> <span>Departments</span></a></li>
+                    <li><a href="#"><i class="fa fa-tachometer"></i> <span>Dashboard</span></a></li>
+                    <li><a href="{{route('adminSettings')}}"><i class="fa fa-cogs"></i> <span>Settings</span></a></li>
+                @elseif (Auth::user()->role == 1)
                     <!-- Sidebar Menu -->
                     <ul class="sidebar-menu">
                     <li class="header">SUPPORT SUPERVISOR</li>
@@ -132,23 +135,38 @@
                       </ul>
                     </li>
                     <li><a href="#"><i class="fa fa-group"></i> <span>Customers</span></a></li>
-                    </ul><!-- /.sidebar-menu -->
                 @else 
-                    <!-- Sidebar Menu -->
-                    <ul class="sidebar-menu">
-                        <li class="header"> SUPPORT AGENT</li>
-                        <!-- Optionally, you can add icons to the links -->
-                        <li class="active">
-                          <a href="#"><i class="fa fa-ticket"></i> <span>Tickets Feed</span></a>
-                        </li>
-                        <li>
-                          <a href="#"><i class="fa fa-history"></i> <span>Tickets History</span></a>
-                        </li>
-                        <li>
-                          <a href="#"><i class="fa fa-group"></i> <span>Cutomers</span></a>
-                        </li>
-                    </ul><!-- /.sidebar-menu -->
-                @endif 
+                    <li class="header"> SUPPORT AGENT</li>
+                    <!-- Optionally, you can add icons to the links -->
+                    <li class="active">
+                      <a href="#"><i class="fa fa-ticket"></i> <span>Tickets Feed</span></a>
+                    </li>
+                    <li>
+                      <a href="#"><i class="fa fa-history"></i> <span>Tickets History</span></a>
+                    </li>
+                    <li>
+                      <a href="#"><i class="fa fa-group"></i> <span>Cutomers</span></a>
+                    </li>
+                @endif
+                <li class="header">TWITTER ACCOUNT</li>
+                @if (Session::has('account_id'))
+                    <div class="user-panel">
+                        <div class="pull-left image">
+                            <img src="{{ Session::get('account_avatar') }}" class="img-circle" alt="User Image">
+                        </div>
+                        <div class="pull-left info">
+                            <p><span>@</span>{{ Session::get('account_screen_name') }}</p>
+                            <!-- Status -->
+                            <a href="#"><i class="fa fa-circle text-success"></i> Connected</a>
+                        </div>
+                    </div>
+                @else 
+                    <li><button id="twitterButton" data-link="{{ Route('twitterAuthentication') }}" class="twitter-conn-btn btn btn-sm btn-info">
+                        <i class="fa fa-twitter"></i>&nbsp&nbsp
+                        <span>Connect to Twitter</span></button>
+                    </li> 
+                @endif   
+                </ul><!-- /.sidebar-menu -->
             </section>
             <!-- /.sidebar -->
         </aside>
@@ -163,7 +181,7 @@
             </section>
             <br>
 
-            <section class="content">
+            <section class="content clearfix">
                 @yield('content')
             </section>
         </div>
@@ -186,6 +204,15 @@
         {{ HTML::script('dist/js/app.min.js') }}
         
         {{ HTML::script('dist/js/agentTicket.js') }}  
+
+        {{ HTML::script('dist/js/bootstrap-colorpicker.min.js') }}
+
+        <script type="text/javascript">
+            document.getElementById("twitterButton").onclick = function () {
+                var url = $(this).data('link');
+                location.href = url;
+            };
+        </script>
 
         @yield('scripts')  
     </div>    

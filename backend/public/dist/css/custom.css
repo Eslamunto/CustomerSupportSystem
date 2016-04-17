@@ -96,7 +96,6 @@ aside.main-sidebar{
 .unassigned-tickets > .box-solid > .box-header,
 .my-tickets > .box-solid > .box-header,
 .admin-feed > .box-solid > .box-header,
-.settings > .box-solid > .box-header,
 .my-tickets > .box-solid > .box-header{
 	background-color: #374850;
 	color: #FFF;
@@ -167,4 +166,36 @@ aside.main-sidebar{
 }
 .new-ticket{
 	margin-bottom: 20px;
+}
+.twitter-conn-btn{
+	width: 90%;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+.department-delete-button {
+    background:none!important;
+    border:none;
+    padding:0!important;
+    font: inherit;
+    color: #3c8dbc;
+    cursor: pointer;
+}
+.department-delete-button a {
+    text-decoration: none;
+    outline: none;
+}
+.department-delete-button a:hover {
+    color: #72afd2
+}
+
+.department-delete-form {
+    display: inline;
+}
+.add-department-modal-reset {
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: middle;
+    margin-right: 0;
+    margin-left: 0;
 }

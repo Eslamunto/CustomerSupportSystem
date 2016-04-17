@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -11,15 +10,30 @@
 |
 */
 Route::auth();
-
 //
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [
         'as' => 'index',
         'uses'=> 'HomeController@index'
-        ]);
+    ]);
+
+    Route::get('auth/logout', [
+        'as' => 'logoutNew',
+        'uses' => 'Auth\AuthController@getLogout'
+    ]);
+
+    Route::get('/twitterAuth', [
+        'as' => 'twitterAuthentication',
+        'uses' => 'SocialProviderController@twitterAuthenticateAndAuthorize'
+    ]);
+
+    Route::get('/callback', [
+        'as' => 'twitterCallback', 
+        'uses' => 'SocialProviderController@twitterCallback'
+    ]);
 
     Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
+        //Admin home
         Route::get('/', function () {
             return view('admin.adminFeed');
         });
@@ -43,8 +57,91 @@ Route::group(['middleware' => 'auth'], function () {
             'uses' => 'CustomerController@destroy'
         ]);
 
-    });
+        //Admin agent's resources
+        Route::get('index/agents',[
+            'as'=>'indexAgents',
+            'uses'=>'AgentController@index'
+        ]);
+        Route::get('show/agent/{id}',[
+            'as'=>'showAgent',
+            'uses'=>'AgentController@show'
+        ]);
 
+        Route::get('create/agent',[
+            'as'=>'getCreateAgent',
+            'uses'=>'AgentController@getCreate'
+        ]);
+        Route::post('create/agent',[
+            'as'=>'createAgent',
+            'uses'=>'AgentController@postCreate'
+        ]);
+        Route::delete('delete/agent/{id}', [
+            'as'=>'deleteAgent',
+            'uses'=>'AgentController@destroy'
+        ]);
+        Route::put('edit/agent/{id}', [
+            'as'=> 'agentUpdate',
+            'uses'=> 'AgentController@update'
+        ]);
+
+        //Admin supervisor's resources
+        Route::get('index/supervisor',[
+            'as'=>'indexSupervisors',
+            'uses'=>'SupervisorController@index'
+        ]);
+        Route::get('show/supervisor/{id}',[
+            'as'=>'showSupervisor',
+            'uses'=>'SupervisorController@show'
+        ]);
+        Route::get('create/supervisor',[
+            'as'=>'getCreateSupervisor',
+            'uses'=>'SupervisorController@getCreate'
+        ]);
+        Route::post('create/supervisor',[
+            'as'=>'createSupervisor',
+            'uses'=>'SupervisorController@postCreate'
+        ]);
+        Route::delete('delete/supervisor/{id}', [
+            'as'=>'deleteSupervisor',
+            'uses'=>'SupervisorController@destroy'
+        ]);
+        Route::put('edit/supervisor/{id}', [
+            'as'=> 'updateSupervisor',
+            'uses'=> 'SupervisorController@update'
+        ]);
+
+        //Teams
+        Route::get('department/{departmentId}/teams', [
+            'as' => 'departmentTeams',
+            'uses'=> 'TeamController@departmentTeam'
+        ]);
+
+        //Depatments
+        Route::resource('department', 'DepartmentController');
+
+        //Settings
+        Route::get('/settings', [ 
+            'as' => 'adminSettings',
+            function(){
+            return view('admin.adminSettings');
+        }]);
+
+        //Ticket Statuses
+        Route::post('/status', [
+            'as' => 'newStatus', 
+            'uses' => 'StatusController@store'
+        ]);
+
+        Route::put('/status/{id}', [
+            'as' => 'updateStatus',
+            'uses' => 'StatusController@update'
+        ]);
+
+        Route::delete('status/{id}', [
+            'as' => 'deleteStatus',
+            'uses' => 'StatusController@destroy'
+        ]);
+    });
 
 
     Route::group(['middleware' => 'supervisor', 'prefix' => 'supervisor'], function () {
@@ -83,12 +180,11 @@ Route::group(['middleware' => 'auth'], function () {
 
     });
 
-    Route::get('/home', 'HomeController@index');
-});
+ });
 
 Route::get('/test', function(){
 	return view('layouts.master');
-	// return view('supervisor.supervisorFeed');
 });
 
-Route::resource('department', 'DepartmentController');
+
+

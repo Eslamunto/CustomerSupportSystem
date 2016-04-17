@@ -7,11 +7,24 @@ use Illuminate\Database\Eloquent\Model;
 class Ticket extends Model
 {
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'statusId', 'priorityId', 'customerId', 'departmentId', 'postId',
+    ];
+
+    /**
      * The table associated with the model.
      *
      * @var string
      */
     protected $table = 'ticket';
+
+    function user(){
+        return $this->belongsTo('App\UserTicket');
+    }
     function department(){
         return $this->belongsTo('App\Department');
     }
