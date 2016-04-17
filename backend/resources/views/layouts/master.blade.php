@@ -29,7 +29,7 @@
         <!-- Main Header -->
         <header class="main-header">
             <!-- Logo -->
-            <a href="index2.html" class="logo">
+            <a href="{{URL('/')}}" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini"><b>C</b>S</span>
                 <!-- logo for regular state and mobile devices -->
@@ -62,7 +62,7 @@
                                         {{ Auth::user()->name }} - Support Supervisor
                                     @else
                                         {{ Auth::user()->name }} - Support Agent
-                                    @endif        
+                                    @endif
                                 </p>
                             </li>
                             <!-- Menu Body -->
@@ -91,7 +91,9 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel">
                     <div class="pull-left image">
-                        <img src="{{ url('dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+
+                        <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
+
                     </div>
                     <div class="pull-left info">
                         <p>{{ Auth::user()->name }}</p>
@@ -109,17 +111,19 @@
                         <a href="#"><i class="fa fa-optin-monster"></i> <span>Employees</span> <i
                                 class="fa fa-angle-left pull-right"></i></a>
                         <ul class="treeview-menu">
-                            <li><a href="#">Supervisor</a></li>
-                            <li><a href="#">Agent</a></li>
+                            <li><a href="{{route('indexSupervisors')}}">Supervisors</a></li>
+                            <li><a href="{{route('indexAgents')}}">Agents</a></li>
                         </ul>
                     </li>
                     <!-- Optionally, you can add icons to the links -->
                     <li><a href="#"><i class="fa fa-group"></i> <span>Customers</span></a></li>
                     <li><a href="#"><i class="fa fa-ticket"></i> <span>Tickets</span></a></li>
-                    <li><a href="#"><i class="fa fa-puzzle-piece"></i> <span>Departments</span></a></li>
+                    <li><a href="{{ URL::route('admin.department.index') }}"><i class="fa fa-puzzle-piece"></i> <span>Departments</span></a></li>
                     <li><a href="#"><i class="fa fa-tachometer"></i> <span>Dashboard</span></a></li>
-                    <li><a href="#"><i class="fa fa-cogs"></i> <span>Settings</span></a></li>
-                @elseif (Auth::user()->role == 1) 
+                    <li><a href="{{route('adminSettings')}}"><i class="fa fa-cogs"></i> <span>Settings</span></a></li>
+                @elseif (Auth::user()->role == 1)
+                    <!-- Sidebar Menu -->
+                    <ul class="sidebar-menu">
                     <li class="header">SUPPORT SUPERVISOR</li>
                     <!-- Optionally, you can add icons to the links -->
                     <li class="active"><a href="#"><i class="fa fa-feed"></i> <span>Feed</span></a></li>
