@@ -30,7 +30,6 @@
                             <?php $action = "{{ Route('createCustomerAgent') }}" ?>
                         @endif
                         <form action="<?php $action ?>"  method="POST" class="form-horizontal">
-                        <form action="{{ Route('createCustomer') }}" method="POST" class="form-horizontal">
                             {!! csrf_field() !!}
                             <div class="form-group">
                                 <label for="CustomerName">Customer Name</label>
