@@ -46,11 +46,6 @@
                             <div class="form-group">
                                 <label for="CustomerFacebook">Facebook Account</label>
                                 <input type="text" class="form-control" id="facebookUsername" name="facebookUsername" placeholder="Username or Email">
-                                <input type="text" class="form-control" id="customerTwitter" name="customerTwitter" placeholder="@username">
-                            </div>
-                            <div class="form-group">
-                                <label for="CustomerFacebook">Facebook Account</label>
-                                <input type="text" class="form-control" id="customerFacebook" name="customerFacebook" placeholder="Username or Email">
                             </div>
                             <button type="submit" class="btn btn-primary bg-blue pull-right">
                                 <i class="fa fa-plus"></i> Add Customer
