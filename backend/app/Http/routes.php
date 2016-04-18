@@ -100,13 +100,6 @@ Route::group(['middleware' => 'auth'], function () {
         //Depatments
         Route::resource('department', 'DepartmentController');
 
-        //Settings
-        Route::get('/settings', [ 
-            'as' => 'adminSettings',
-            function(){
-            return view('admin.adminSettings');
-        }]);
-
         //Ticket Statuses
         Route::post('/status', [
             'as' => 'newStatus', 
@@ -121,6 +114,18 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('status/{id}', [
             'as' => 'deleteStatus',
             'uses' => 'StatusController@destroy'
+        ]);
+
+        //Settings
+        Route::get('/settings', [ 
+            'as' => 'adminSettings',
+            'uses' => 'SettingsController@index'
+        ]);
+        
+        //Twitter Acoount
+        Route::put('/settings/twitter/{id}', [
+            'as' => 'updateTwitterAccount',
+            'uses' => 'SocialProviderController@update'
         ]);
     });
 
