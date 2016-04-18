@@ -49,8 +49,8 @@ class CustomerController extends Controller
         $validator =  $this->validate($request, [
             'customerName' => 'required|max:255',
             'customerPhone' => 'required_without_all:twitterUsername,facebookUsername|numeric|min:8',
-            'twitterUsername' => 'required_without_all:facebookUsername,customerPhone|unique:customer',
-            'facebookUsername' => 'required_without_all:twitterUsername,customerPhone|unique:customer',
+            'twitterUsername' => 'required_without_all:facebookUsername,customerPhone|unique:customer|regex:/[@].+$/',
+            'facebookUsername' => 'required_without_all:twitterUsername,customerPhone|unique:customer|email',
         ]);
 
         if (empty(Input::get('customerName')) ||
