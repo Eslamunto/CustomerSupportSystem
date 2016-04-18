@@ -6,6 +6,14 @@
         });
     </script>
 @endif
+ @if(Auth::user()->role == 0)
+                            <?php $action = "{{ Route('createCustomerAdmin') }}" ?>
+                        @elseif (Auth::user()->role == 1)
+                            <?php $action =  "{{ Route('createCustomerSupervisor') }}" ?>
+                        @else
+                            <?php $action = "{{ Route('createCustomerAgent') }}" ?>
+                        @endif
+
 <div class="modal fade" id="addCustomer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -22,14 +30,7 @@
                     </div><!-- /.box-header -->
                     <div class="box-body">
                         <!-- form start -->
-                        @if(Auth::user()->role == 0)
-                            <?php $action = "{{ Route('createCustomerAdmin') }}" ?>
-                        @elseif (Auth::user()->role == 1)
-                            <?php $action =  "{{ Route('createCustomerSupervisor') }}" ?>
-                        @else
-                            <?php $action = "{{ Route('createCustomerAgent') }}" ?>
-                        @endif
-                        <form action="<?php $action ?>"  method="POST" class="form-horizontal">
+                        <form action="<?php $action ?>"  method="POST" >
                             {!! csrf_field() !!}
                             <div class="form-group">
                                 <label for="CustomerName">Customer Name</label>
