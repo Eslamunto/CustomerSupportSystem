@@ -59,7 +59,8 @@
                         <td>7</td>
                         <td>
                             <a href="" class="update-customer-button" data-update-route="{{ Route('updateCustomer', $customer->id) }}" data-toggle="modal" data-target="#editCustomer"> Edit </a> |
-                            <a href="{{ Route('deleteCustomer', $customer->id) }}" data-method="delete" data-token="{{ csrf_token() }}" data-confirm="Are you sure you want to delete '{{ $customer->name }}' ?"> Delete </a>                        </td>
+                            <a href="{{ Route('deleteCustomer', $customer->id) }}" data-method="delete" data-token="{{ csrf_token() }}" data-confirm="Are you sure you want to delete '{{ $customer->name }}' ?"> Delete </a>                      
+                        </td>
                     </tr>
                 @endforeach
 

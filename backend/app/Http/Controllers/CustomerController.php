@@ -112,9 +112,9 @@ class CustomerController extends Controller
                 $customer->email = $request->customerEmail;
             if($request->customerPhone !='')
                 $customer->phone = $request->customerPhone;
-            if($request->customerTwitter !='')
+            if($request->twitterUsername !='')
                 $customer->twitterUsername = $request->twitterUsername;
-            if($request->customerFacebook !='')
+            if($request->facebookUsername !='')
                 $customer->facebookUsername = $request->facebookUsername;
 
             $customer->save();

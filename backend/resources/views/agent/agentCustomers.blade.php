@@ -80,7 +80,6 @@
         $('.update-customer-button').on('click', function () {
             $('#update-customer-form').attr('action', $(this).data('update-route'));
         });
-
         $('[data-method]').click(function(e) {
             e.preventDefault();
             // If the user confirm the delete

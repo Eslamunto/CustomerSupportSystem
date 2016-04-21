@@ -56,7 +56,6 @@ Route::group(['middleware' => 'auth'], function () {
             'as' => 'deleteCustomer',
             'uses' => 'CustomerController@destroy'
         ]);
-
         //Admin agent's resources
         Route::get('index/agents',[
             'as'=>'indexAgents',
@@ -119,13 +118,6 @@ Route::group(['middleware' => 'auth'], function () {
         //Depatments
         Route::resource('department', 'DepartmentController');
 
-        //Settings
-        Route::get('/settings', [ 
-            'as' => 'adminSettings',
-            function(){
-            return view('admin.adminSettings');
-        }]);
-
         //Ticket Statuses
         Route::post('/status', [
             'as' => 'newStatus', 
@@ -140,6 +132,18 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('status/{id}', [
             'as' => 'deleteStatus',
             'uses' => 'StatusController@destroy'
+        ]);
+
+        //Settings
+        Route::get('/settings', [ 
+            'as' => 'adminSettings',
+            'uses' => 'SettingsController@index'
+        ]);
+        
+        //Twitter Acoount
+        Route::put('/settings/twitter/{id}', [
+            'as' => 'updateTwitterAccount',
+            'uses' => 'SocialProviderController@update'
         ]);
     });
 
@@ -166,7 +170,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/', function () {
             return view('agent.agentFeed');
         });
-        Route::get('/customers',function(){
+         Route::get('/customers',function(){
             return view('agent.agentCustomers');
         });
         Route::get('create/customer', function()
@@ -177,7 +181,6 @@ Route::group(['middleware' => 'auth'], function () {
             'as'=>'createCustomerAgent',
             'uses'=>'CustomerController@postCreate'
         ]);
-
     });
 
  });
