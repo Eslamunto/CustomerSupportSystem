@@ -12,6 +12,10 @@ use App\SocialProvider as SocialProvider;
 
 use Illuminate\Support\Collection;
 
+use Illuminate\Support\Facades\Validator as Validator;
+
+use Illuminate\Support\Facades\Session as Session;
+
 class SocialProviderController extends Controller
 {
     /**
@@ -135,5 +139,36 @@ class SocialProviderController extends Controller
 
     		return $account->first();
     	}
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'consumer_key' => 'required_without_all:secret_key,access_token,access_token_secret',
+            'secret_key' => 'required_without_all:consumer_key,access_token,access_token_secret',
+            'access_token' => 'required_without_all:consumer_key,secret_key,access_token_secret',
+            'access_token_secret' => 'required_without_all:consumer_key,secret_key,access_token'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('adminSettings')
+                ->withErrors($validator)
+                ->withInput($request->all());
+        } else {
+            $twitter_account = SocialProvider::find($id);
+            if($request->consumer_key != '')
+                $twitter_account->consumer_key = $request->consumer_key;
+            if($request->secret_key != '')
+                $twitter_account->consumer_secret = $request->secret_key;
+            if($request->access_token != '')
+                $twitter_account->oauth_token = $request->access_token;
+            if($request->access_token_secret != '')
+                $twitter_account->oauth_secret_token = $request->access_token_secret;
+
+            $twitter_account->save();
+
+            Session::flash('message', 'Twitter Account is updated Successfully !');
+            return redirect()->route('adminSettings');
+        }
     }
 }

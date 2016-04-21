@@ -29,17 +29,32 @@
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h4 class="box-title">Twitter Account</h4>
+                    <button class="btn btn-xs bg-blue pull-right update-twitter" data-toggle="modal" data-target="#editTwitterSettings" data-consumer="{{ $twitter_account->consumer_key }}" data-secret="{{ $twitter_account->consumer_secret }}" data-token="{{ $twitter_account->oauth_token }}" data-secret-token="{{ $twitter_account->oauth_secret_token }}" data-update-link="{{ route('updateTwitterAccount', $twitter_account->id) }}">
+                        Edit&nbsp&nbsp<i class="fa fa-edit"></i> 
+                    </button>
                 </div>
                 <div class="box-body">
-                    <!-- the events -->
-                    <div id="external-events">
-                        <div class="input-group">
-                            <input id="new-event" type="text" class="form-control" placeholder="Update Twitter Token">
-                            <div class="input-group-btn">
-                                <button id="add-new-event" type="button" class="btn bg-blue btn-flat">Update</button>
-                            </div><!-- /btn-group -->
-                        </div>
+                    <br>
+                    <div>
+                        &nbsp&nbsp <b>Application Consumer Key:</b> &nbsp&nbsp
+                        <span>{{ $twitter_account->consumer_key }}</span>
                     </div>
+                    <br>
+                    <div>
+                        &nbsp&nbsp <b>Application Secret Key:</b> &nbsp&nbsp
+                        <span>{{ $twitter_account->consumer_secret }}</span>
+                    </div>
+                    <br>
+                    <div>
+                        &nbsp&nbsp <b>Application Access Token:</b> &nbsp&nbsp
+                        <span>{{ $twitter_account->oauth_token }}</span>
+                    </div>
+                    <br>
+                    <div>
+                        &nbsp&nbsp <b>Application Access Token Secret:</b> &nbsp&nbsp
+                        <span>{{ $twitter_account->oauth_secret_token }}</span>
+                    </div>
+                    <br>                    
                 </div><!-- /.box-body -->
             </div><!-- /. box -->
         </div>
@@ -100,7 +115,6 @@
         </div>
         
         <!-- Ticket Status -->
-        <?php $statuses = \App\Status::all() ?>
         <div class="clearfix">
             <div class="col-md-6">
                 <div class="box box-primary">
@@ -185,6 +199,7 @@
     
     @include('status.editTicketStatus')
     @include('status.addTicketStatus')
+    @include('socialProvider.editTwitterAccount')
 
 @endsection
 
@@ -222,5 +237,13 @@
         $(function() {
             $('#cp2').colorpicker();
          });
+
+        $('.update-twitter').on('click', function() {
+            $('#TwitterConsumer').attr('placeholder', ($(this).data('consumer')));
+            $('#TwitterSecret').attr('placeholder', ($(this).data('secret')));
+            $('#TwitterToken').attr('placeholder', ($(this).data('token')));
+            $('#TwitterTokenSecret').attr('placeholder', ($(this).data('secret-token')));
+            $('#update-twitter-form').attr('action', ($(this).data('update-link')));
+        });
     </script>
 @endsection
