@@ -1,4 +1,19 @@
 <!-- add customer modal -->
+@if(!empty(Session::get('error_code')) && Session::get('error_code') == 5)
+    <script>
+        $(function() {
+            $('#myModal').modal('show');
+        });
+    </script>
+@endif
+ @if(Auth::user()->role == 0)
+                            <?php $action = "{{ Route('createCustomerAdmin') }}" ?>
+                        @elseif (Auth::user()->role == 1)
+                            <?php $action =  "{{ Route('createCustomerSupervisor') }}" ?>
+                        @else
+                            <?php $action = "{{ Route('createCustomerAgent') }}" ?>
+                        @endif
+
 <div class="modal fade" id="addCustomer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -15,11 +30,15 @@
                     </div><!-- /.box-header -->
                     <div class="box-body">
                         <!-- form start -->
-                        <form action="{{ Route('createCustomer') }}" method="POST" class="form-horizontal">
+                        <form action="<?php $action ?>"  method="POST" >
                             {!! csrf_field() !!}
                             <div class="form-group">
                                 <label for="CustomerName">Customer Name</label>
                                 <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Customer Name">
+                            </div>
+                             <div class="form-group">
+                                <label for="CustomerName">Customer Email</label>
+                                <input type="text" class="form-control" id="customerName" name="customerEmail" placeholder="Customer Email">
                             </div>
                             <div class="form-group">
                                 <label for="customerPhone">Phone Number</label>
@@ -27,11 +46,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="CustomerTwitter">Twitter Account</label>
-                                <input type="text" class="form-control" id="customerTwitter" name="customerTwitter" placeholder="@username">
+                                <input type="text" class="form-control" id="twitterUsername" name="twitterUsername" placeholder="@username">
                             </div>
                             <div class="form-group">
                                 <label for="CustomerFacebook">Facebook Account</label>
-                                <input type="text" class="form-control" id="customerFacebook" name="customerFacebook" placeholder="Username or Email">
+                                <input type="text" class="form-control" id="facebookUsername" name="facebookUsername" placeholder="Username or Email">
                             </div>
                             <button type="submit" class="btn btn-primary bg-blue pull-right">
                                 <i class="fa fa-plus"></i> Add Customer
