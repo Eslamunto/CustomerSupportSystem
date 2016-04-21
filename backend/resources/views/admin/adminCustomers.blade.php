@@ -4,6 +4,8 @@
     Admin | Customers
 @endsection
 
+
+
 @section('content')
     @if(Session::has('message'))
         <div class="alert alert-success alert-dismissable">
