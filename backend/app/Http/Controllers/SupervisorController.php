@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Input as Input;
 use Illuminate\Support\Facades\Hash as Hash;
 use Illuminate\Support\Facades\Session as Session;
 
+use App\UserTicket as UserTicket;
+use App\Status as Status;
+use DB;
+
 class SupervisorController extends Controller
 {
     public function index(){
@@ -112,5 +116,15 @@ class SupervisorController extends Controller
          Session::flash('message', 'Successfully deleted the Supervisor!');
 
         return redirect()->route('indexSupervisors');
+    }
+
+
+    public function getTeamAgents($id){
+        $supervisor = User::find($id);
+        $team_id = $supervisor->teamId;
+        $agents = User::where('teamId', $team_id)->where('role', '2')->get();
+        $tickets_statuses = Status::all();
+
+        return view('supervisor.supervisorAgents', compact('agents', 'tickets_statuses'));
     }
 }

@@ -131,10 +131,16 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     Route::group(['middleware' => 'supervisor', 'prefix' => 'supervisor'], function () {
+        //Supervisor home
         Route::get('/', function () {
             return view('supervisor.supervisorFeed');
         });
 
+        //Tickets History
+        Route::get('/team/agents/{id}', [
+            'as' => 'supervisorTeamAgents',
+            'uses' => 'SupervisorController@getTeamAgents'
+        ]);
     });
 
 

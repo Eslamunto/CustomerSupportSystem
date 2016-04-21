@@ -28,7 +28,7 @@ class User extends Authenticatable
         return $this->belongsTo('App\Team', 'teamId');
     }
     public function ticket(){
-        return $this->hasMany('App\UserTicket');
+        return $this->belongsToMany('App\User', 'user_tickets', 'userId', 'ticketId');
     }
 
 }
