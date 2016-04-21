@@ -46,14 +46,17 @@ class CustomerController extends Controller
 
     public function postCreate(Request $request){
 
+        // dd($request);
+
         $validator =  $this->validate($request, [
             'customerName' => 'required|max:255',
-            'customerPhone' => 'required_without_all:twitterUsername,facebookUsername|numeric|min:8',
+            'customerEmail' => 'required|email',
+            'customerPhone' => 'required_without_all:twitterUsername,facebookUsername|regex:/[0]{1}[1]{1}[0-9]{9}/|digits:11',
             'twitterUsername' => 'required_without_all:facebookUsername,customerPhone|unique:customer|regex:/[@].+$/',
             'facebookUsername' => 'required_without_all:twitterUsername,customerPhone|unique:customer|email',
         ]);
 
-        if (empty(Input::get('customerName')) ||
+        if (empty(Input::get('customerName')) || empty(Input::get('customerEmail')) ||
             ( empty(Input::get('customerPhone')) && empty(Input::get('twitterUsername')) && empty(Input::get('facebookUsername')) ) ) {
 
             Session::flash('message', 'Error creating customer');
@@ -63,6 +66,7 @@ class CustomerController extends Controller
 
             $customer = new Customer;
             $customer->name = Input::get('customerName');
+            $customer->email = Input::get('customerEmail');
             $customer->phone = Input::get('customerPhone');
             $customer->twitterUsername = Input::get('twitterUsername');
             $customer->facebookUsername = Input::get('facebookUsername');
@@ -84,9 +88,10 @@ class CustomerController extends Controller
     {
         $validator =  $this->validate($request, [
             'customerName' => 'max:255',
+            'customerEmail' => 'email',
             'customerPhone' => 'numeric|min:8',
             'twitterUsername' => 'unique:customer',
-            'facebookUsername' => 'unique:customer',
+            'facebookUsername' => 'unique:customer|email',
         ]);
 
 //        if (empty(Input::get('customerName')) ||
@@ -103,6 +108,8 @@ class CustomerController extends Controller
 
             if($request->customerName != '')
                 $customer->name = $request->customerName;
+            if($request->customerEmail != '')
+                $customer->email = $request->customerEmail;
             if($request->customerPhone !='')
                 $customer->phone = $request->customerPhone;
             if($request->customerTwitter !='')
@@ -110,7 +117,7 @@ class CustomerController extends Controller
             if($request->customerFacebook !='')
                 $customer->facebookUsername = $request->facebookUsername;
 
-            $customer->update();
+            $customer->save();
             Session::flash('message', 'Customer '.$customer->name .' inforamtion has been updated Successfully !');
             return redirect()->route('createCustomerAdmin');
 

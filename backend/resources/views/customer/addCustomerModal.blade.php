@@ -36,6 +36,10 @@
                                 <label for="CustomerName">Customer Name</label>
                                 <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Customer Name">
                             </div>
+                             <div class="form-group">
+                                <label for="CustomerName">Customer Email</label>
+                                <input type="text" class="form-control" id="customerName" name="customerEmail" placeholder="Customer Email">
+                            </div>
                             <div class="form-group">
                                 <label for="customerPhone">Phone Number</label>
                                 <input type="text" class="form-control" id="customerPhone" name="customerPhone" placeholder="01x-xxx-xxx-xx">

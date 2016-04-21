@@ -37,6 +37,7 @@
                 <thead>
                 <tr>
                     <th>Name</th>
+                    <th>Email</th>
                     <th>Phone Number</th>
                     <th>Twitter Account</th>
                     <th>Facebook Account</th>
@@ -47,6 +48,7 @@
                 @foreach ($customers as $customer)
                     <tr>
                         <td>{{ $customer->name }} </td>
+                        <td>{{ $customer->email }} </td>
                         <td>{{ $customer->phone }}</td>
                         <td>{{ $customer->twitterUsername }}</td>
                         <td>{{ $customer->facebookUsername }}</td>
