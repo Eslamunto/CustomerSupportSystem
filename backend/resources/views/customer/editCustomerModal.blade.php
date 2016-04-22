@@ -15,18 +15,28 @@
                     </div><!-- /.box-header -->
                     <div class="box-body">
                         <!-- form start -->
-                        <form role="form">
+                        <form role="form" action=""  method="POST" id="update-customer-form">
+                            {{csrf_field()}}
+                            {!! method_field('put') !!}
                             <div class="form-group">
                                 <label for="CustomerName">Customer Name</label>
-                                <input type="text" class="form-control" id="CustomerName" placeholder="Customer Name">
+                                <input type="text" class="form-control" id="customerName" name="customerName" placeholder="Customer Name">
+                            </div>
+                             <div class="form-group">
+                                <label for="CustomerName">Customer Email</label>
+                                <input type="text" class="form-control" id="customerEmail" name="customerEmail" placeholder="Customer Email">
+                            </div>
+                            <div class="form-group">
+                                <label for="customerPhone">Phone Number</label>
+                                <input type="text" class="form-control" id="customerPhone" name="customerPhone" placeholder="01x-xxx-xxx-xx">
                             </div>
                             <div class="form-group">
                                 <label for="CustomerTwitter">Twitter Account</label>
-                                <input type="text" class="form-control" id="CustomerTwitter" placeholder="username">
+                                <input type="text" class="form-control" id="twitterUsername" name="twitterUsername" placeholder="@username">
                             </div>
                             <div class="form-group">
-                                <label for="CustomerMobile">Phone Number</label>
-                                <input type="text" class="form-control" id="CustomerMobile" placeholder="01x-xxx-xxx-xx">
+                                <label for="CustomerFacebook">Facebook Account</label>
+                                <input type="text" class="form-control" id="facebookUsername" name="facebookUsername" placeholder="Username or Email">
                             </div>
                                 <button type="submit" class="btn btn-primary bg-blue pull-right">
                                     <i class="fa fa-edit"></i> Save Changes
