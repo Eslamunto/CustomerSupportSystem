@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Input as Input;
 use Illuminate\Support\Facades\Hash as Hash;
 use Illuminate\Support\Facades\Session as Session;
 
-use App\UserTicket as UserTicket;
 use App\Status as Status;
 use DB;
 
