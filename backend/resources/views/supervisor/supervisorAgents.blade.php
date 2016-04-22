@@ -25,11 +25,9 @@
                                 <td>{{ $agent->name }}</td>
                                 <td>{{ $agent->email }}</td>
                                 @foreach ($tickets_statuses as $ticket_status)
-                                    {{-- <td>{{ App\UserTicket::where('userId', $agent->id)->count() }}</td> --}}
-                                    <?php $ticket_status_number = \DB::table('user_tickets')->join('ticket', 'user_tickets.ticketId', '=', 'ticket.id')->where('user_tickets.userId', $agent->id)->where('ticket.statusId', $ticket_status->id)->count(); ?>
                                     <td class="text-center">
                                         <span class="label" style="background-color:{{ $ticket_status->color }};">
-                                            {{ $ticket_status_number }}
+                                            {{ $agents_tickets_with_Statuses[$agent->id][$ticket_status->id] }}
                                         </span>
                                     </td>
                                 @endforeach
