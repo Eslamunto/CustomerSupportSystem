@@ -11,6 +11,12 @@ use Illuminate\Support\Facades\Session as Session;
 
 class StatusController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +24,8 @@ class StatusController extends Controller
      */
     public function index()
     {
-        //
+        $status = Status::all();
+        return $status->toJson();
     }
 
     /**

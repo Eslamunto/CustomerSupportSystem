@@ -35,7 +35,14 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        //
+
+    }
+    public function show($userName){
+        $customer = Customer::where('twitterUsername','=', $userName)->get();
+        if(count($customer) != 0){
+            return $customer->toJson();
+        }
+        return response("This is a new user please create a new user account", 404);
     }
     /**
      * Store a newly created resource in storage.
@@ -46,7 +53,7 @@ class CustomerController extends Controller
 
     public function postCreate(Request $request){
 
-        // dd($request);
+
 
         $validator =  $this->validate($request, [
             'customerName' => 'required|max:255',

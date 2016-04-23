@@ -16,7 +16,7 @@ class AgentMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if(!Auth::guest() && Auth::user()->role == 2){
+        if(!Auth::guest() && (Auth::user()->role == 2 || Auth::user()->role == 1 || Auth::user()->role == 0)){
             return $next($request);
         }else {
             //return redirect('/');
