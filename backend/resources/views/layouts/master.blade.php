@@ -106,7 +106,7 @@
                 <ul class="sidebar-menu">
                 @if(Auth::user()->role == 0)  
                     <li class="header">ADMIN</li>
-                    <li class="active"><a href="#"><i class="fa fa-rss"></i> <span>Feed</span></a></li>
+                    <li class="active"><a href="{{url('/')}}"><i class="fa fa-rss"></i> <span>Feed</span></a></li>
                     <li class="treeview">
                         <a href="#"><i class="fa fa-optin-monster"></i> <span>Employees</span> <i
                                 class="fa fa-angle-left pull-right"></i></a>
@@ -126,7 +126,7 @@
                     <ul class="sidebar-menu">
                     <li class="header">SUPPORT SUPERVISOR</li>
                     <!-- Optionally, you can add icons to the links -->
-                    <li class="active"><a href="#"><i class="fa fa-feed"></i> <span>Feed</span></a></li>
+                    <li class="active"><a href="{{url('/')}}"><i class="fa fa-feed"></i> <span>Feed</span></a></li>
                     <li class="treeview">
                       <a href="#"><i class="fa fa-optin-monster"></i> <span>Team Activity</span> <i class="fa fa-angle-left pull-right"></i></a>
                       <ul class="treeview-menu">

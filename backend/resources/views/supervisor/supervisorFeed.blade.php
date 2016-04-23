@@ -6,85 +6,22 @@
 
 @section('content')
     <div class="clearfix">
-        <div class="feed">
+        <div class="admin-feed">
             <!-- Tweets Feed -->
             <div class="box box-solid">
                 <div class="box-header with-border">
                     <h3 class="box-title"><i class="fa fa-feed"></i> &nbspTweets Feed</h3>
                 </div>
-                <div class="box-body">
-                    <div class="box box-primary">
-                        <div class="box-header with-border">
-                            <h3 class="box-title text-primary">Customer Name <small>@username</small></h3>
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addTicket">
-                                    <i class="fa fa-plus"></i>  New Ticket
-                                </button>
-                            </div><!-- /.box-tools -->
-                        </div><!-- /.box-header -->
-                        <div class="box-body">
-                            Tweet Body
-                            .....
-                        </div><!-- /.box-body -->
+                <div class="box-body" id="tweets">
+                    <div class="overlay">
+                        <i class="fa fa-refresh fa-spin"></i>
                     </div>
-                    <div class="box box-primary">
-                        <div class="box-header with-border">
-                            <h3 class="box-title text-primary">Customer Name <small>@username</small></h3>
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addTicket">
-                                    <i class="fa fa-plus"></i>  New Ticket
-                                </button>
-                            </div><!-- /.box-tools -->
-                        </div><!-- /.box-header -->
-                        <div class="box-body">
-                            Tweet Body
-                            .....
-                        </div><!-- /.box-body -->
-                    </div>
-                    <div class="box box-primary">
-                        <div class="box-header with-border">
-                            <h3 class="box-title text-primary">Customer Name <small>@username</small></h3>
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addTicket">
-                                    <i class="fa fa-plus"></i>  New Ticket
-                                </button>
-                            </div><!-- /.box-tools -->
-                        </div><!-- /.box-header -->
-                        <div class="box-body">
-                            Tweet Body
-                            .....
-                        </div><!-- /.box-body -->
-                    </div>
-                    <div class="box box-primary">
-                        <div class="box-header with-border">
-                            <h3 class="box-title text-primary">Customer Name <small>@username</small></h3>
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addTicket">
-                                    <i class="fa fa-plus"></i>  New Ticket
-                                </button>
-                            </div><!-- /.box-tools -->
-                        </div><!-- /.box-header -->
-                        <div class="box-body">
-                            Tweet Body
-                            .....
-                        </div><!-- /.box-body -->
-                    </div>
-                    <div class="box box-primary">
-                        <div class="box-header with-border">
-                            <h3 class="box-title text-primary">Customer Name <small>@username</small></h3>
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addTicket">
-                                    <i class="fa fa-plus"></i>  New Ticket
-                                </button>
-                            </div><!-- /.box-tools -->
-                        </div><!-- /.box-header -->
-                        <div class="box-body">
-                            Tweet Body
-                            .....
-                        </div><!-- /.box-body -->
-                    </div>
+
+
+
                 </div>
             </div>
+            <!-- Tickets Feed -->
         </div>
 
         <!-- Support Team -->
@@ -101,9 +38,7 @@
                         <!-- My Tickets -->
                         <div class="tab-pane active" id="tab_1-1">
                             <div class="callout callout-default callout-ticket-bg clearfix">
-                                <h5 class="pull-left">
-                                    <a href="" data-toggle="modal" data-target="#ticket">#7 Ticket Title</a>
-                                </h5>
+                                <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket">#7 Ticket Title</a></h5>
                                 <div class="pull-right">
                                     <span class="label bg-yellow">Opened</span>
                                     <span class="label bg-red">High</span>
@@ -111,9 +46,7 @@
                                 </div>
                             </div>
                             <div class="callout callout-default callout-ticket-bg clearfix">
-                                <h5 class="pull-left">
-                                    <a href="" data-toggle="modal" data-target="#ticket">#11 Ticket Title</a>
-                                </h5>
+                                <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket">#11 Ticket Title</a></h5>
                                 <div class="pull-right">
                                     <span class="label bg-yellow">Opened</span>
                                     <span class="label bg-red">High</span>
@@ -121,9 +54,7 @@
                                 </div>
                             </div>
                             <div class="callout callout-default callout-ticket-bg clearfix">
-                                <h5 class="pull-left">
-                                    <a href="" data-toggle="modal" data-target="#ticket">#20 Ticket Title</a>
-                                </h5>
+                                <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket">#20 Ticket Title</a></h5>
                                 <div class="pull-right">
                                     <span class="label bg-yellow">Opened</span>
                                     <span class="label bg-red">High</span>
@@ -131,9 +62,7 @@
                                 </div>
                             </div>
                             <div class="callout callout-default callout-ticket-bg clearfix">
-                                <h5 class="pull-left">
-                                    <a href="" data-toggle="modal" data-target="#ticket">#10 Ticket Title</a>
-                                </h5>
+                                <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket">#10 Ticket Title</a></h5>
                                 <div class="pull-right">
                                     <span class="label bg-yellow">Opened</span>
                                     <span class="label bg-red">High</span>
@@ -141,9 +70,7 @@
                                 </div>
                             </div>
                             <div class="callout callout-default callout-ticket-bg clearfix">
-                                <h5 class="pull-left">
-                                    <a href="" data-toggle="modal" data-target="#ticket">#2 Ticket Title</a>
-                                </h5>
+                                <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket">#2 Ticket Title</a></h5>
                                 <div class="pull-right">
                                     <span class="label bg-yellow">Opened</span>
                                     <span class="label bg-red">High</span>
@@ -151,12 +78,11 @@
                                 </div>
                             </div>
                         </div><!-- /.tab-pane -->
+
                         <!-- Team Tickets -->
                         <div class="tab-pane" id="tab_2-2">
                             <div class="callout callout-default callout-ticket-bg clearfix">
-                                <h5 class="pull-left">
-                                    <a href="" data-toggle="modal" data-target="#ticket">#7 Ticket Title</a>
-                                </h5>
+                                <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket">#7 Ticket Title</a></h5>
                                 <div class="pull-right">
                                     <span class="label bg-yellow">Opened</span>
                                     <span class="label bg-red">High</span>
@@ -164,9 +90,7 @@
                                 </div>
                             </div>
                             <div class="callout callout-default callout-ticket-bg clearfix">
-                                <h5 class="pull-left">
-                                    <a href="" data-toggle="modal" data-target="#ticket">#11 Ticket Title</a>
-                                </h5>
+                                <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket">#11 Ticket Title</a></h5>
                                 <div class="pull-right">
                                     <span class="label bg-yellow">Opened</span>
                                     <span class="label bg-red">High</span>
@@ -174,9 +98,7 @@
                                 </div>
                             </div>
                             <div class="callout callout-default callout-ticket-bg clearfix">
-                                <h5 class="pull-left">
-                                    <a href="" data-toggle="modal" data-target="#ticket">#20 Ticket Title</a>
-                                </h5>
+                                <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket">#20 Ticket Title</a></h5>
                                 <div class="pull-right">
                                     <span class="label bg-yellow">Opened</span>
                                     <span class="label bg-red">High</span>
@@ -184,9 +106,7 @@
                                 </div>
                             </div>
                             <div class="callout callout-default callout-ticket-bg clearfix">
-                                <h5 class="pull-left">
-                                    <a href="" data-toggle="modal" data-target="#ticket">#10 Ticket Title</a>
-                                </h5>
+                                <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket">#10 Ticket Title</a></h5>
                                 <div class="pull-right">
                                     <span class="label bg-yellow">Opened</span>
                                     <span class="label bg-red">High</span>
@@ -194,9 +114,7 @@
                                 </div>
                             </div>
                             <div class="callout callout-default callout-ticket-bg clearfix">
-                                <h5 class="pull-left">
-                                    <a href="" data-toggle="modal" data-target="#ticket">#2 Ticket Title</a>
-                                </h5>
+                                <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket">#2 Ticket Title</a></h5>
                                 <div class="pull-right">
                                     <span class="label bg-yellow">Opened</span>
                                     <span class="label bg-red">High</span>
@@ -204,6 +122,7 @@
                                 </div>
                             </div>
                         </div><!-- /.tab-pane -->
+
                         <!-- Unassigned Tickets -->
                         <div class="tab-pane" id="tab_3-2">
                             <div class="callout callout-default callout-ticket-bg clearfix">
@@ -214,9 +133,7 @@
                                     <span class="label bg-red">High</span>
                                 </div>
                                 <div class="col-md-3">
-                                    <button type="button" class="btn btn-danger btn-sm pull-right">
-                                        <i class="fa fa-medkit"></i> Claim
-                                    </button>
+                                    <button type="button" class="btn btn-danger btn-sm pull-right"><i class="fa fa-medkit"></i> Claim</button>
                                 </div>
                             </div>
                             <div class="callout callout-default callout-ticket-bg clearfix">
@@ -227,9 +144,7 @@
                                     <span class="label bg-yellow">Medium</span>
                                 </div>
                                 <div class="col-md-3">
-                                    <button type="button" class="btn btn-danger btn-sm pull-right">
-                                        <i class="fa fa-medkit"></i> Claim
-                                    </button>
+                                    <button type="button" class="btn btn-danger btn-sm pull-right"><i class="fa fa-medkit"></i> Claim</button>
                                 </div>
                             </div>
                             <div class="callout callout-default callout-ticket-bg clearfix">
@@ -240,9 +155,7 @@
                                     <span class="label bg-yellow">Medium</span>
                                 </div>
                                 <div class="col-md-3">
-                                    <button type="button" class="btn btn-danger btn-sm pull-right">
-                                        <i class="fa fa-medkit"></i> Claim
-                                    </button>
+                                    <button type="button" class="btn btn-danger btn-sm pull-right"><i class="fa fa-medkit"></i> Claim</button>
                                 </div>
                             </div>
                             <div class="callout callout-default callout-ticket-bg clearfix">
@@ -253,9 +166,7 @@
                                     <span class="label bg-green">Low</span>
                                 </div>
                                 <div class="col-md-3">
-                                    <button type="button" class="btn btn-danger btn-sm pull-right">
-                                        <i class="fa fa-medkit"></i> Claim
-                                    </button>
+                                    <button type="button" class="btn btn-danger btn-sm pull-right"><i class="fa fa-medkit"></i> Claim</button>
                                 </div>
                             </div>
                             <div class="callout callout-default callout-ticket-bg clearfix">
@@ -266,55 +177,164 @@
                                     <span class="label bg-green">Low</span>
                                 </div>
                                 <div class="col-md-3">
-                                    <button type="button" class="btn btn-danger btn-sm pull-right">
-                                        <i class="fa fa-medkit"></i> Claim
-                                    </button>
+                                    <button type="button" class="btn btn-danger btn-sm pull-right"><i class="fa fa-medkit"></i> Claim</button>
                                 </div>
                             </div>
                         </div><!-- /.tab-pane -->
                     </div><!-- /.tab-content -->
                 </div>
             </div>
-            <!-- Support Team -->
+
             <div class="box box-solid">
                 <div class="box-header with-border">
-                    <h3 class="box-title"><i class="fa fa-optin-monster"></i> &nbspSupport Team</h3>
+                    <h3 class="box-title"><i class="fa fa-feed"></i> &nbspSupport Team</h3>
                 </div>
-                <div class="box-body">
-                    <table class="table table-striped">
-                        <tbody>
-                            <tr>
-                                <th>Support Agent</th>
-                                <th>All Tickets</th>
-                                <th>Opened Tickets</th>
-                                <th>Closed Tickets</th>
-                            </tr>
-                            <tr>
-                                <td>Mike Doe</td>
-                                <td class="text-center"><span class="label bg-aqua">20</span></td>
-                                <td class="text-center"><span class="label bg-green">7</span></td>
-                                <td class="text-center"><span class="label bg-red">13</span></td>
-                            </tr>
-                            <tr>
-                                <td>Alexander Pierce</td>
-                                <td class="text-center"><span class="label bg-aqua">10</span></td>
-                                <td class="text-center"><span class="label bg-green">3</span></td>
-                                <td class="text-center"><span class="label bg-red">7</span></td>
-                            </tr>
-                            <tr>
-                                <td>Nadia Carmichael</td>
-                                <td class="text-center"><span class="label bg-aqua">15</span></td>
-                                <td class="text-center"><span class="label bg-green">6</span></td>
-                                <td class="text-center"><span class="label bg-red">9</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="panel box box-primary">
+                    <div class="box-header with-border">
+                        <h4 class="box-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"
+                               aria-expanded="true" class="">
+                                Marketing Department
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse1" class="panel-collapse collapse in" aria-expanded="true" style="">
+                        <div class="box-body">
+                            <div class="box-body">
+                                <table class="table table-striped">
+                                    <tbody>
+                                    <tr>
+                                        <th>Support Agent</th>
+                                        <th>All Tickets</th>
+                                        <th>Open Tickets</th>
+                                        <th>Closed Tickets</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Mike Doe</td>
+                                        <td class="text-center"><span class="label bg-aqua">20</span></td>
+                                        <td class="text-center"><span class="label bg-green">7</span></td>
+                                        <td class="text-center"><span class="label bg-red">13</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Alexander Pierce</td>
+                                        <td class="text-center"><span class="label bg-aqua">10</span></td>
+                                        <td class="text-center"><span class="label bg-green">3</span></td>
+                                        <td class="text-center"><span class="label bg-red">7</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nadia Carmichael</td>
+                                        <td class="text-center"><span class="label bg-aqua">15</span></td>
+                                        <td class="text-center"><span class="label bg-green">6</span></td>
+                                        <td class="text-center"><span class="label bg-red">9</span></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel box box-primary">
+                    <div class="box-header with-border">
+                        <h4 class="box-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2" class="collapsed" aria-expanded="false">
+                                Financial Department
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse2" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                        <div class="box-body">
+                            <div class="box-body">
+                                <table class="table table-striped">
+                                    <tbody>
+                                    <tr>
+                                        <th>Support Agent</th>
+                                        <th>All Tickets</th>
+                                        <th>Open Tickets</th>
+                                        <th>Closed Tickets</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Mike Doe</td>
+                                        <td class="text-center"><span class="label bg-aqua">20</span></td>
+                                        <td class="text-center"><span class="label bg-green">7</span></td>
+                                        <td class="text-center"><span class="label bg-red">13</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Alexander Pierce</td>
+                                        <td class="text-center"><span class="label bg-aqua">10</span></td>
+                                        <td class="text-center"><span class="label bg-green">3</span></td>
+                                        <td class="text-center"><span class="label bg-red">7</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nadia Carmichael</td>
+                                        <td class="text-center"><span class="label bg-aqua">15</span></td>
+                                        <td class="text-center"><span class="label bg-green">6</span></td>
+                                        <td class="text-center"><span class="label bg-red">9</span></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel box box-primary">
+                    <div class="box-header with-border">
+                        <h4 class="box-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse3" class="collapsed" aria-expanded="false">
+                                Technical Department
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse3" class="panel-collapse collapse" aria-expanded="false"
+                         style="height: 0px;">
+                        <div class="box-body">
+                            <div class="box-body">
+                                <table class="table table-striped">
+                                    <tbody>
+                                    <tr>
+                                        <th>Support Agent</th>
+                                        <th>All Tickets</th>
+                                        <th>Open Tickets</th>
+                                        <th>Closed Tickets</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Mike Doe</td>
+                                        <td class="text-center"><span class="label bg-aqua">20</span></td>
+                                        <td class="text-center"><span class="label bg-green">7</span></td>
+                                        <td class="text-center"><span class="label bg-red">13</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Alexander Pierce</td>
+                                        <td class="text-center"><span class="label bg-aqua">10</span></td>
+                                        <td class="text-center"><span class="label bg-green">3</span></td>
+                                        <td class="text-center"><span class="label bg-red">7</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nadia Carmichael</td>
+                                        <td class="text-center"><span class="label bg-aqua">15</span></td>
+                                        <td class="text-center"><span class="label bg-green">6</span></td>
+                                        <td class="text-center"><span class="label bg-red">9</span></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     @include('ticket.ticketModal')
-    @include('ticket.addTicketModal')
+    @include('ticket.addTicketFromTweetModal')
 
+@endsection
+@section('scripts')
+    <script>
+        var getDepartments = "{{route('departmentIndex')}}";
+        var getStatuses = "{{route('statusIndex')}}";
+        var getPriorities = "{{route('priorityIndex')}}";
+        var route = "{{route('getTweets')}}";
+        var agentsURL = "{{url('agents/index')}}";
+    </script>
+    {{HTML::script('dist/js/adminFeed.js')}}
 @endsection

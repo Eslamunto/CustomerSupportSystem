@@ -12,103 +12,13 @@
                 <div class="box-header with-border">
                     <h3 class="box-title"><i class="fa fa-feed"></i> &nbspTweets Feed</h3>
                 </div>
-                <div class="box-body">
-                    <div class="box box-primary">
-                        <div class="box-header with-border">
-                            <h3 class="box-title text-primary">Customer Name
-                                <small>username</small>
-                            </h3>
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addTicket">
-                                    <i class="fa fa-plus"></i>  New Ticket
-                                </button>                 
-                            </div><!-- /.box-tools -->
-                        </div><!-- /.box-header -->
-                        <div class="box-body">
-                            Tweet Body
-                            .....
-                        </div><!-- /.box-body -->
+                <div class="box-body" id="tweets">
+                    <div class="overlay">
+                        <i class="fa fa-refresh fa-spin"></i>
                     </div>
-                    <div class="box box-primary">
-                        <div class="box-header with-border">
-                            <h3 class="box-title text-primary">Customer Name
-                                <small>username</small>
-                            </h3>
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addTicket">
-                                    <i class="fa fa-plus"></i>  New Ticket
-                                </button>
-                            </div><!-- /.box-tools -->
-                        </div><!-- /.box-header -->
-                        <div class="box-body">
-                            Tweet Body
-                            .....
-                        </div><!-- /.box-body -->
-                    </div>
-                    <div class="box box-primary">
-                        <div class="box-header with-border">
-                            <h3 class="box-title text-primary">Customer Name
-                                <small>username</small>
-                            </h3>
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addTicket">
-                                    <i class="fa fa-plus"></i>  New Ticket
-                                </button>
-                            </div><!-- /.box-tools -->
-                        </div><!-- /.box-header -->
-                        <div class="box-body">
-                            Tweet Body
-                            .....
-                        </div><!-- /.box-body -->
-                    </div>
-                    <div class="box box-primary">
-                        <div class="box-header with-border">
-                            <h3 class="box-title text-primary">Customer Name
-                                <small>username</small>
-                            </h3>
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addTicket">
-                                    <i class="fa fa-plus"></i>  New Ticket
-                                </button>
-                            </div><!-- /.box-tools -->
-                        </div><!-- /.box-header -->
-                        <div class="box-body">
-                            Tweet Body
-                            .....
-                        </div><!-- /.box-body -->
-                    </div>
-                    <div class="box box-primary">
-                        <div class="box-header with-border">
-                            <h3 class="box-title text-primary">Customer Name
-                                <small>username</small>
-                            </h3>
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addTicket">
-                                    <i class="fa fa-plus"></i>  New Ticket
-                                </button>
-                            </div><!-- /.box-tools -->
-                        </div><!-- /.box-header -->
-                        <div class="box-body">
-                            Tweet Body
-                            .....
-                        </div><!-- /.box-body -->
-                    </div>
-                    <div class="box box-primary">
-                        <div class="box-header with-border">
-                            <h3 class="box-title text-primary">Customer Name
-                                <small>username</small>
-                            </h3>
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addTicket">
-                                    <i class="fa fa-plus"></i>  New Ticket
-                                </button>
-                            </div><!-- /.box-tools -->
-                        </div><!-- /.box-header -->
-                        <div class="box-body">
-                            Tweet Body
-                            .....
-                        </div><!-- /.box-body -->
-                    </div>
+
+
+
                 </div>
             </div>
            	<!-- Tickets Feed -->
@@ -415,6 +325,16 @@
     </div>
 
     @include('ticket.ticketModal')
-    @include('ticket.addTicketModal')
+    @include('ticket.addTicketFromTweetModal')
 
+@endsection
+@section('scripts')
+    <script>
+        var getDepartments = "{{route('departmentIndex')}}";
+        var getStatuses = "{{route('statusIndex')}}";
+        var getPriorities = "{{route('priorityIndex')}}";
+        var route = "{{route('getTweets')}}";
+        var agentsURL = "{{url('agents/index')}}";
+    </script>
+{{HTML::script('dist/js/adminFeed.js')}}
 @endsection

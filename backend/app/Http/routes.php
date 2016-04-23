@@ -26,7 +26,30 @@ Route::group(['middleware' => 'auth'], function () {
         'as' => 'twitterAuthentication',
         'uses' => 'SocialProviderController@twitterAuthenticateAndAuthorize'
     ]);
-
+    Route::get('/getTweets',[
+        'as' => 'getTweets',
+        'uses' => 'FeedController@getTweets'
+    ]);
+    Route::get('/status/index', [
+        'as' => 'statusIndex',
+        'uses' => 'StatusController@index'
+    ]);
+    Route::get('/priority/index', [
+        'as' => 'priorityIndex',
+        'uses' => 'PriorityController@index'
+    ]);
+    Route::get('/agents/index/{departmentId}', [
+        'as' => 'agentsIndexAPI',
+        'uses' => 'AgentController@indexAPI'
+    ]);
+    Route::get('/departments/index',[
+        'as' => 'departmentIndex',
+        'uses' => 'DepartmentController@getDepartments'
+    ]);
+    route::get('/check/customer/{username}',[
+        'as' => 'checkCustomer',
+        'uses' => 'CustomerController@show'
+    ]);
     Route::get('/callback', [
         'as' => 'twitterCallback', 
         'uses' => 'SocialProviderController@twitterCallback'
