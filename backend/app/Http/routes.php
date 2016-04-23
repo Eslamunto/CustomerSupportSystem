@@ -151,5 +151,7 @@ Route::get('/test', function(){
 	return view('layouts.master');
 });
 
+Route::resource('/payment', 'PaymentController');
+
 
 
