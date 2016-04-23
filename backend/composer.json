@@ -10,7 +10,8 @@
         "laravelcollective/html": "5.2.*",
         "doctrine/dbal": "^2.5",
         "mjolnic/bootstrap-colorpicker": "^2.3",
-        "abraham/twitteroauth": "^0.6.3"
+        "abraham/twitteroauth": "^0.6.3",
+        "anouar/paypalpayment": "~1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
