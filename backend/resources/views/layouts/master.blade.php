@@ -130,7 +130,7 @@
                     <li class="treeview">
                       <a href="#"><i class="fa fa-optin-monster"></i> <span>Team Activity</span> <i class="fa fa-angle-left pull-right"></i></a>
                       <ul class="treeview-menu">
-                        <li><a href="#"><i class="fa fa-user"></i> <span>Support Agents</span></a></li>
+                        <li><a href="{{ route('supervisorTeamAgents', Auth::user()->id) }}"><i class="fa fa-user"></i> <span>Support Agents</span></a></li>
                         <li><a href="#"><i class="fa fa-ticket"></i> <span>Tickets History</span></a></li>
                       </ul>
                     </li>
@@ -166,7 +166,7 @@
                         <span>Connect to Twitter</span></button>
                     </li> 
                 @endif   
-                </ul><!-- /.sidebar-menu -->
+                </ul><!-- /.sidebar-menu --></ul>
             </section>
             <!-- /.sidebar -->
         </aside>

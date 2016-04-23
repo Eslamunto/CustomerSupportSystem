@@ -6,13 +6,13 @@
         });
     </script>
 @endif
- @if(Auth::user()->role == 0)
-                            <?php $action = "{{ Route('createCustomerAdmin') }}" ?>
-                        @elseif (Auth::user()->role == 1)
-                            <?php $action =  "{{ Route('createCustomerSupervisor') }}" ?>
-                        @else
-                            <?php $action = "{{ Route('createCustomerAgent') }}" ?>
-                        @endif
+@if(Auth::user()->role == 0)
+    <?php $action = "{{ Route('createCustomerAdmin') }}" ?>
+@elseif (Auth::user()->role == 1)
+    <?php $action =  "{{ Route('createCustomerSupervisor') }}" ?>
+@else
+    <?php $action = "{{ Route('createCustomerAgent') }}" ?>
+@endif
 
 <div class="modal fade" id="addCustomer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
