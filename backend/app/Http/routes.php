@@ -34,9 +34,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
         //Admin home
-        Route::get('/', function () {
-            return view('admin.adminFeed');
-        });
+        Route::get('/', ["as" => "adminFeed", "uses" =>"FeedController@index"]);
+
         Route::get('/customers',function(){
             return view('admin.adminCustomers');
         });
@@ -145,13 +144,18 @@ Route::group(['middleware' => 'auth'], function () {
             'as' => 'updateTwitterAccount',
             'uses' => 'SocialProviderController@update'
         ]);
+
+        Route::post('/ticket/{id}', [
+            'as' => 'assignTicket',
+            'uses' => 'TicketController@assign'
+        ]);
+
     });
 
 
     Route::group(['middleware' => 'supervisor', 'prefix' => 'supervisor'], function () {
-        Route::get('/', function () {
-            return view('supervisor.supervisorFeed');
-        });
+        Route::get('/', ["as" => "supervisorFeed", "uses" =>"FeedController@index"]);
+
         Route::get('/customers',function(){
             return view('supervisor.supervisorCustomers');
         });
@@ -162,6 +166,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('create/customer',[
             'as'=>'createCustomerSupervisor',
             'uses'=>'CustomerController@postCreate'
+        ]);
+        Route::post('/ticket/{id}', [
+            'as' => 'assignTicketSupervisor',
+            'uses' => 'TicketController@assign'
         ]);
     });
 
