@@ -34,12 +34,15 @@ class FeedController extends Controller
         $userAssignedTickets = $this->getUserAssignedTickets();
         $unassignedTickets = $this->getunAssignedTickets();
         $userTeam = $this->getUserTeam();
+        $userAssignedTicketsCount = count($userAssignedTickets);
          if(Auth::user()->role == 0){
             return view('admin.adminFeed', compact('unassignedTickets', 'userAssignedTickets', 'userTeam'));
-         }else{
+         }elseif(Auth::user()->role == 1){
             return view('supervisor.supervisorFeed', compact('unassignedTickets', 'userAssignedTickets', 'userTeam'));
-             
+        }elseif(Auth::user()->role == 2){
+            return view('agent.agentFeed', compact('unassignedTickets', 'userAssignedTickets', 'userAssignedTicketsCount'));
         }
+
     }
 
     /**

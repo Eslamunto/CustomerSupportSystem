@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Auth as Auth;
 use App\UserTicket;
 use App\Ticket;
 use App\User;
+use Illuminate\Support\Facades\DB as DB;
+
 
 
 use Log;
@@ -55,6 +57,38 @@ class TicketController extends Controller
             Session::flash('message', 'Ticket: '.$ticket->title .' has been successfully assigneed to Supervisor '.$user->name);
         }else {
             Session::flash('message', 'Ticket: '.$ticket->title .' has been successfully assigneed to Agent '.$user->name);
+        }
+       
+        return redirect()->back();
+    }
+     public function claim(Request $request, $id)
+    {   
+        $ticket = Ticket::find($id);
+        
+        $userAssignedTickets = DB::table('ticket')
+            ->join('user_tickets', 'ticket.id', '=', 'user_tickets.ticketId')
+            ->join('users', 'user_tickets.userId', '=', 'users.id')
+            ->select('ticket.*')
+            ->where('users.id', '=', Auth::user()->id)
+            ->count();
+
+        if(Auth::user()->role == 2){
+            if ($userAssignedTickets >=3 ){
+                Session::flash('error', 'Sorry! Currently you can not claim any tickets. As an agent, you can not claim a ticket while having more than 3 assigned ones');
+            }
+            else{
+                $userTicket = new UserTicket;
+                $userTicket->userId = Auth::user()->id;
+                $userTicket->ticketId = $id;
+                $userTicket->save();
+                Session::flash('message', 'You have successfully claimed Ticket: '.$ticket->title);
+            }
+        }else {
+           $userTicket = new UserTicket;
+                $userTicket->userId = Auth::user()->id;
+                $userTicket->ticketId = $id;
+                $userTicket->save();
+                Session::flash('message', 'You have successfully claimed Ticket: '.$ticket->title);
         }
        
         return redirect()->back();

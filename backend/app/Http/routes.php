@@ -149,11 +149,16 @@ Route::group(['middleware' => 'auth'], function () {
             'as' => 'assignTicket',
             'uses' => 'TicketController@assign'
         ]);
+        Route::post('/claim/{id}', [
+            'as' => 'claimTicketAdmin',
+            'uses' => 'TicketController@claim'
+        ]);
 
     });
 
 
     Route::group(['middleware' => 'supervisor', 'prefix' => 'supervisor'], function () {
+        //supervisor home
         Route::get('/', ["as" => "supervisorFeed", "uses" =>"FeedController@index"]);
 
         Route::get('/customers',function(){
@@ -171,14 +176,18 @@ Route::group(['middleware' => 'auth'], function () {
             'as' => 'assignTicketSupervisor',
             'uses' => 'TicketController@assign'
         ]);
+        Route::post('/claim/{id}', [
+            'as' => 'claimTicketSupervisor',
+            'uses' => 'TicketController@claim'
+        ]);
     });
 
 
     Route::group(['middleware' => 'agent', 'prefix' => 'agent'], function () {
-        Route::get('/', function () {
-            return view('agent.agentFeed');
-        });
-         Route::get('/customers',function(){
+         //agent home
+        Route::get('/', ["as" => "agentFeed", "uses" =>"FeedController@index"]);
+        
+        Route::get('/customers',function(){
             return view('agent.agentCustomers');
         });
         Route::get('create/customer', function()
@@ -188,6 +197,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('create/customer',[
             'as'=>'createCustomerAgent',
             'uses'=>'CustomerController@postCreate'
+        ]);
+        Route::post('/claim/{id}', [
+            'as' => 'claimTicketAgent',
+            'uses' => 'TicketController@claim'
         ]);
     });
 

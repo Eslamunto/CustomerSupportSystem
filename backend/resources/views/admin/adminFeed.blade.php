@@ -172,9 +172,12 @@
                                 @foreach ($unassignedTickets as $ticket)
                                     <div class="callout callout-default callout-ticket-bg clearfix">
                                         <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket">{{ $ticket->title }} </a></h5>
-                                        <div class="pull-right">
-                                            <button type="button" class="btn btn-danger btn-sm pull-right"><i class="fa fa-medkit"></i> Claim </button>
-                                        </div>
+                                        <form method="POST" action="{{ Route('claimTicketAdmin', $ticket->id) }}">
+                                            {!! csrf_field() !!}
+                                            <div class="pull-right">
+                                                <button type="submit" class="btn btn-danger btn-sm pull-right"><i class="fa fa-medkit"></i> Claim </button>
+                                            </div>
+                                        </form>
                                         <div class="pull-right">
                                             <button type="button" class="assign-ticket-button btn btn-success btn-sm pull-right" data-assign-route="{{ Route('assignTicket', $ticket->id) }}" data-toggle="modal" data-target="#assignTicket"><i class="fa fa-medkit"></i> Assign </button>
                                         </div>
