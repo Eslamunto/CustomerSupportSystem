@@ -146,10 +146,11 @@
                         <div class="tab-pane active" id="tab_1-1">
                             @foreach ($userAssignedTickets as $ticket)
                                 <div class="callout callout-default callout-ticket-bg clearfix">
-                                    <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket">{{ $ticket->title }} </a></h5>
+                                    <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket-{{$ticket->id}}">{{ $ticket->title }} </a></h5>
+                                    @include('ticket.ticketModal', ['ticket' => $ticket])
                                     <div class="pull-right">
-                                        <span class="label bg-yellow">Opened</span>
-                                        <span class="label bg-red">High</span>
+                                        <span class="label bg-yellow">{{$ticket->statusName}}</span>
+                                        <span class="label bg-red">{{$ticket->priorityName}}</span>
                                         <span class="label bg-aqua">3</span>
                                     </div>
                                 </div>
@@ -159,8 +160,9 @@
                         <!-- Team Tickets -->
                         <div class="tab-pane" id="tab_2-2">
                             <div class="callout callout-default callout-ticket-bg clearfix">
-                                <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket">#7 Ticket Title</a></h5>
-                                <div class="pull-right">
+                                <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket-{{$ticket->id}}">#7 Ticket Title</a></h5>
+<!--                                 @include('ticket.ticketModal', ['ticket' => $ticket])
+ -->                                <div class="pull-right">
                                     <span class="label bg-yellow">Opened</span>
                                     <span class="label bg-red">High</span>
                                     <span class="label bg-aqua">3</span>
@@ -171,7 +173,12 @@
                         <div class="tab-pane" id="tab_3-2">
                                 @foreach ($unassignedTickets as $ticket)
                                     <div class="callout callout-default callout-ticket-bg clearfix">
-                                        <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket">{{ $ticket->title }} </a></h5>
+                                        <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket-{{$ticket->id}}">{{ $ticket->title }} </a></h5>
+                                        @include('ticket.ticketModal', ['ticket' => $ticket])
+                                        <!-- <div  >
+                                            <span class="label bg-yellow">{{$ticket->statusName}}</span>
+                                            <span class="label bg-red">{{$ticket->priorityName}}</span>
+                                        </div> -->
                                         <form method="POST" action="{{ Route('claimTicketAdmin', $ticket->id) }}">
                                             {!! csrf_field() !!}
                                             <div class="pull-right">
@@ -328,7 +335,6 @@
         </div>
     </div>
     @include('ticket.assignTicketModal')
-    @include('ticket.ticketModal')
     @include('ticket.addTicketModal')
 
 @endsection

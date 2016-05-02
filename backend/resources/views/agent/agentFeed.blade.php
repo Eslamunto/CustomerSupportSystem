@@ -39,17 +39,25 @@
                 <div class="box-header with-border">
                     <h3 class="box-title"><i class="fa fa-ticket"></i> &nbspMy Tickets</h3>
                 </div>
+<!-- ==================================================================================================================== -->
+
                 <div class="box-body">
                     @foreach ($userAssignedTickets as $ticket)
                         <div class="callout callout-default callout-ticket-bg clearfix">
-                            <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket">{{ $ticket->title }} </a></h5>
+                            <h5 class="pull-left"><a class="set-ticket-status" data-toggle="modal" data-target="#ticket-{{$ticket->id}}">{{ $ticket->title }} </a></h5>
+                           
+<!--                                 <button type="button" class="set-ticket-status pull-left" data-toggle="modal" data-target="#ticket-{{$ticket->id}}"><i class="fa fa-medkit"></i> {{ $ticket->title }}  </button>
+ -->
+                            @include('ticket.ticketModal', ['ticket' => $ticket])
                             <div class="pull-right">
-                                <span class="label bg-yellow">Opened</span>
-                                <span class="label bg-red">High</span>
+                                <span class="label bg-yellow">{{$ticket->statusName}}</span>
+                                <span class="label bg-red">{{$ticket->priorityName}}</span>
                                 <span class="label bg-aqua">3</span>
                             </div>
                         </div>
                     @endforeach
+<!-- ==================================================================================================================== -->
+
                 </div>
             </div>
         </div>
@@ -79,7 +87,21 @@
         </div>
     </div>
     
-    @include('ticket.ticketModal')
     @include('ticket.addTicketModal')
 
+@endsection
+@section('scripts')
+<!-- DataTables -->
+{{ HTML::script('plugins/datatables/jquery.dataTables.min.js') }}
+{{ HTML::script('plugins/datatables/dataTables.bootstrap.min.js') }}
+<!-- SlimScroll -->
+{{ HTML::script('plugins/slimScroll/jquery.slimscroll.min.js') }}
+<!-- FastClick -->
+{{ HTML::script('plugins/fastclick/fastclick.min.js') }}
+<!-- page script -->
+<script>
+    // $('.set-ticket-status').on('click', function () {
+    //     $('#set-status-from').attr('action', $(this).data('status-route'));
+    // });
+</script>
 @endsection

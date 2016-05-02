@@ -32,6 +32,7 @@ Route::group(['middleware' => 'auth'], function () {
         'uses' => 'SocialProviderController@twitterCallback'
     ]);
 
+
     Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
         //Admin home
         Route::get('/', ["as" => "adminFeed", "uses" =>"FeedController@index"]);
@@ -153,6 +154,14 @@ Route::group(['middleware' => 'auth'], function () {
             'as' => 'claimTicketAdmin',
             'uses' => 'TicketController@claim'
         ]);
+        Route::put('/ticketStatus/{id}', [
+            'as' => 'setTicketStatusAdmin',
+            'uses' => 'TicketController@setStatus'
+        ]);
+         Route::put('/ticketPriority/{id}', [
+            'as' => 'setTicketPriorityAdmin',
+            'uses' => 'TicketController@setPriority'
+        ]);
 
     });
 
@@ -180,6 +189,14 @@ Route::group(['middleware' => 'auth'], function () {
             'as' => 'claimTicketSupervisor',
             'uses' => 'TicketController@claim'
         ]);
+        Route::put('/ticketStatus/{id}', [
+            'as' => 'setTicketStatusSupervisor',
+            'uses' => 'TicketController@setStatus'
+        ]);
+          Route::put('/ticketPriority/{id}', [
+            'as' => 'setTicketPrioritySupervisor',
+            'uses' => 'TicketController@setPriority'
+        ]);
     });
 
 
@@ -201,6 +218,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/claim/{id}', [
             'as' => 'claimTicketAgent',
             'uses' => 'TicketController@claim'
+        ]);
+        Route::put('/ticketStatus/{id}', [
+            'as' => 'setTicketStatusAgent',
+            'uses' => 'TicketController@setStatus'
+        ]);
+        Route::put('/ticketPriority/{id}', [
+            'as' => 'setTicketPriorityAgent',
+            'uses' => 'TicketController@setPriority'
         ]);
     });
 

@@ -1,11 +1,11 @@
 <!-- Ticket Modal -->
-<div class="modal fade" id="ticket" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="ticket-{{$ticket->id}}" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header bg-blue">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true" class="fa fa-times"></span><span class="sr-only">Close</span></button>
                 <h4 class="modal-title" id="myModalLabel">
-                    <b>[#1] Ticket Title</b>
+                    <b>{{"$ticket->title"}}</b>
                 </h4>
             </div>
             <!-- Modal Body -->
@@ -19,9 +19,7 @@
                         </div><!-- /.box-header -->
                         <div class="box-body">
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.
+                                {{$ticket->description}}
                             </p>
                         </div><!-- /.box-body -->
                     </div>
@@ -38,11 +36,11 @@
                             <tbody>
                                 <tr>
                                     <th>Status</th>
-                                    <th><span class="label bg-yellow">Opened</span></th>
+                                    <th><span class="label bg-yellow">{{$ticket->statusName}}</span></th>
                                 </tr>
                                 <tr>
                                     <th>Priority</th>
-                                    <th><span class="label bg-red">High</span></th>
+                                    <th><span class="label bg-red">{{$ticket->priorityName}}</span></th>
                                 </tr>
                             </tbody>
                         </table>
@@ -133,17 +131,17 @@
                 </div>
 
                 <!-- Tickets Action -->
-                <div class="ticket-actions">
+                <div class="ticket-actions" id="ticket-{{$ticket->id}}-action">
                     <!-- Re-assign to Agent -->
                     <div class="panel box box-success">
                         <div class="box-header with-border">
                             <div class="box-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseZero" aria-expanded="true" class="">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseZero-{{$ticket->id}}" aria-expanded="true" class="">
                                     Re-assign Ticket
                                 </a>
                             </div>
                         </div>
-                        <div id="collapseZero" class="panel-collapse collapse" aria-expanded="true">
+                        <div id="collapseZero-{{$ticket->id}}" class="panel-collapse collapse" aria-expanded="true">
                             <div class="box-body">
                                 <form role="form">
                                     <div class= "form-group">
@@ -178,12 +176,12 @@
                     <div class="panel box box-danger">
                         <div class="box-header with-border">
                             <div class="box-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" class="">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne-{{$ticket->id}}" aria-expanded="true" class="">
                                     Invite Agents
                                 </a>
                             </div>
                         </div>
-                        <div id="collapseOne" class="panel-collapse collapse" aria-expanded="true">
+                        <div id="collapseOne-{{$ticket->id}}" class="panel-collapse collapse" aria-expanded="true">
                             <div class="box-body">
                                 <form role="form">
                                     <div class= "form-group">
@@ -215,38 +213,33 @@
                     </div>
 
                     <!-- Change Status -->
-                    <div class="panel box box-primary">
+                    <div class="panel box box-primary" id="collapse-box-{{$ticket->id}}">
                         <div class="box-header with-border">
                             <div class="box-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" class="">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo-{{$ticket->id}}" aria-expanded="true" class="collapse-{{$ticket->id}}">
                                     Change Status
                                 </a>
                             </div>
                         </div>
-                        <div id="collapseTwo" class="panel-collapse collapse" aria-expanded="true">
-                            <div class="box-body">
-                                <form role="form">
+                        <div id="collapseTwo-{{$ticket->id}}" class="panel-collapse collapse" aria-expanded="true">
+                            <div class="box-body"> 
+                                @if(Auth::user()->role == 0)
+                                    <form role="form" action="{{Route('setTicketStatusAdmin', $ticket->id)}}"  method="POST">
+                                @elseif (Auth::user()->role == 1)
+                                    <form role="form" action="{{Route('setTicketStatusSupervisor', $ticket->id)}}"  method="POST">
+                                @else
+                                    <form role="form" action="{{Route('setTicketStatusAgent', $ticket->id)}}"  method="POST">
+                                @endif
+                                    {{csrf_field()}}
+                                    {!! method_field('put') !!}
                                     <div class= "form-group">
-                                        <div class="radio">
+                                         @foreach ($ticketStatus as $status)
+                                         <div class="radio">
                                             <label>
-                                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="one"> Status one
+                                                <input type="radio" name="selectedStatus" value="{{$status->id}}"> {{$status->name}}
                                             </label>
                                         </div>
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="two"> Status two
-                                            </label>
-                                        </div>
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="optionsRadios" id="optionsRadios3" value="three"> Status three
-                                            </label>
-                                        </div>
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="optionsRadios" id="optionsRadios4" value="four"> Status four
-                                            </label>
-                                        </div>
+                                        @endforeach
                                     </div>
                                     <button type="submit" class="btn btn-xs btn-primary btn-block">Change</button>
                                 </form> 
@@ -258,32 +251,32 @@
                     <div class="panel box box-warning">
                         <div class="box-header with-border">
                             <div class="box-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" class="">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree-{{$ticket->id}}" aria-expanded="true" class="">
                                     Change Priority
                                 </a>
                             </div>
                         </div>
-                        <div id="collapseThree" class="panel-collapse collapse" aria-expanded="true">
+                        <div id="collapseThree-{{$ticket->id}}" class="panel-collapse collapse" aria-expanded="true">
                             <div class="box-body">
-                                <form role="form">
+                               @if(Auth::user()->role == 0)
+                                    <form role="form" action="{{Route('setTicketPriorityAdmin', $ticket->id)}}"  method="POST">
+                                @elseif (Auth::user()->role == 1)
+                                    <form role="form" action="{{Route('setTicketPrioritySupervisor', $ticket->id)}}"  method="POST">
+                                @else
+                                    <form role="form" action="{{Route('setTicketPriorityAgent', $ticket->id)}}"  method="POST">
+                                @endif
+                                    {{csrf_field()}}
+                                    {!! method_field('put') !!}
                                     <div class= "form-group">
-                                        <div class="radio">
+                                         @foreach ($ticketPriority as $priority)
+                                         <div class="radio">
                                             <label>
-                                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="low"> Low
-                                            </label>
-                                      </div>
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="medium"> Medium
+                                                <input type="radio" name="selectedPriority" value="{{$priority->id}}"> {{$priority->name}}
                                             </label>
                                         </div>
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="optionsRadios" id="optionsRadios3" value="high"> High
-                                            </label>
-                                        </div>
+                                        @endforeach
                                     </div>
-                                    <button type="submit" class="btn btn-xs btn-warning btn-block">Change</button>
+                                    <button type="submit" class="btn btn-xs btn-primary btn-block">Change</button>
                                 </form> 
                             </div>
                         </div>

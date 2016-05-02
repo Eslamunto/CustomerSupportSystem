@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\DB as DB;
 use App\Ticket as Ticket;
 use App\Team as Team;
 use App\User as User;
+use App\Status as Status;
+use App\Priority as Priority;
 
 class FeedController extends Controller
 {
@@ -35,12 +37,14 @@ class FeedController extends Controller
         $unassignedTickets = $this->getunAssignedTickets();
         $userTeam = $this->getUserTeam();
         $userAssignedTicketsCount = count($userAssignedTickets);
+        $ticketStatus = Status::all();
+        $ticketPriority = Priority::all();
          if(Auth::user()->role == 0){
-            return view('admin.adminFeed', compact('unassignedTickets', 'userAssignedTickets', 'userTeam'));
+            return view('admin.adminFeed', compact('unassignedTickets', 'userAssignedTickets', 'userTeam', 'ticketStatus', 'ticketPriority'));
          }elseif(Auth::user()->role == 1){
-            return view('supervisor.supervisorFeed', compact('unassignedTickets', 'userAssignedTickets', 'userTeam'));
+            return view('supervisor.supervisorFeed', compact('unassignedTickets', 'userAssignedTickets', 'userTeam', 'ticketStatus', 'ticketPriority'));
         }elseif(Auth::user()->role == 2){
-            return view('agent.agentFeed', compact('unassignedTickets', 'userAssignedTickets', 'userAssignedTicketsCount'));
+            return view('agent.agentFeed', compact('unassignedTickets', 'userAssignedTickets', 'userAssignedTicketsCount', 'ticketStatus', 'ticketPriority'));
         }
 
     }
@@ -69,15 +73,19 @@ class FeedController extends Controller
          $userAssignedTickets = DB::table('ticket')
             ->join('user_tickets', 'ticket.id', '=', 'user_tickets.ticketId')
             ->join('users', 'user_tickets.userId', '=', 'users.id')
-            ->select('ticket.*')
+            ->join('status','ticket.statusId', '=', 'status.id')
+            ->join('priority','ticket.priorityId', '=', 'priority.id')
+            ->select('ticket.*','status.name AS statusName', 'priority.id AS priorityId','priority.name AS priorityName', 'priority.id AS priorityId')
             ->where('users.id', '=', Auth::user()->id)
             ->get();
         return $userAssignedTickets;
     }
      public function getunAssignedTickets(){
          $unassignedTickets = DB::table('ticket')
+            ->join('status','ticket.statusId', '=', 'status.id')
+            ->join('priority','ticket.priorityId', '=', 'priority.id')
             ->leftjoin('user_tickets', 'ticket.id', '=', 'user_tickets.ticketId')
-            ->select('ticket.*')
+            ->select('ticket.*','status.name AS statusName', 'priority.id AS priorityId','priority.name AS priorityName', 'priority.id AS priorityId')
             ->whereNull('user_tickets.ticketId')
             ->get();
         return $unassignedTickets;

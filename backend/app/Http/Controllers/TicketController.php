@@ -18,8 +18,8 @@ use App\UserTicket;
 use App\Ticket;
 use App\User;
 use Illuminate\Support\Facades\DB as DB;
-
-
+use App\Status;
+use App\Priority;
 
 use Log;
 
@@ -92,6 +92,26 @@ class TicketController extends Controller
         }
        
         return redirect()->back();
+    }
+    public function setStatus(Request $request, $id)
+    {
+        //dd(Input::get('selectedStatus'));  
+        $ticket = Ticket::find($id);
+        $status = Status::find(Input::get('selectedStatus'));
+        $ticket->statusId = Input::get('selectedStatus');
+        $ticket->save();
+        Session::flash('message', 'The Status of '.$ticket->title .' has been set to '. $status->name.' status Successfully');
+        return redirect()->back();  
+    }
+    public function setPriority(Request $request, $id)
+    {
+        //dd(Input::get('selectedStatus'));  
+        $ticket = Ticket::find($id);
+        $priority = Priority::find(Input::get('selectedPriority'));
+        $ticket->priorityId = Input::get('selectedPriority');
+        $ticket->save();
+        Session::flash('message', 'The Priority of '.$ticket->title .' has been set to '. $priority->name.' priority Successfully');
+        return redirect()->back();  
     }
     public function destroy($id)
     {
