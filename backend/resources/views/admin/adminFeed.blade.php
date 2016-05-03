@@ -188,7 +188,7 @@
                                             </div>
                                         </form>
                                         <div class="pull-right">
-                                            <button type="button" class="assign-ticket-button btn btn-success btn-sm pull-right" data-assign-route="{{ Route('assignTicket', $ticket->id) }}" data-toggle="modal" data-target="#assignTicket"><i class="fa fa-medkit"></i> Assign </button>
+                                            <button style="margin-right: 0.1cm; "type="button" class="assign-ticket-button btn btn-success btn-sm pull-right" data-assign-route="{{ Route('assignTicket', $ticket->id) }}" data-toggle="modal" data-target="#assignTicket"><i class="fa fa-medkit"></i> Assign </button>
                                         </div>
                                     </div>
                                 @endforeach

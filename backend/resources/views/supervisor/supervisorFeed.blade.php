@@ -149,7 +149,6 @@
                                     <div class="callout callout-default callout-ticket-bg clearfix">
                                         <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket-{{$ticket->id}}">{{ $ticket->title }} </a></h5>
                                         @include('ticket.ticketModal', ['ticket' => $ticket])
-
                                        <form method="POST" action="{{ Route('claimTicketSupervisor', $ticket->id) }}">
                                             {!! csrf_field() !!}
                                             <div class="pull-right">
@@ -157,7 +156,7 @@
                                             </div>
                                         </form>
                                         <div class="pull-right">
-                                            <button type="button" class="assign-ticket-button btn btn-success btn-sm pull-right" data-assign-route="{{ Route('assignTicketSupervisor', $ticket->id) }}" data-toggle="modal" data-target="#assignTicket"><i class="fa fa-medkit"></i> Assign </button>
+                                            <button style="margin-right: 0.1cm; " type="button" class="assign-ticket-button btn btn-success btn-sm pull-right" data-assign-route="{{ Route('assignTicketSupervisor', $ticket->id) }}" data-toggle="modal" data-target="#assignTicket"><i class="fa fa-medkit"></i> Assign </button>
                                         </div>
                                     </div>
                                 @endforeach
