@@ -45,7 +45,7 @@ class FeedController extends Controller
          }elseif(Auth::user()->role == 1){
             return view('supervisor.supervisorFeed', compact('unassignedTickets', 'userAssignedTickets', 'userTeam', 'ticketStatus', 'ticketPriority'));
         }elseif(Auth::user()->role == 2){
-            return view('agent.agentFeed', compact('unassignedTickets', 'userAssignedTickets', 'userAssignedTicketsCount', 'ticketStatus', 'ticketPriority'));
+            return view('agent.agentFeed', compact('unassignedTickets', 'userAssignedTickets', 'userTeam', 'userAssignedTicketsCount', 'ticketStatus', 'ticketPriority'));
         }
 
     }

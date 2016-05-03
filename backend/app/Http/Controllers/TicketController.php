@@ -132,8 +132,6 @@ class TicketController extends Controller
             ->where('users.role', '=', 0)
             ->first();
         }
-        
-
         // $supervisor = User::find($supervisor->id);
         $userTicket = new UserTicket;
         $userTicket->userId = $supervisor->id;
@@ -143,6 +141,26 @@ class TicketController extends Controller
         $userTicket->save();
         Session::flash('message', $ticket->title .' has been esclated to your supervisor Successfully');
         return redirect()->back();  
+    }
+    public function inviteToTicket(Request $request, $id)
+    {  
+        $isAssigned = UserTicket::where('ticketId', $id)
+        ->where('userId',Input::get('selectedMember'))
+        ->count();
+        $user = User::find(Input::get('selectedMember'));
+        $ticket = Ticket::find($id);
+        if($isAssigned > 0){
+        Session::flash('error','Error processing your request, '. $user->name .' is already assigned to '.$ticket->title);
+        return redirect()->back();    
+        }
+        $ticket = Ticket::find($id);
+        $user = User::find(Input::get('selectedMember'));
+        $userTicket = new UserTicket;
+        $userTicket->userId = Input::get('selectedMember');
+        $userTicket->ticketId = $id;
+        $userTicket->save();
+        Session::flash('message', $user->name .' has been invited to '.$ticket->title.' Successfully');
+        return redirect()->back();    
     }
     public function destroy($id)
     {

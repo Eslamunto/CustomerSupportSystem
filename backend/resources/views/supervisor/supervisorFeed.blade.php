@@ -10,7 +10,12 @@
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
             {{ Session::get('message') }}
         </div>
-    @endif
+@elseif(Session::has('error') )
+        <div class="alert alert-danger alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            {{ Session::get('error') }}
+        </div>
+@endif
     @if($errors->any())
         <div class="alert alert-danger alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -121,8 +126,8 @@
                                     <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket-{{$ticket->id}}">{{ $ticket->title }} </a></h5>
                                     @include('ticket.ticketModal', ['ticket' => $ticket])
                                         <div class="pull-right">
-                                            <span class="label bg-yellow">{{$ticket->statusName}}</span>
-                                            <span class="label bg-red">{{$ticket->priorityName}}</span>
+                                            <span class="label bg-blue">{{$ticket->statusName}}</span>
+                                            <span class="label bg-yellow">{{$ticket->priorityName}}</span>
                                             <span class="label bg-aqua">3</span>
                                         </div>
                                 </div>
@@ -134,8 +139,8 @@
                             <div class="callout callout-default callout-ticket-bg clearfix">
                                 <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket">#7 Ticket Title</a></h5>
                                 <div class="pull-right">
-                                    <span class="label bg-yellow">Opened</span>
-                                    <span class="label bg-red">High</span>
+                                    <span class="label bg-blue">Opened</span>
+                                    <span class="label bg-yellow">High</span>
                                     <span class="label bg-aqua">3</span>
                                 </div>
                             </div>

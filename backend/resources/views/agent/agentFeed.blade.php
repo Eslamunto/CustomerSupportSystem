@@ -45,14 +45,10 @@
                     @foreach ($userAssignedTickets as $ticket)
                         <div class="callout callout-default callout-ticket-bg clearfix">
                             <h5 class="pull-left"><a class="set-ticket-status" data-toggle="modal" data-target="#ticket-{{$ticket->id}}">{{ $ticket->title }} </a></h5>
-                           
-<!--                                 <button type="button" class="set-ticket-status pull-left" data-toggle="modal" data-target="#ticket-{{$ticket->id}}"><i class="fa fa-medkit"></i> {{ $ticket->title }}  </button>
- -->
                             @include('ticket.ticketModal', ['ticket' => $ticket])
                             <div class="pull-right">
-                                <span class="label bg-yellow">{{$ticket->statusName}}</span>
-                                <span class="label bg-red">{{$ticket->priorityName}}</span>
-                                <span class="label bg-aqua">3</span>
+                                <span class="label bg-blue">{{$ticket->statusName}}</span>
+                                <span class="label bg-yellow">{{$ticket->priorityName}}</span>
                             </div>
                         </div>
                     @endforeach
