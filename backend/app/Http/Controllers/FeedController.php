@@ -93,6 +93,8 @@ class FeedController extends Controller
         }
     }
      public function getunAssignedTickets(){
+        if(UserTicket::all()){
+
          $unassignedTickets = DB::table('ticket')
             ->join('status','ticket.statusId', '=', 'status.id')
             ->join('priority','ticket.priorityId', '=', 'priority.id')
@@ -100,7 +102,18 @@ class FeedController extends Controller
             ->select('ticket.*','status.name AS statusName', 'priority.id AS priorityId','priority.name AS priorityName', 'priority.id AS priorityId')
             ->whereNull('user_tickets.ticketId')
             ->get();
-        return $unassignedTickets;
+            if($unassignedTickets){
+                 return $unassignedTickets;
+            }
+            else {
+                $unassigned = array();
+                return $unassigned;
+            }
+        }
+        else{
+             $unassigned = array();
+                return $unassigned;
+        }
 
         //unassignedTickets;
     }

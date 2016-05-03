@@ -14,6 +14,8 @@ class CreateTwitterPostsTable extends Migration
     {
         Schema::create('twitter_posts', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('tweetId');
+            $table->string('tweetBody');
             $table->timestamps();
         });
     }
