@@ -12,21 +12,25 @@
 Route::auth();
 //
 Route::group(['middleware' => 'auth'], function () {
+    //Home 
     Route::get('/', [
         'as' => 'index',
         'uses'=> 'HomeController@index'
     ]);
 
+    //Logout
     Route::get('auth/logout', [
         'as' => 'logoutNew',
         'uses' => 'Auth\AuthController@getLogout'
     ]);
 
+    //Twitter Authorization
     Route::get('/twitterAuth', [
         'as' => 'twitterAuthentication',
         'uses' => 'SocialProviderController@twitterAuthenticateAndAuthorize'
     ]);
 
+    //Twitter CallBack
     Route::get('/callback', [
         'as' => 'twitterCallback', 
         'uses' => 'SocialProviderController@twitterCallback'
@@ -37,30 +41,37 @@ Route::group(['middleware' => 'auth'], function () {
         //Admin home
         Route::get('/', ["as" => "adminFeed", "uses" =>"FeedController@index"]);
 
+        //Admin customers
         Route::get('/customers',function(){
             return view('admin.adminCustomers');
         });
+
         Route::get('create/customer', function()
         {
             return View::make('admin.adminCustomers');
         });
+
         Route::post('create/customer',[
             'as'=>'createCustomerAdmin',
             'uses'=>'CustomerController@postCreate'
         ]);
+
         Route::put('/customer/{id}', [
             'as' => 'updateCustomer',
             'uses' => 'CustomerController@postUpdate'
         ]);
+
         Route::delete('customer/{id}', [
             'as' => 'deleteCustomer',
             'uses' => 'CustomerController@destroy'
         ]);
+
         //Admin agent's resources
         Route::get('index/agents',[
             'as'=>'indexAgents',
             'uses'=>'AgentController@index'
         ]);
+
         Route::get('show/agent/{id}',[
             'as'=>'showAgent',
             'uses'=>'AgentController@show'
@@ -70,14 +81,17 @@ Route::group(['middleware' => 'auth'], function () {
             'as'=>'getCreateAgent',
             'uses'=>'AgentController@getCreate'
         ]);
+
         Route::post('create/agent',[
             'as'=>'createAgent',
             'uses'=>'AgentController@postCreate'
         ]);
+
         Route::delete('delete/agent/{id}', [
             'as'=>'deleteAgent',
             'uses'=>'AgentController@destroy'
         ]);
+
         Route::put('edit/agent/{id}', [
             'as'=> 'agentUpdate',
             'uses'=> 'AgentController@update'
@@ -88,22 +102,27 @@ Route::group(['middleware' => 'auth'], function () {
             'as'=>'indexSupervisors',
             'uses'=>'SupervisorController@index'
         ]);
+
         Route::get('show/supervisor/{id}',[
             'as'=>'showSupervisor',
             'uses'=>'SupervisorController@show'
         ]);
+
         Route::get('create/supervisor',[
             'as'=>'getCreateSupervisor',
             'uses'=>'SupervisorController@getCreate'
         ]);
+
         Route::post('create/supervisor',[
             'as'=>'createSupervisor',
             'uses'=>'SupervisorController@postCreate'
         ]);
+
         Route::delete('delete/supervisor/{id}', [
             'as'=>'deleteSupervisor',
             'uses'=>'SupervisorController@destroy'
         ]);
+
         Route::put('edit/supervisor/{id}', [
             'as'=> 'updateSupervisor',
             'uses'=> 'SupervisorController@update'
@@ -167,16 +186,27 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     Route::group(['middleware' => 'supervisor', 'prefix' => 'supervisor'], function () {
+
         //supervisor home
         Route::get('/', ["as" => "supervisorFeed", "uses" =>"FeedController@index"]);
 
-        Route::get('/customers',function(){
+       
+        //Supervisor Tickets History
+        Route::get('/team/agents/{id}', [
+            'as' => 'supervisorTeamAgents',
+            'uses' => 'SupervisorController@getTeamAgents'
+        ]);
+
+        //Supervisor customers
+        Route::get('/customers', function(){
             return view('supervisor.supervisorCustomers');
         });
+
         Route::get('create/customer', function()
         {
             return View::make('supervisor.supervisorCustomers');
         });
+
         Route::post('create/customer',[
             'as'=>'createCustomerSupervisor',
             'uses'=>'CustomerController@postCreate'
@@ -204,13 +234,16 @@ Route::group(['middleware' => 'auth'], function () {
          //agent home
         Route::get('/', ["as" => "agentFeed", "uses" =>"FeedController@index"]);
         
+        //Agent customers
         Route::get('/customers',function(){
             return view('agent.agentCustomers');
         });
+
         Route::get('create/customer', function()
         {
             return View::make('agent.agentCustomers');
         });
+
         Route::post('create/customer',[
             'as'=>'createCustomerAgent',
             'uses'=>'CustomerController@postCreate'

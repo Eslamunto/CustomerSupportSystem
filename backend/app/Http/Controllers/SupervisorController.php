@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Input as Input;
 use Illuminate\Support\Facades\Hash as Hash;
 use Illuminate\Support\Facades\Session as Session;
 
+use App\Status as Status;
+use DB;
+
 class SupervisorController extends Controller
 {
     public function index(){
@@ -112,5 +115,26 @@ class SupervisorController extends Controller
          Session::flash('message', 'Successfully deleted the Supervisor!');
 
         return redirect()->route('indexSupervisors');
+    }
+
+
+    public function getTeamAgents($id){
+        $supervisor = User::find($id);
+        $team_id = $supervisor->teamId;
+        $agents = User::where('teamId', $team_id)->where('role', '2')->get();
+        $tickets_statuses = Status::all();
+
+        foreach ($agents as $agent) {   
+            foreach ($tickets_statuses as $ticket_status) {
+                $ticket_status_count = 
+                    DB::table('user_tickets')->join('ticket', 'user_tickets.ticketId', '=', 'ticket.id')
+                        ->where('user_tickets.userId', $agent->id)
+                        ->where('ticket.statusId', $ticket_status->id)
+                        ->count();
+                $agents_tickets_with_Statuses[$agent->id][$ticket_status->id] = $ticket_status_count;
+            }
+        }
+
+        return view('supervisor.supervisorAgents', compact('agents', 'tickets_statuses', 'agents_tickets_with_Statuses'));
     }
 }
