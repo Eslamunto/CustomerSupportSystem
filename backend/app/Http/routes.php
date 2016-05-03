@@ -227,6 +227,10 @@ Route::group(['middleware' => 'auth'], function () {
             'as' => 'setTicketPrioritySupervisor',
             'uses' => 'TicketController@setPriority'
         ]);
+        Route::post('/esclateTicket/{id}', [
+            'as' => 'esclateTicketSupervisor',
+            'uses' => 'TicketController@esclateTicket'
+        ]);
     });
 
 

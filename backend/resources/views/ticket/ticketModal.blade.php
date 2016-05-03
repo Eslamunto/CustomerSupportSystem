@@ -281,13 +281,22 @@
                             </div>
                         </div>
                     </div>
-                    <form method="POST" action="{{ Route('esclateTicketAgent', $ticket->id) }}">
-                                                            {{csrf_field()}}
+                    @if(Auth::user()->role == 2)
+                        <form method="POST" action="{{ Route('esclateTicketAgent', $ticket->id) }}">
+                            {{csrf_field()}}
+                            <button type="submit" class="btn btn-block btn-xs bg-blue">
+                                <i class="fa fa-level-up"> </i> &nbspEscalate 
+                            </button>
+                        </form>                    
+                    @elseif (Auth::user()->role == 1)
+                        <form method="POST" action="{{ Route('esclateTicketSupervisor', $ticket->id) }}">
+                            {{csrf_field()}}
+                            <button type="submit" class="btn btn-block btn-xs bg-blue">
+                                <i class="fa fa-level-up"> </i> &nbspEscalate 
+                            </button>
+                        </form>     
+                    @endif
 
-                        <button type="submit" class="btn btn-block btn-xs bg-blue">
-                            <i class="fa fa-level-up"> </i> &nbspEscalate 
-                        </button>
-                    </form>
                     <button type="button" class="btn btn-block btn-xs btn-danger">
                         <i class="fa fa-trash"></i> &nbspDelete Ticket 
                     </button>

@@ -116,12 +116,23 @@ class TicketController extends Controller
     }
     public function esclateTicket(Request $request, $id)
     {
+        if(Auth::user()->role == 2)
+        {
         $supervisor = DB::table('users')
         ->join('team', 'users.id', '=', 'team.supervisorId' )  
         ->select('users.*')
         ->where('team.id', '=', Auth::user()->teamId)
         ->first();
                 //dd($supervisor);
+        }
+        else 
+        {
+            $supervisor = DB::table('users')
+            ->select('users.*')
+            ->where('users.role', '=', 0)
+            ->first();
+        }
+        
 
         // $supervisor = User::find($supervisor->id);
         $userTicket = new UserTicket;
