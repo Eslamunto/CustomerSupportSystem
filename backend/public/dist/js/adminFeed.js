@@ -14,6 +14,9 @@ function getTicketOpeningData(id, screen_name, name, body){
 }
 window.onload = function () {
 
+    $('.assign-ticket-button').on('click', function () {
+        $('#assign-ticket-form').attr('action', $(this).data('assign-route'));
+    });
 
     $.getJSON( getDepartments, function(departments){
         $.each(departments,function(i, field){

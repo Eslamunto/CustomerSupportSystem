@@ -5,6 +5,23 @@
 @endsection
 
 @section('content')
+@if(Session::has('message'))
+        <div class="alert alert-success alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            {{ Session::get('message') }}
+        </div>
+    @endif
+    @if($errors->any())
+        <div class="alert alert-danger alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4> Please Fix The Following Error(s)</h4>
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="clearfix">
         <div class="admin-feed">
             <!-- Tweets Feed -->
@@ -24,7 +41,6 @@
             <!-- Tickets Feed -->
         </div>
 
-        <!-- Support Team -->
         <div class="support-team">
             <div class="tickets">
                 <div class="nav-tabs-custom">
@@ -37,6 +53,7 @@
                     <div class="tab-content">
                         <!-- My Tickets -->
                         <div class="tab-pane active" id="tab_1-1">
+<<<<<<< HEAD
                             <div class="callout callout-default callout-ticket-bg clearfix">
                                 <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket">#7 Ticket Title</a></h5>
                                 <div class="pull-right">
@@ -77,12 +94,26 @@
                                     <span class="label bg-aqua">3</span>
                                 </div>
                             </div>
+=======
+                            @foreach ($userAssignedTickets as $ticket)
+                                <div class="callout callout-default callout-ticket-bg clearfix">
+                                    <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket-{{$ticket->id}}">{{ $ticket->title }} </a></h5>
+                                    @include('ticket.ticketModal', ['ticket' => $ticket])
+                                        <div class="pull-right">
+                                            <span class="label bg-yellow">{{$ticket->statusName}}</span>
+                                            <span class="label bg-red">{{$ticket->priorityName}}</span>
+                                            <span class="label bg-aqua">3</span>
+                                        </div>
+                                </div>
+                            @endforeach
+>>>>>>> ab63cab1ed55301ba031cd56a17d423f04a1e102
                         </div><!-- /.tab-pane -->
 
                         <!-- Team Tickets -->
                         <div class="tab-pane" id="tab_2-2">
                             <div class="callout callout-default callout-ticket-bg clearfix">
                                 <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket">#7 Ticket Title</a></h5>
+<<<<<<< HEAD
                                 <div class="pull-right">
                                     <span class="label bg-yellow">Opened</span>
                                     <span class="label bg-red">High</span>
@@ -115,6 +146,8 @@
                             </div>
                             <div class="callout callout-default callout-ticket-bg clearfix">
                                 <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket">#2 Ticket Title</a></h5>
+=======
+>>>>>>> ab63cab1ed55301ba031cd56a17d423f04a1e102
                                 <div class="pull-right">
                                     <span class="label bg-yellow">Opened</span>
                                     <span class="label bg-red">High</span>
@@ -122,6 +155,7 @@
                                 </div>
                             </div>
                         </div><!-- /.tab-pane -->
+<<<<<<< HEAD
 
                         <!-- Unassigned Tickets -->
                         <div class="tab-pane" id="tab_3-2">
@@ -180,7 +214,28 @@
                                     <button type="button" class="btn btn-danger btn-sm pull-right"><i class="fa fa-medkit"></i> Claim</button>
                                 </div>
                             </div>
+=======
+<!-- ==================================================================================================================== -->
+                        <div class="tab-pane" id="tab_3-2">
+                                @foreach ($unassignedTickets as $ticket)
+                                    <div class="callout callout-default callout-ticket-bg clearfix">
+                                        <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket-{{$ticket->id}}">{{ $ticket->title }} </a></h5>
+                                        @include('ticket.ticketModal', ['ticket' => $ticket])
+
+                                       <form method="POST" action="{{ Route('claimTicketSupervisor', $ticket->id) }}">
+                                            {!! csrf_field() !!}
+                                            <div class="pull-right">
+                                                <button type="submit" class="btn btn-danger btn-sm pull-right"><i class="fa fa-medkit"></i> Claim </button>
+                                            </div>
+                                        </form>
+                                        <div class="pull-right">
+                                            <button type="button" class="assign-ticket-button btn btn-success btn-sm pull-right" data-assign-route="{{ Route('assignTicketSupervisor', $ticket->id) }}" data-toggle="modal" data-target="#assignTicket"><i class="fa fa-medkit"></i> Assign </button>
+                                        </div>
+                                    </div>
+                                @endforeach
+>>>>>>> ab63cab1ed55301ba031cd56a17d423f04a1e102
                         </div><!-- /.tab-pane -->
+<!-- ==================================================================================================================== -->
                     </div><!-- /.tab-content -->
                 </div>
             </div>
@@ -324,6 +379,7 @@
         </div>
     </div>
 
+<<<<<<< HEAD
     @include('ticket.ticketModal')
     @include('ticket.addTicketFromTweetModal')
 

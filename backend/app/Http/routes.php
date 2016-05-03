@@ -63,11 +63,10 @@ Route::group(['middleware' => 'auth'], function () {
         'uses' => 'SocialProviderController@twitterCallback'
     ]);
 
+
     Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
         //Admin home
-        Route::get('/', function () {
-            return view('admin.adminFeed');
-        });
+        Route::get('/', ["as" => "adminFeed", "uses" =>"FeedController@index"]);
 
         //Admin customers
         Route::get('/customers',function(){
@@ -192,15 +191,33 @@ Route::group(['middleware' => 'auth'], function () {
             'as' => 'updateTwitterAccount',
             'uses' => 'SocialProviderController@update'
         ]);
+
+        Route::post('/ticket/{id}', [
+            'as' => 'assignTicket',
+            'uses' => 'TicketController@assign'
+        ]);
+        Route::post('/claim/{id}', [
+            'as' => 'claimTicketAdmin',
+            'uses' => 'TicketController@claim'
+        ]);
+        Route::put('/ticketStatus/{id}', [
+            'as' => 'setTicketStatusAdmin',
+            'uses' => 'TicketController@setStatus'
+        ]);
+         Route::put('/ticketPriority/{id}', [
+            'as' => 'setTicketPriorityAdmin',
+            'uses' => 'TicketController@setPriority'
+        ]);
+
     });
 
 
     Route::group(['middleware' => 'supervisor', 'prefix' => 'supervisor'], function () {
-        //Supervisor home
-        Route::get('/', function () {
-            return view('supervisor.supervisorFeed');
-        });
 
+        //supervisor home
+        Route::get('/', ["as" => "supervisorFeed", "uses" =>"FeedController@index"]);
+
+       
         //Supervisor Tickets History
         Route::get('/team/agents/{id}', [
             'as' => 'supervisorTeamAgents',
@@ -221,15 +238,33 @@ Route::group(['middleware' => 'auth'], function () {
             'as'=>'createCustomerSupervisor',
             'uses'=>'CustomerController@postCreate'
         ]);
+        Route::post('/ticket/{id}', [
+            'as' => 'assignTicketSupervisor',
+            'uses' => 'TicketController@assign'
+        ]);
+        Route::post('/claim/{id}', [
+            'as' => 'claimTicketSupervisor',
+            'uses' => 'TicketController@claim'
+        ]);
+        Route::put('/ticketStatus/{id}', [
+            'as' => 'setTicketStatusSupervisor',
+            'uses' => 'TicketController@setStatus'
+        ]);
+          Route::put('/ticketPriority/{id}', [
+            'as' => 'setTicketPrioritySupervisor',
+            'uses' => 'TicketController@setPriority'
+        ]);
+        Route::post('/esclateTicket/{id}', [
+            'as' => 'esclateTicketSupervisor',
+            'uses' => 'TicketController@esclateTicket'
+        ]);
     });
 
 
     Route::group(['middleware' => 'agent', 'prefix' => 'agent'], function () {
-        //Agent home
-        Route::get('/', function () {
-            return view('agent.agentFeed');
-        });
-
+         //agent home
+        Route::get('/', ["as" => "agentFeed", "uses" =>"FeedController@index"]);
+        
         //Agent customers
         Route::get('/customers',function(){
             return view('agent.agentCustomers');
@@ -243,6 +278,22 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('create/customer',[
             'as'=>'createCustomerAgent',
             'uses'=>'CustomerController@postCreate'
+        ]);
+        Route::post('/claim/{id}', [
+            'as' => 'claimTicketAgent',
+            'uses' => 'TicketController@claim'
+        ]);
+        Route::put('/ticketStatus/{id}', [
+            'as' => 'setTicketStatusAgent',
+            'uses' => 'TicketController@setStatus'
+        ]);
+        Route::put('/ticketPriority/{id}', [
+            'as' => 'setTicketPriorityAgent',
+            'uses' => 'TicketController@setPriority'
+        ]);
+        Route::post('/esclateTicket/{id}', [
+            'as' => 'esclateTicketAgent',
+            'uses' => 'TicketController@esclateTicket'
         ]);
     });
 
