@@ -54,6 +54,10 @@ Route::group(['middleware' => 'auth'], function () {
         'as' => 'checkCustomer',
         'uses' => 'CustomerController@show'
     ]);
+    route::post('/customer/create/new',[
+        'as' => 'ajaxNewCustomer',
+        'uses' => "CustomerController@ajaxCreate"
+    ]);
     Route::get('/callback', [
         'as' => 'twitterCallback', 
         'uses' => 'SocialProviderController@twitterCallback'

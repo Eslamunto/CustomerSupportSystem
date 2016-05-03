@@ -15,26 +15,28 @@
                             <h3 class="box-title">New Customer</h3>
                         </div><!-- /.box-header -->
                         <!-- form start -->
-                        <form role="form">
+                        <form role="form" id="createNewCustomerForm" method="post">
+                            {{ csrf_field() }}
                             <div class="box-body">
                                 <div class="form-group">
                                     <label for="CustomerName">Customer Name</label>
-                                    <input type="text" class="form-control" id="CustomerName" placeholder="Enter Name">
+                                    <input type="text" class="form-control" name="name" id="CustomerName" placeholder="Enter Name">
                                 </div>
                                 <div class="form-group">
                                     <label for="CustomerEmail">Email address</label>
-                                    <input type="email" class="form-control" id="CustomerEmail" placeholder="Enter email">
+                                    <input type="email" class="form-control" name="email" id="CustomerEmail" placeholder="Enter email">
                                 </div>
                                 <div class="form-group">
                                     <label for="CustomerMobile">Mobile</label>
-                                    <input type="text" class="form-control" id="CustomerMobile" placeholder="Mobile Number">
+                                    <input type="text" class="form-control" name="telephone" id="CustomerMobile" placeholder="Mobile Number">
                                 </div>
                                 <div class="form-group">
                                     <label for="CustomerTwitter">Twitter Username</label>
-                                    <input type="text" class="form-control" id="CustomerTwitter" placeholder="Twitter Username">
+                                    <input type="text" class="form-control" name="username" id="CustomerTwitter" placeholder="Twitter Username">
                                 </div>
                             </div><!-- /.box-body -->
-                            <a class="btn btn-block bg-blue" id="hideNewCustomer"><i class="fa fa-angle-double-up"></i></a>
+                            <input type="submit" class="btn btn-block bg-blue" id="submitNewCustomer" value="Submit">
+                            <a class="btn btn-block bg-blue" id="hideNewCustomer">Cancel</a>
                         </form>
                     </div><!-- /.box -->
                 </div>
@@ -44,13 +46,13 @@
                         <h3 class="box-title">New Ticket</h3>
                     </div><!-- /.box-header -->
                     <!-- form start -->
-                    <form role="form">
+
                         <div class="box-body">
                             <div id="CurrentUser">
                                 <div class="form-group">
                                     <label for="CustomerMobileTicket">Customer Account username</label>
                                     <div class="input-group input-group-sm">
-                                        <input type="text" class="form-control" id="CustomerAccountTicket" placeholder="Enter Twitter username">
+                                        <input type="text" class="form-control" id="screenName" placeholder="Enter Twitter username">
                                         <span class="input-group-btn">
                                             <button class="btn btn-primary bg-blue btn-flat" id="UserCheck" type="button">Check    user
                                             </button>
@@ -62,17 +64,28 @@
                                     <p><strong>Email: </strong> <a id="customerEmail"></a></p>
                                     <p><strong>Tel: </strong> <a id="customerMobile"></a></p>
                                 </div>
-                                <div class="form-group">
-                                    <a class="btn btn-block bg-blue" id="showNewCustomer"><i class="fa fa-plus"></i> New Customer</a>
-                                </div>
+                            </div>
+                        <form role="form">
+
+                            <div class="form-group">
+                                <label for="ticketTitle">Customer ID</label>
+                                <input class="form-control" id="customerId" type="text" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="ticketTitle">Tweet ID</label>
+                                <input class="form-control" id="tweetId" type="text" disabled>
                             </div>
                             <div class="form-group">
                                 <label for="ticketTitle">Ticket Title</label>
                                 <input type="text" class="form-control" id="ticketTitle" placeholder="Ticket Title">
                             </div>
                             <div class="form-group">
+                                <label for="ticketTitle">Tweet Body</label>
+                                <textarea id="tweetBody" class="form-control" disabled></textarea>
+                            </div>
+                            <div class="form-group">
                                 <label for="ticketDescription">Ticket Description</label>
-                                <textarea id="ticketDescription" class="form-control"></textarea>
+                                <textarea id="ticketDescription" class="form-control" ></textarea>
                             </div>
                             <div class="form-group">
                                 <label>Priority</label>
@@ -87,7 +100,7 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>Depatment</label>
+                                <label>Department</label>
                                 <select class="form-control" id="departments">
                                     <option value="0">--</option>
                                 </select>
@@ -98,7 +111,7 @@
                                     <option value="0">--</option>
                                 </select>
                             </div>
-                        </div><!-- /.box-body -->
+
                         <div class="box-footer">
                             <button type="submit" class="btn btn-primary bg-blue pull-right">Submit</button>
                         </div>

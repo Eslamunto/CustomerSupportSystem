@@ -329,12 +329,15 @@
 
 @endsection
 @section('scripts')
+    {{HTML::script('http://malsup.github.com/jquery.form.js')}}
     <script>
         var getDepartments = "{{route('departmentIndex')}}";
         var getStatuses = "{{route('statusIndex')}}";
         var getPriorities = "{{route('priorityIndex')}}";
         var route = "{{route('getTweets')}}";
         var agentsURL = "{{url('agents/index')}}";
+        var customerCheck = "{{url('/check/customer/')}}";
+        var customerCreate ="{{route('ajaxNewCustomer')}}";
     </script>
-{{HTML::script('dist/js/adminFeed.js')}}
+    {{HTML::script('dist/js/adminFeed.js')}}
 @endsection
