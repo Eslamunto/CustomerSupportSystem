@@ -41,7 +41,7 @@ class FeedController extends Controller
         $ticketStatus = Status::all();
         $ticketPriority = Priority::all();
          if(Auth::user()->role == 0){
-            return view('admin.adminFeed', compact('unassignedTickets', 'userAssignedTickets', 'userTeam', 'ticketStatus', 'ticketPriority'));
+            return view('admin.adminFeed', compact('unassignedTickets', 'userAssignedTickets', 'userTeam', 'ticketStatus', 'ticketPriority', 'userAssignedTicketsCount'));
          }elseif(Auth::user()->role == 1){
             return view('supervisor.supervisorFeed', compact('unassignedTickets', 'userAssignedTickets', 'userTeam', 'ticketStatus', 'ticketPriority'));
         }elseif(Auth::user()->role == 2){
@@ -72,7 +72,7 @@ class FeedController extends Controller
     }
      public function getUserAssignedTickets(){
 
-        // if(UserTicket::all()){
+        if(UserTicket::all()){
 
             $userAssignedTickets = DB::table('ticket')
             ->join('user_tickets', 'ticket.id', '=', 'user_tickets.ticketId')
@@ -83,11 +83,16 @@ class FeedController extends Controller
             ->where('users.id', '=', Auth::user()->id)
             ->get();
             if($userAssignedTickets){
-                return $userAssignedTickets;
+                 return $userAssignedTickets;
             }
+            else {
+                $assigned = array();
+                return $assigned;
+            }
+        }
         else{
-            $userTickets = [];
-            return $userTickets;
+             $assigned = array();
+                return $assigned;
         }
     }
      public function getunAssignedTickets(){
@@ -98,13 +103,7 @@ class FeedController extends Controller
             ->select('ticket.*','status.name AS statusName', 'priority.id AS priorityId','priority.name AS priorityName', 'priority.id AS priorityId')
             ->whereNull('user_tickets.ticketId')
             ->get();
-         if($unassignedTickets){
-                return $unassignedTickets;
-            }
-        else{
-            $unassigned = [];
-            return $unassigned;
-        }
+        return $unassignedTickets;
 
         //unassignedTickets;
     }
@@ -112,7 +111,7 @@ class FeedController extends Controller
         if(Auth::user()->role == 0){
              $userTeam = DB::table('users')
             ->join('team', 'users.teamId', '=', 'team.id')
-            ->join('departments', 'team.departmentId', '=', 'deparments.id')  
+            ->join('departments', 'team.departmentId', '=', 'departments.id')  
             ->select('users.*', 'departments.name AS departmentName', 'departments.id AS departmentId')
             ->where(function($query)
             {
@@ -131,14 +130,7 @@ class FeedController extends Controller
             })
             ->get();
          }
-         if($userTeam){
-                return $userTeam;
-            }
-        else{
-            $Team = [];
-            return $Team;
-        }
-         
+         return $userTeam;
             // return User::all();
     }
 

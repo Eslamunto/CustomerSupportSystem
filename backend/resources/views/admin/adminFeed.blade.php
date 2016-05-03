@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-	Admin | Feed
+    Admin | Feed
 @endsection
 
 @section('content')
@@ -128,7 +128,7 @@
                     </div>
                 </div>
             </div>
-           	<!-- Tickets Feed -->
+            <!-- Tickets Feed -->
         </div>
 
         <!-- Support Team -->
@@ -160,9 +160,8 @@
                         <!-- Team Tickets -->
                         <div class="tab-pane" id="tab_2-2">
                             <div class="callout callout-default callout-ticket-bg clearfix">
-                                <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket-{{$ticket->id}}">#7 Ticket Title</a></h5>
-<!--                                 @include('ticket.ticketModal', ['ticket' => $ticket])
- -->                                <div class="pull-right">
+                                <h5 class="pull-left"><a href="" data-toggle="modal">#7 Ticket Title</a></h5>
+                               <div class="pull-right">
                                     <span class="label bg-yellow">Opened</span>
                                     <span class="label bg-red">High</span>
                                     <span class="label bg-aqua">3</span>
