@@ -156,7 +156,6 @@
                                     <div class="pull-right">
                                         <span class="label bg-blue">{{$ticket->statusName}}</span>
                                         <span class="label bg-yellow">{{$ticket->priorityName}}</span>
-                                        <span class="label bg-aqua">3</span>
                                     </div>
                                 </div>
                             @endforeach
@@ -169,7 +168,6 @@
                                <div class="pull-right">
                                     <span class="label bg-blue">Opened</span>
                                     <span class="label bg-yellow">High</span>
-                                    <span class="label bg-aqua">3</span>
                                 </div>
                             </div>
                         </div><!-- /.tab-pane -->
