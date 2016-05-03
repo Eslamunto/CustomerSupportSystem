@@ -287,6 +287,7 @@
                             <button type="submit" class="btn btn-block btn-xs bg-blue">
                                 <i class="fa fa-level-up"> </i> &nbspEscalate 
                             </button>
+                            <br>
                         </form>                    
                     @elseif (Auth::user()->role == 1)
                         <form method="POST" action="{{ Route('esclateTicketSupervisor', $ticket->id) }}">
@@ -294,6 +295,7 @@
                             <button type="submit" class="btn btn-block btn-xs bg-blue">
                                 <i class="fa fa-level-up"> </i> &nbspEscalate 
                             </button>
+                             <br>
                         </form>     
                     @endif
 

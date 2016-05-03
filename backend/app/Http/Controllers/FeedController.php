@@ -13,6 +13,7 @@ use App\Team as Team;
 use App\User as User;
 use App\Status as Status;
 use App\Priority as Priority;
+use App\UserTicket as UserTicket;
 
 class FeedController extends Controller
 {
@@ -70,7 +71,10 @@ class FeedController extends Controller
 
     }
      public function getUserAssignedTickets(){
-         $userAssignedTickets = DB::table('ticket')
+
+        // if(UserTicket::all()){
+
+            $userAssignedTickets = DB::table('ticket')
             ->join('user_tickets', 'ticket.id', '=', 'user_tickets.ticketId')
             ->join('users', 'user_tickets.userId', '=', 'users.id')
             ->join('status','ticket.statusId', '=', 'status.id')
@@ -78,7 +82,13 @@ class FeedController extends Controller
             ->select('ticket.*','status.name AS statusName', 'priority.id AS priorityId','priority.name AS priorityName', 'priority.id AS priorityId')
             ->where('users.id', '=', Auth::user()->id)
             ->get();
-        return $userAssignedTickets;
+            if($userAssignedTickets){
+                return $userAssignedTickets;
+            }
+        else{
+            $userTickets = [];
+            return $userTickets;
+        }
     }
      public function getunAssignedTickets(){
          $unassignedTickets = DB::table('ticket')
@@ -88,7 +98,13 @@ class FeedController extends Controller
             ->select('ticket.*','status.name AS statusName', 'priority.id AS priorityId','priority.name AS priorityName', 'priority.id AS priorityId')
             ->whereNull('user_tickets.ticketId')
             ->get();
-        return $unassignedTickets;
+         if($unassignedTickets){
+                return $unassignedTickets;
+            }
+        else{
+            $unassigned = [];
+            return $unassigned;
+        }
 
         //unassignedTickets;
     }
@@ -96,7 +112,7 @@ class FeedController extends Controller
         if(Auth::user()->role == 0){
              $userTeam = DB::table('users')
             ->join('team', 'users.teamId', '=', 'team.id')
-            ->join('departments', 'team.departmentId', '=', 'departments.id')  
+            ->join('departments', 'team.departmentId', '=', 'deparments.id')  
             ->select('users.*', 'departments.name AS departmentName', 'departments.id AS departmentId')
             ->where(function($query)
             {
@@ -115,7 +131,14 @@ class FeedController extends Controller
             })
             ->get();
          }
-         return $userTeam;
+         if($userTeam){
+                return $userTeam;
+            }
+        else{
+            $Team = [];
+            return $Team;
+        }
+         
             // return User::all();
     }
 
