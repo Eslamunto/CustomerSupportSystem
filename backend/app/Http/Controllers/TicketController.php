@@ -20,6 +20,7 @@ use App\User;
 use Illuminate\Support\Facades\DB as DB;
 use App\Status;
 use App\Priority;
+use App\Team;
 
 use Log;
 
@@ -111,6 +112,25 @@ class TicketController extends Controller
         $ticket->priorityId = Input::get('selectedPriority');
         $ticket->save();
         Session::flash('message', 'The Priority of '.$ticket->title .' has been set to '. $priority->name.' priority Successfully');
+        return redirect()->back();  
+    }
+    public function esclateTicket(Request $request, $id)
+    {
+        $supervisor = DB::table('users')
+        ->join('team', 'users.id', '=', 'team.supervisorId' )  
+        ->select('users.*')
+        ->where('team.id', '=', Auth::user()->teamId)
+        ->first();
+                //dd($supervisor);
+
+        // $supervisor = User::find($supervisor->id);
+        $userTicket = new UserTicket;
+        $userTicket->userId = $supervisor->id;
+        $ticket = Ticket::find($id);
+        $userTicket->ticketId = $ticket->id;
+        //dd($userTicket);
+        $userTicket->save();
+        Session::flash('message', $ticket->title .' has been esclated to your supervisor Successfully');
         return redirect()->back();  
     }
     public function destroy($id)

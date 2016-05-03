@@ -281,9 +281,13 @@
                             </div>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-block btn-xs bg-blue">
-                        <i class="fa fa-level-up"> </i> &nbspEscalate 
-                    </button>
+                    <form method="POST" action="{{ Route('esclateTicketAgent', $ticket->id) }}">
+                                                            {{csrf_field()}}
+
+                        <button type="submit" class="btn btn-block btn-xs bg-blue">
+                            <i class="fa fa-level-up"> </i> &nbspEscalate 
+                        </button>
+                    </form>
                     <button type="button" class="btn btn-block btn-xs btn-danger">
                         <i class="fa fa-trash"></i> &nbspDelete Ticket 
                     </button>
