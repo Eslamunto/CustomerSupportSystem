@@ -206,7 +206,14 @@ Route::group(['middleware' => 'auth'], function () {
             'as' => 'setTicketPriorityAdmin',
             'uses' => 'TicketController@setPriority'
         ]);
-
+        Route::post('/invite/{id}', [
+            'as' => 'inviteTicketAdmin',
+            'uses' => 'TicketController@inviteToTicket'
+        ]);
+        Route::post('/reAssign/{id}', [
+            'as' => 'reAssignTicketAdmin',
+            'uses' => 'TicketController@reAssign'
+        ]);
     });
 
 
@@ -255,6 +262,14 @@ Route::group(['middleware' => 'auth'], function () {
             'as' => 'esclateTicketSupervisor',
             'uses' => 'TicketController@esclateTicket'
         ]);
+        Route::post('/invite/{id}', [
+            'as' => 'inviteTicketSupervisor',
+            'uses' => 'TicketController@inviteToTicket'
+        ]);
+        Route::post('/reAssign/{id}', [
+            'as' => 'reAssignTicketSupervisor',
+            'uses' => 'TicketController@reAssign'
+        ]);
     });
 
 
@@ -291,6 +306,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/esclateTicket/{id}', [
             'as' => 'esclateTicketAgent',
             'uses' => 'TicketController@esclateTicket'
+        ]);
+        Route::post('/invite/{id}', [
+            'as' => 'inviteTicketAgent',
+            'uses' => 'TicketController@inviteToTicket'
+        ]);
+        Route::post('/reAssign/{id}', [
+            'as' => 'reAssignTicketAgent',
+            'uses' => 'TicketController@reAssign'
         ]);
     });
 
