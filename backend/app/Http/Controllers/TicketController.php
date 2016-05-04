@@ -64,8 +64,17 @@ class TicketController extends Controller
     }
      public function claim(Request $request, $id)
     {   
+
+        $isAssigned = UserTicket::where('ticketId', $id)
+        ->where('userId',Auth::user()->id)
+        ->count();
+        $user = User::find(Auth::user()->id);
         $ticket = Ticket::find($id);
-        
+        if($isAssigned > 0){
+        Session::flash('error','Error processing your request, '. $user->name .' is already assigned to '.$ticket->title);
+        return redirect()->back();    
+        }
+
         $userAssignedTickets = DB::table('ticket')
             ->join('user_tickets', 'ticket.id', '=', 'user_tickets.ticketId')
             ->join('users', 'user_tickets.userId', '=', 'users.id')
@@ -116,6 +125,9 @@ class TicketController extends Controller
     }
     public function esclateTicket(Request $request, $id)
     {
+
+
+
         if(Auth::user()->role == 2)
         {
         $supervisor = DB::table('users')
@@ -123,7 +135,7 @@ class TicketController extends Controller
         ->select('users.*')
         ->where('team.id', '=', Auth::user()->teamId)
         ->first();
-                //dd($supervisor);
+               
         }
         else 
         {
@@ -132,17 +144,72 @@ class TicketController extends Controller
             ->where('users.role', '=', 0)
             ->first();
         }
-        
 
+        $isAssigned = UserTicket::where('ticketId', $id)
+        ->where('userId',$supervisor->id)
+        ->count();
+        $user = User::find($supervisor->id);
+        $ticket = Ticket::find($id);
+        if($isAssigned > 0){
+        Session::flash('error','Error processing your request, '. $user->name .' is already assigned to '.$ticket->title);
+        return redirect()->back();    
+        }
         // $supervisor = User::find($supervisor->id);
         $userTicket = new UserTicket;
         $userTicket->userId = $supervisor->id;
-        $ticket = Ticket::find($id);
         $userTicket->ticketId = $ticket->id;
         //dd($userTicket);
         $userTicket->save();
         Session::flash('message', $ticket->title .' has been esclated to your supervisor Successfully');
         return redirect()->back();  
+    }
+    public function inviteToTicket(Request $request, $id)
+    {  
+        $isAssigned = UserTicket::where('ticketId', $id)
+        ->where('userId',Input::get('selectedMember'))
+        ->count();
+        $user = User::find(Input::get('selectedMember'));
+        $ticket = Ticket::find($id);
+        if($isAssigned > 0){
+        Session::flash('error','Error processing your request, '. $user->name .' is already assigned to '.$ticket->title);
+        return redirect()->back();    
+        }
+        $ticket = Ticket::find($id);
+        $user = User::find(Input::get('selectedMember'));
+        $userTicket = new UserTicket;
+        $userTicket->userId = Input::get('selectedMember');
+        $userTicket->ticketId = $id;
+        $userTicket->save();
+        Session::flash('message', $user->name .' has been invited to '.$ticket->title.' Successfully');
+        return redirect()->back();    
+    }
+     public function reAssign(Request $request, $id)
+    { 
+        
+        $isAssigned = UserTicket::where('ticketId', $id)
+        ->where('userId',Input::get('selectedMember'))
+        ->count();
+        $user = User::find(Input::get('selectedMember'));
+        $ticket = Ticket::find($id);
+        if($isAssigned > 0){
+        Session::flash('error','Error processing your request, '. $user->name .' is already assigned to '.$ticket->title);
+        return redirect()->back();    
+        }
+        
+        $myTicket = UserTicket::where('ticketId', $id)
+        ->where('userId',Auth::user()->id)
+        ->first();
+        $myTicket->delete();
+
+        $ticket = Ticket::find($id);
+        $user = User::find(Input::get('selectedMember'));
+        $userTicket = new UserTicket;
+        $userTicket->userId = Input::get('selectedMember');
+        $userTicket->ticketId = $id;
+        $userTicket->save();
+        Session::flash('message', $user->name .' has been re-assign to '.$ticket->title.' Successfully');
+        return redirect()->back();    
+
     }
     public function destroy($id)
     {
