@@ -78,7 +78,8 @@ class Notification extends Model
         $notifications_query = DB::table('user_notifications')
             ->join('notifications', 'user_notifications.notification_id', '=', 'notifications.id')
             ->where('user_notifications.user_id', $user_id)
-            ->orderBy('is_read', 'asc');
+            ->orderBy('is_read', 'asc')
+            ->orderBy('user_notifications.created_at', 'desc');
 
         return $notifications_query;
     }

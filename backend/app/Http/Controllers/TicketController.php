@@ -121,6 +121,25 @@ class TicketController extends Controller
         $status = Status::find(Input::get('selectedStatus'));
         $ticket->statusId = Input::get('selectedStatus');
         $ticket->save();
+
+        $users_assigned_to_ticket = UserTicket::where('ticketId', '=', $ticket->id)->get();
+        $users = [];
+        foreach ($users_assigned_to_ticket as $user_ticket) {
+            array_push($users, User::find($user_ticket->userId));
+        }
+        
+        $status = Status::find(Input::get('selectedStatus'));
+
+        //Logic for Notifications
+        $user_notifier = Auth::user();
+        
+        $user_notifier->newNotification($users)
+            ->withType('change.assigned.Ticket.status')
+            ->withSubject('Changing Assigned Ticket Status')
+            ->withBody($user_notifier->name . ' changed Ticket "' . $ticket->title . '" status to '. $status->name)
+            ->regarding($ticket)
+            ->send();
+
         Session::flash('message', 'The Status of '.$ticket->title .' has been set to '. $status->name.' status Successfully');
         return redirect()->back();  
     }
@@ -131,6 +150,25 @@ class TicketController extends Controller
         $priority = Priority::find(Input::get('selectedPriority'));
         $ticket->priorityId = Input::get('selectedPriority');
         $ticket->save();
+
+        $users_assigned_to_ticket = UserTicket::where('ticketId', '=', $ticket->id)->get();
+        $users = [];
+        foreach ($users_assigned_to_ticket as $user_ticket) {
+            array_push($users, User::find($user_ticket->userId));
+        }
+        
+        $priority = Priority::find(Input::get('selectedPriority'));
+
+        //Logic for Notifications
+        $user_notifier = Auth::user();
+        
+        $user_notifier->newNotification($users)
+            ->withType('change.assigned.Ticket.priority')
+            ->withSubject('Changing Assigned Ticket Priority')
+            ->withBody($user_notifier->name . ' changed Ticket "' . $ticket->title . '" priority to '. $priority->name)
+            ->regarding($ticket)
+            ->send();
+
         Session::flash('message', 'The Priority of '.$ticket->title .' has been set to '. $priority->name.' priority Successfully');
         return redirect()->back();  
     }
