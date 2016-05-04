@@ -162,6 +162,23 @@ class TicketController extends Controller
         Session::flash('message', $user->name .' has been invited to '.$ticket->title.' Successfully');
         return redirect()->back();    
     }
+     public function reAssign(Request $request, $id)
+    { 
+        $myTicket = UserTicket::where('ticketId', $id)
+        ->where('userId',Auth::user()->id)
+        ->first();
+        $myTicket->delete();
+
+        $ticket = Ticket::find($id);
+        $user = User::find(Input::get('selectedMember'));
+        $userTicket = new UserTicket;
+        $userTicket->userId = Input::get('selectedMember');
+        $userTicket->ticketId = $id;
+        $userTicket->save();
+        Session::flash('message', $user->name .' has been re-assign to '.$ticket->title.' Successfully');
+        return redirect()->back();    
+
+    }
     public function destroy($id)
     {
       

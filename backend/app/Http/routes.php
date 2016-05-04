@@ -185,7 +185,10 @@ Route::group(['middleware' => 'auth'], function () {
             'as' => 'inviteTicketAdmin',
             'uses' => 'TicketController@inviteToTicket'
         ]);
-
+        Route::post('/reAssign/{id}', [
+            'as' => 'reAssignTicketAdmin',
+            'uses' => 'TicketController@reAssign'
+        ]);
     });
 
 
@@ -239,6 +242,10 @@ Route::group(['middleware' => 'auth'], function () {
             'as' => 'inviteTicketSupervisor',
             'uses' => 'TicketController@inviteToTicket'
         ]);
+        Route::post('/reAssign/{id}', [
+            'as' => 'reAssignTicketSupervisor',
+            'uses' => 'TicketController@reAssign'
+        ]);
     });
 
 
@@ -279,6 +286,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/invite/{id}', [
             'as' => 'inviteTicketAgent',
             'uses' => 'TicketController@inviteToTicket'
+        ]);
+        Route::post('/reAssign/{id}', [
+            'as' => 'reAssignTicketAgent',
+            'uses' => 'TicketController@reAssign'
         ]);
     });
 
