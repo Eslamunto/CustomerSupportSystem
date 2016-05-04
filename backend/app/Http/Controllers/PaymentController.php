@@ -8,6 +8,8 @@
 
 namespace App\Http\Controllers;
 use Anouar\Paypalpayment\Facades\PaypalPayment;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
 
 
 class PaymentController extends Controller
@@ -23,32 +25,62 @@ class PaymentController extends Controller
             config('paypal_payment.Account.ClientSecret'));
     }
 
+
+    public function index() {
+        return view('payment.index');
+    }
+
     /*
     * Process payment using credit card
     */
-    public function store()
+    public function store(Request $request)
     {
         // ### Address
         // Base Address object used as shipping or billing
         // address in a payment. [Optional]
+//        $addr= Paypalpayment::address();
+//        $addr->setLine1("3909 Witmer Road");
+//        $addr->setLine2("Niagara Falls");
+//        $addr->setCity("Niagara Falls");
+//        $addr->setState("NY");
+//        $addr->setPostalCode("14305");
+//        $addr->setCountryCode("US");
+//        $addr->setPhone("716-298-1822");
+
         $addr= Paypalpayment::address();
-        $addr->setLine1("3909 Witmer Road");
-        $addr->setLine2("Niagara Falls");
-        $addr->setCity("Niagara Falls");
-        $addr->setState("NY");
-        $addr->setPostalCode("14305");
-        $addr->setCountryCode("US");
-        $addr->setPhone("716-298-1822");
+        $addr->setLine1(Input::get('lineOne'));
+        $addr->setLine2(Input::get('lineTwo'));
+        $addr->setCity(Input::get('city'));
+        $addr->setState(Input::get('state'));
+        $addr->setPostalCode(Input::get('postalCode'));
+        $addr->setCountryCode(Input::get('countryCode'));
+        $addr->setPhone(Input::get('phone'));
+
+
+
 
         // ### CreditCard
+//        $card = Paypalpayment::creditCard();
+//        $card->setType("visa")
+//            ->setNumber("4758411877817150")
+//            ->setExpireMonth("05")
+//            ->setExpireYear("2019")
+//            ->setCvv2("456")
+//            ->setFirstName("Joe")
+//            ->setLastName("Shopper");
+
         $card = Paypalpayment::creditCard();
         $card->setType("visa")
-            ->setNumber("4758411877817150")
-            ->setExpireMonth("05")
-            ->setExpireYear("2019")
-            ->setCvv2("456")
-            ->setFirstName("Joe")
-            ->setLastName("Shopper");
+            ->setNumber(Input::get('cardNumber'))
+            ->setExpireMonth(Input::get('expMonth'))
+            ->setExpireYear(Input::get('expYear'))
+            ->setCvv2(Input::get('cvv'))
+            ->setFirstName(Input::get('firstName'))
+            ->setLastName(Input::get('lastName'));
+
+
+
+
 
         // ### FundingInstrument
         // A resource representing a Payer's funding instrument.
@@ -68,16 +100,16 @@ class PaymentController extends Controller
             ->setFundingInstruments(array($fi));
 
         $item1 = Paypalpayment::item();
-        $item1->setName('Ground Coffee 40 oz')
-            ->setDescription('Ground Coffee 40 oz')
+        $item1->setName('VIP Ticket')
+            ->setDescription('Finding a way to get the ticket solved faster.')
             ->setCurrency('USD')
             ->setQuantity(1)
             ->setTax(0.3)
             ->setPrice(7.50);
 
         $item2 = Paypalpayment::item();
-        $item2->setName('Granola bars')
-            ->setDescription('Granola Bars with Peanuts')
+        $item2->setName('Rasha')
+            ->setDescription('Rashwa Baseita')
             ->setCurrency('USD')
             ->setQuantity(5)
             ->setTax(0.2)

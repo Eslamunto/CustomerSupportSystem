@@ -14,7 +14,7 @@ Route::auth();
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [
         'as' => 'index',
-        'uses'=> 'HomeController@index'
+        'uses' => 'HomeController@index'
     ]);
 
     Route::get('auth/logout', [
@@ -28,7 +28,7 @@ Route::group(['middleware' => 'auth'], function () {
     ]);
 
     Route::get('/callback', [
-        'as' => 'twitterCallback', 
+        'as' => 'twitterCallback',
         'uses' => 'SocialProviderController@twitterCallback'
     ]);
 
@@ -39,62 +39,62 @@ Route::group(['middleware' => 'auth'], function () {
         });
 
         //Admin agent's resources
-        Route::get('index/agents',[
-            'as'=>'indexAgents',
-            'uses'=>'AgentController@index'
+        Route::get('index/agents', [
+            'as' => 'indexAgents',
+            'uses' => 'AgentController@index'
         ]);
-        Route::get('show/agent/{id}',[
-            'as'=>'showAgent',
-            'uses'=>'AgentController@show'
+        Route::get('show/agent/{id}', [
+            'as' => 'showAgent',
+            'uses' => 'AgentController@show'
         ]);
 
-        Route::get('create/agent',[
-            'as'=>'getCreateAgent',
-            'uses'=>'AgentController@getCreate'
+        Route::get('create/agent', [
+            'as' => 'getCreateAgent',
+            'uses' => 'AgentController@getCreate'
         ]);
-        Route::post('create/agent',[
-            'as'=>'createAgent',
-            'uses'=>'AgentController@postCreate'
+        Route::post('create/agent', [
+            'as' => 'createAgent',
+            'uses' => 'AgentController@postCreate'
         ]);
         Route::delete('delete/agent/{id}', [
-            'as'=>'deleteAgent',
-            'uses'=>'AgentController@destroy'
+            'as' => 'deleteAgent',
+            'uses' => 'AgentController@destroy'
         ]);
         Route::put('edit/agent/{id}', [
-            'as'=> 'agentUpdate',
-            'uses'=> 'AgentController@update'
+            'as' => 'agentUpdate',
+            'uses' => 'AgentController@update'
         ]);
 
         //Admin supervisor's resources
-        Route::get('index/supervisor',[
-            'as'=>'indexSupervisors',
-            'uses'=>'SupervisorController@index'
+        Route::get('index/supervisor', [
+            'as' => 'indexSupervisors',
+            'uses' => 'SupervisorController@index'
         ]);
-        Route::get('show/supervisor/{id}',[
-            'as'=>'showSupervisor',
-            'uses'=>'SupervisorController@show'
+        Route::get('show/supervisor/{id}', [
+            'as' => 'showSupervisor',
+            'uses' => 'SupervisorController@show'
         ]);
-        Route::get('create/supervisor',[
-            'as'=>'getCreateSupervisor',
-            'uses'=>'SupervisorController@getCreate'
+        Route::get('create/supervisor', [
+            'as' => 'getCreateSupervisor',
+            'uses' => 'SupervisorController@getCreate'
         ]);
-        Route::post('create/supervisor',[
-            'as'=>'createSupervisor',
-            'uses'=>'SupervisorController@postCreate'
+        Route::post('create/supervisor', [
+            'as' => 'createSupervisor',
+            'uses' => 'SupervisorController@postCreate'
         ]);
         Route::delete('delete/supervisor/{id}', [
-            'as'=>'deleteSupervisor',
-            'uses'=>'SupervisorController@destroy'
+            'as' => 'deleteSupervisor',
+            'uses' => 'SupervisorController@destroy'
         ]);
         Route::put('edit/supervisor/{id}', [
-            'as'=> 'updateSupervisor',
-            'uses'=> 'SupervisorController@update'
+            'as' => 'updateSupervisor',
+            'uses' => 'SupervisorController@update'
         ]);
 
         //Teams
         Route::get('department/{departmentId}/teams', [
             'as' => 'departmentTeams',
-            'uses'=> 'TeamController@departmentTeam'
+            'uses' => 'TeamController@departmentTeam'
         ]);
 
         //Depatments
@@ -102,7 +102,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         //Ticket Statuses
         Route::post('/status', [
-            'as' => 'newStatus', 
+            'as' => 'newStatus',
             'uses' => 'StatusController@store'
         ]);
 
@@ -117,11 +117,11 @@ Route::group(['middleware' => 'auth'], function () {
         ]);
 
         //Settings
-        Route::get('/settings', [ 
+        Route::get('/settings', [
             'as' => 'adminSettings',
             'uses' => 'SettingsController@index'
         ]);
-        
+
         //Twitter Acoount
         Route::put('/settings/twitter/{id}', [
             'as' => 'updateTwitterAccount',
@@ -145,13 +145,19 @@ Route::group(['middleware' => 'auth'], function () {
 
     });
 
- });
+});
 
-Route::get('/test', function(){
-	return view('layouts.master');
+Route::get('/test', function () {
+    return view('layouts.master');
 });
 
 Route::resource('/payment', 'PaymentController');
+
+Route::post('/pay', ['as' => 'pay',
+    'uses' => 'PaypalController@pay']);
+
+Route::get('payment_status', ['as' => 'paymentStatus',
+    'uses' => 'PaypalController@paymentStatus']);
 
 
 
