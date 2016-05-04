@@ -4,26 +4,26 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
- class Status extends Model
- {
-        /**
-         * The table associated with the model.
-         *
-         * @var string
-         */
-        protected $table = 'status';
+class Status extends Model
+{
+    /**
+    * The table associated with the model.
+    *
+    * @var string
+    */
+    protected $table = 'status';
 
-     /**
-      * Fillable fields
-      *
-      * @var array
-      */
-     protected $fillable = [
-                'name', 'color',
-            ];
+    /**
+    * Fillable fields
+    *
+    * @var array
+    */
+    protected $fillable = [
+        'name', 'color',
+    ];
 
-     function ticket(){
-                return $this->hasMany('App\Ticket');
-     }
+    function ticket(){
+        return $this->hasMany('App\Ticket');
+    }
 
- }
+}

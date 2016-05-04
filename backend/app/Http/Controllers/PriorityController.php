@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Status as Status;
+
+use App\Priority as Priority;
 use Illuminate\Support\Facades\Validator as Validator;
 use Illuminate\Support\Facades\Session as Session;
 use Illuminate\Support\Facades\Auth as Auth;
 use App\User as User;
 
-class StatusController extends Controller
+class PriorityController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -52,20 +53,20 @@ class StatusController extends Controller
                 ->withInput($request->all());
         } else {
             $input = $request->all();
-            $status = Status::create($input);
+            $status = Priority::create($input);
 
             //Logic for notifications
             $user = Auth::user();
             $users_to_be_notified = User::where('id', '!=', $user->id)->get();
-        
+            
             $user->newNotification($users_to_be_notified)
-                ->withType('new.Ticket.status')
-                ->withSubject('New Ticket Status')
-                ->withBody($user->name . ' added ' . $request->name . ' status to the system.')
+                ->withType('new.Ticket.priority')
+                ->withSubject('New Ticket Priority')
+                ->withBody($user->name . ' added ' . $request->name . ' priority to the system.')
                 ->regarding($status)
                 ->send();
 
-            Session::flash('message', 'Ticket Status ' . $request->name . ' is created Successfully !');
+            Session::flash('message', 'Ticket Priority ' . $request->name . ' is created Successfully !');
             return redirect()->route('adminSettings');
         }
     }
@@ -111,14 +112,14 @@ class StatusController extends Controller
                 ->withErrors($validator)
                 ->withInput($request->all());
         } else {
-            $status = Status::find($id);
+            $priority = Priority::find($id);
             if($request->name != '')
-                $status->name = $request->name;
+                $priority->name = $request->name;
             if($request->color != '#00aabb')
-                $status->color = $request->color;
-            $status->save();
+                $priority->color = $request->color;
+            $priority->save();
 
-            Session::flash('message', 'Ticket Status is updated Successfully !');
+            Session::flash('message', 'Ticket Priority is updated Successfully !');
             return redirect()->route('adminSettings');
         }
     }
@@ -131,10 +132,10 @@ class StatusController extends Controller
      */
     public function destroy($id)
     {
-        $status = Status::find($id);
-        $status->delete();
+        $priority = Priority::find($id);
+        $priority->delete();
 
-        Session::flash('message', 'Ticket Status is deleted successfully !');
+        Session::flash('message', 'Ticket Priority is deleted successfully !');
         return redirect()->route('adminSettings');
     }
 }

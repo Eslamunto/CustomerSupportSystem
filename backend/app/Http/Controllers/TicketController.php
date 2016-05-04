@@ -59,6 +59,17 @@ class TicketController extends Controller
         }else {
             Session::flash('message', 'Ticket: '.$ticket->title .' has been successfully assigneed to Agent '.$user->name);
         }
+
+        //Logic for Notifications
+        $user_notifier = Auth::user();
+        $users_to_be_notified = [$user];
+        
+        $user->newNotification($users_to_be_notified)
+            ->withType('assign.Ticket')
+            ->withSubject('Assigning Ticket')
+            ->withBody($user_notifier->name . ' assigned Ticket "' . $ticket->title . '" to '. $user->name)
+            ->regarding($ticket)
+            ->send();
        
         return redirect()->back();
     }
@@ -84,7 +95,7 @@ class TicketController extends Controller
 
         if(Auth::user()->role == 2){
             if ($userAssignedTickets >=3 ){
-                Session::flash('error', 'Sorry! Currently you can not claim any tickets. As an agent, you can not claim a ticket while having more than 3 assigned ones');
+                Session::flash('error', 'Sorry! Currently you can not claim any tickets. As an agent, you already have 3 assigned ones');
             }
             else{
                 $userTicket = new UserTicket;
@@ -110,6 +121,25 @@ class TicketController extends Controller
         $status = Status::find(Input::get('selectedStatus'));
         $ticket->statusId = Input::get('selectedStatus');
         $ticket->save();
+
+        $users_assigned_to_ticket = UserTicket::where('ticketId', '=', $ticket->id)->get();
+        $users = [];
+        foreach ($users_assigned_to_ticket as $user_ticket) {
+            array_push($users, User::find($user_ticket->userId));
+        }
+        
+        $status = Status::find(Input::get('selectedStatus'));
+
+        //Logic for Notifications
+        $user_notifier = Auth::user();
+        
+        $user_notifier->newNotification($users)
+            ->withType('change.assigned.Ticket.status')
+            ->withSubject('Changing Assigned Ticket Status')
+            ->withBody($user_notifier->name . ' changed Ticket "' . $ticket->title . '" status to '. $status->name)
+            ->regarding($ticket)
+            ->send();
+
         Session::flash('message', 'The Status of '.$ticket->title .' has been set to '. $status->name.' status Successfully');
         return redirect()->back();  
     }
@@ -120,6 +150,25 @@ class TicketController extends Controller
         $priority = Priority::find(Input::get('selectedPriority'));
         $ticket->priorityId = Input::get('selectedPriority');
         $ticket->save();
+
+        $users_assigned_to_ticket = UserTicket::where('ticketId', '=', $ticket->id)->get();
+        $users = [];
+        foreach ($users_assigned_to_ticket as $user_ticket) {
+            array_push($users, User::find($user_ticket->userId));
+        }
+        
+        $priority = Priority::find(Input::get('selectedPriority'));
+
+        //Logic for Notifications
+        $user_notifier = Auth::user();
+        
+        $user_notifier->newNotification($users)
+            ->withType('change.assigned.Ticket.priority')
+            ->withSubject('Changing Assigned Ticket Priority')
+            ->withBody($user_notifier->name . ' changed Ticket "' . $ticket->title . '" priority to '. $priority->name)
+            ->regarding($ticket)
+            ->send();
+
         Session::flash('message', 'The Priority of '.$ticket->title .' has been set to '. $priority->name.' priority Successfully');
         return redirect()->back();  
     }
@@ -160,6 +209,19 @@ class TicketController extends Controller
         $userTicket->ticketId = $ticket->id;
         //dd($userTicket);
         $userTicket->save();
+
+        //Logic for Notifications
+        $user_notifier = Auth::user();
+        $users_to_be_notified = [$supervisor];
+        $user = User::find($supervisor->id);
+
+        $user->newNotification($users_to_be_notified)
+            ->withType('escalate.Ticket')
+            ->withSubject('Escalate Ticket')
+            ->withBody($user_notifier->name . ' escalated Ticket "' . $ticket->title . '" to you.')
+            ->regarding($ticket)
+            ->send();
+
         Session::flash('message', $ticket->title .' has been esclated to your supervisor Successfully');
         return redirect()->back();  
     }
@@ -180,6 +242,18 @@ class TicketController extends Controller
         $userTicket->userId = Input::get('selectedMember');
         $userTicket->ticketId = $id;
         $userTicket->save();
+
+        //Logic for Notifications
+        $user_notifier = Auth::user();
+        $users_to_be_notified = [$user];
+        
+        $user->newNotification($users_to_be_notified)
+            ->withType('inviteTo.Ticket')
+            ->withSubject('Inviting To Ticket')
+            ->withBody($user_notifier->name . ' invited you to Ticket "' . $ticket->title . '".')
+            ->regarding($ticket)
+            ->send();
+
         Session::flash('message', $user->name .' has been invited to '.$ticket->title.' Successfully');
         return redirect()->back();    
     }
@@ -207,6 +281,18 @@ class TicketController extends Controller
         $userTicket->userId = Input::get('selectedMember');
         $userTicket->ticketId = $id;
         $userTicket->save();
+
+        //Logic for Notifications
+        $user_notifier = Auth::user();
+        $users_to_be_notified = [$user];
+
+        $user->newNotification($users_to_be_notified)
+            ->withType('re-assign.Ticket')
+            ->withSubject('Re-assigning Ticket')
+            ->withBody($user_notifier->name . ' re-assigned Ticket "' . $ticket->title . '" to you.')
+            ->regarding($ticket)
+            ->send();
+
         Session::flash('message', $user->name .' has been re-assign to '.$ticket->title.' Successfully');
         return redirect()->back();    
 

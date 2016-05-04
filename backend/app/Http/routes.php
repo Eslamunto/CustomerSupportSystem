@@ -36,6 +36,11 @@ Route::group(['middleware' => 'auth'], function () {
         'uses' => 'SocialProviderController@twitterCallback'
     ]);
 
+    Route::get('/{role}/notifications/show/{id}', [
+        'as' => 'showNotifications',
+        'uses' => 'NotificationController@markNotificationsAsRead'
+    ]
+    );
 
     Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
         //Admin home
@@ -148,9 +153,25 @@ Route::group(['middleware' => 'auth'], function () {
             'uses' => 'StatusController@update'
         ]);
 
-        Route::delete('status/{id}', [
+        Route::delete('/status/{id}', [
             'as' => 'deleteStatus',
             'uses' => 'StatusController@destroy'
+        ]);
+
+        //Ticket Priorities
+        Route::post('/priority', [
+            'as' => 'newPriority', 
+            'uses' => 'PriorityController@store'
+        ]);
+
+        Route::put('/priority/{id}', [
+            'as' => 'updatePriority',
+            'uses' => 'PriorityController@update'
+        ]);
+
+        Route::delete('/priority/{id}', [
+            'as' => 'deletePriority',
+            'uses' => 'PriorityController@destroy'
         ]);
 
         //Settings
@@ -196,7 +217,6 @@ Route::group(['middleware' => 'auth'], function () {
 
         //supervisor home
         Route::get('/', ["as" => "supervisorFeed", "uses" =>"FeedController@index"]);
-
        
         //Supervisor Tickets History
         Route::get('/team/agents/{id}', [

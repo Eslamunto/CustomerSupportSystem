@@ -42,9 +42,47 @@
                     <span class="sr-only">Toggle navigation</span>
                 </a>
               <!-- Navbar Right Menu -->
-              <div class="navbar-custom-menu">
+            <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                     <!-- Messages: style can be found in dropdown.less-->
+                    <!-- =========================================User Notifications===================================== -->
+                    <li class="dropdown notifications-menu">
+                        @if (Auth::user()->role == 0)
+                        <a href="{{ route('showNotifications', ['role' => 'admin', 'id' => Auth::user()->id]) }}" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                        @elseif(Auth::user()->role == 1)
+                        <a href="{{ route('showNotifications', ['role' => 'supervisor', 'id' => Auth::user()->id]) }}" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                        @elseif(Auth::user()->role == 2)
+                        <a href="{{ route('showNotifications', ['role' => 'agent', 'id' => Auth::user()->id]) }}" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                        @endif   
+                            <i class="fa fa-bell-o"></i>
+                            @if ($notifications_count != 0)
+                                <span class="label label-warning">{{ $notifications_count }}</span>
+                            @endif
+                        </a>
+                        <ul class="dropdown-menu menu-scroll" style="width:500px;">
+                            <li class="header">You have {{ $notifications_count }} new notifications</li>
+                            <li>
+                                <ul class="menu" style="overflow: hidden; width: 100%; height: 400px;">
+                                    @foreach($notifications as $notification)
+                                        <li>
+                                        <a href="#">
+                                         <h5>
+                                            <i class="fa fa-ticket text-aqua"></i> 
+                                            {{ $notification->subject }} 
+                                            @if($notification->is_read == 0)
+                                                <span class="label bg-yellow pull-right" style="border-radius: 10px; width: 0px; height: 13px;">&nbsp</span>
+                                            @endif
+                                        </h5>
+                                        {{ $notification->body }}
+                                        </a>
+                                    </li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- =============================================================================================== -->
+
                     <!-- User Account Menu -->
                     <li class="dropdown user user-menu">
                         <!-- Menu Toggle Button -->
@@ -78,6 +116,7 @@
                             </li>
                         </ul>
                     </li>
+
                   <!-- Control Sidebar Toggle Button -->
                 </ul>
               </div>
@@ -106,7 +145,7 @@
                 <ul class="sidebar-menu">
                 @if(Auth::user()->role == 0)  
                     <li class="header">ADMIN</li>
-                    <li class="active"><a href="#"><i class="fa fa-rss"></i> <span>Feed</span></a></li>
+                    <li class="active"><a href="{{ Route('adminFeed') }}"><i class="fa fa-rss"></i> <span>Feed</span></a></li>
                     <li class="treeview">
                         <a href="#"><i class="fa fa-optin-monster"></i> <span>Employees</span> <i
                                 class="fa fa-angle-left pull-right"></i></a>
@@ -126,7 +165,7 @@
                     <ul class="sidebar-menu">
                     <li class="header">SUPPORT SUPERVISOR</li>
                     <!-- Optionally, you can add icons to the links -->
-                    <li class="active"><a href="#"><i class="fa fa-feed"></i> <span>Feed</span></a></li>
+                    <li class="active"><a href="{{ Route('supervisorFeed') }}"><i class="fa fa-feed"></i> <span>Feed</span></a></li>
                     <li class="treeview">
                       <a href="#"><i class="fa fa-optin-monster"></i> <span>Team Activity</span> <i class="fa fa-angle-left pull-right"></i></a>
                       <ul class="treeview-menu">
@@ -139,7 +178,7 @@
                     <li class="header"> SUPPORT AGENT</li>
                     <!-- Optionally, you can add icons to the links -->
                     <li class="active">
-                      <a href="#"><i class="fa fa-ticket"></i> <span>Tickets Feed</span></a>
+                      <a href="{{ Route('agentFeed') }}"><i class="fa fa-ticket"></i> <span>Tickets Feed</span></a>
                     </li>
                     <li>
                       <a href="#"><i class="fa fa-history"></i> <span>Tickets History</span></a>
@@ -196,26 +235,42 @@
             <strong>Copyright &copy; 2015 </strong><a href="#"><strong>Team</strong>Four</a>. All rights reserved.
         </footer>
 
-        <!-- jQuery 2.1.4 -->
-        {{ HTML::script('plugins/jQuery/jQuery-2.1.4.min.js') }}
-        <!-- Bootstrap 3.3.5 -->
-        {{ HTML::script('bootstrap/js/bootstrap.min.js') }}
-        <!-- AdminLTE App -->
-        {{ HTML::script('dist/js/app.min.js') }}
-        
-        {{ HTML::script('dist/js/agentTicket.js') }}  
-
-        {{ HTML::script('dist/js/bootstrap-colorpicker.min.js') }}
-
-        <script type="text/javascript">
-            document.getElementById("twitterButton").onclick = function () {
-                var url = $(this).data('link');
-                location.href = url;
-            };
-        </script>
-
-        @yield('scripts')  
     </div>    
+    <!-- jQuery 2.1.4 -->
+    {{ HTML::script('plugins/jQuery/jQuery-2.1.4.min.js') }}
+
+    {{ HTML::script('plugins/slimScroll/jquery.slimscroll.min.js') }}
+
+    {{ HTML::script('plugins/fastclick/fastclick.min.js') }}
+
+    <!-- Bootstrap 3.3.5 -->
+    {{ HTML::script('bootstrap/js/bootstrap.min.js') }}
+    <!-- AdminLTE App -->
+    {{ HTML::script('dist/js/app.min.js') }}
+    
+    {{ HTML::script('dist/js/agentTicket.js') }}  
+
+    {{ HTML::script('dist/js/bootstrap-colorpicker.min.js') }}
+
+    <script type="text/javascript">
+        document.getElementById("twitterButton").onclick = function () {
+            var url = $(this).data('link');
+            location.href = url;
+        };
+
+        $('li.dropdown').on('click', function() {
+            var $el = $(this);
+            if ($el.hasClass('open')) {
+                var $a = $el.children('a.dropdown-toggle');
+                
+                if ($a.length && $a.attr('href')) {
+                    location.href = $a.attr('href');
+                }
+            }
+        });
+    </script>
+
+    @yield('scripts') 
 </body>
 </html>
 

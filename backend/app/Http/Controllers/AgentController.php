@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Input as Input;
 use Illuminate\Support\Facades\Hash as Hash;
 use Illuminate\Support\Facades\Session as Session;
 
+
 class AgentController extends Controller
 {
     public function index(){

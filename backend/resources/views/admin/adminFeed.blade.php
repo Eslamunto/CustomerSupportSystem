@@ -174,7 +174,7 @@
 <!-- ==================================================================================================================== -->
                         <div class="tab-pane" id="tab_3-2">
                                 @foreach ($unassignedTickets as $ticket)
-                                    <div class="callout callout-default callout-ticket-bg clearfix">
+                                    <div class="callout callout-default callout-ticket-bg clearfix" style="background-color: #FFEDED">
                                         <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket-{{$ticket->id}}">{{ $ticket->title }} </a></h5>
                                         @include('ticket.ticketModal', ['ticket' => $ticket])
                                         <!-- <div  >
@@ -345,10 +345,6 @@
 <!-- DataTables -->
 {{ HTML::script('plugins/datatables/jquery.dataTables.min.js') }}
 {{ HTML::script('plugins/datatables/dataTables.bootstrap.min.js') }}
-<!-- SlimScroll -->
-{{ HTML::script('plugins/slimScroll/jquery.slimscroll.min.js') }}
-<!-- FastClick -->
-{{ HTML::script('plugins/fastclick/fastclick.min.js') }}
 <!-- page script -->
 <script>
     $('.assign-ticket-button').on('click', function () {
