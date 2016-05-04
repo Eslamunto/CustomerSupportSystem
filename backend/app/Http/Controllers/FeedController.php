@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\SocialProvider;
+use App\TwitterPost;
 use Illuminate\Http\Request;
 use Abraham\TwitterOAuth\TwitterOAuth;
 use App\Http\Requests;
@@ -142,6 +143,14 @@ class FeedController extends Controller
          }
          return $userTeam;
             // return User::all();
+    }
+
+    public function checkTweet($tweetId){
+        $tweet = TwitterPost::where('tweetId','=', $tweetId)->get();
+        if(count($tweet) == 0){
+            return response('this is a new tweet', 404);
+        }
+        return response('this tweet is opend before as a ticket', 200);
     }
 
 

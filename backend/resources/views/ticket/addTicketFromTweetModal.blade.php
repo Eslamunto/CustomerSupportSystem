@@ -65,49 +65,49 @@
                                     <p><strong>Tel: </strong> <a id="customerMobile"></a></p>
                                 </div>
                             </div>
-                        <form role="form">
-
+                        <form role="form" id="newTicket" method="POST">
+                            {{csrf_field()}}
                             <div class="form-group">
-                                <label for="ticketTitle">Customer ID</label>
-                                <input class="form-control" id="customerId" type="text" disabled>
+                                <label for="customerId">Customer ID</label>
+                                <input class="form-control" id="customerId" name="customerId" type="text">
                             </div>
                             <div class="form-group">
-                                <label for="ticketTitle">Tweet ID</label>
-                                <input class="form-control" id="tweetId" type="text" disabled>
+                                <label for="tweetId">Tweet ID</label>
+                                <input class="form-control" id="tweetId" name="tweetId" type="text" >
                             </div>
                             <div class="form-group">
                                 <label for="ticketTitle">Ticket Title</label>
-                                <input type="text" class="form-control" id="ticketTitle" placeholder="Ticket Title">
+                                <input type="text" class="form-control" id="ticketTitle" name="title" placeholder="Ticket Title">
                             </div>
                             <div class="form-group">
-                                <label for="ticketTitle">Tweet Body</label>
-                                <textarea id="tweetBody" class="form-control" disabled></textarea>
+                                <label for="tweetBody">Tweet Body</label>
+                                <textarea id="tweetBody" class="form-control" name="tweetBody" ></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="ticketDescription">Ticket Description</label>
-                                <textarea id="ticketDescription" class="form-control" ></textarea>
+                                <textarea id="ticketDescription" name="description" class="form-control" ></textarea>
                             </div>
                             <div class="form-group">
                                 <label>Priority</label>
-                                <select class="form-control" id="priorities">
+                                <select class="form-control" id="priorities" name="priority">
                                     <option value="0">--</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label>Status</label>
-                                <select class="form-control" id="status">
+                                <select class="form-control" id="status" name="status">
                                     <option value="0">--</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label>Department</label>
-                                <select class="form-control" id="departments">
+                                <select class="form-control" id="departments" name="department">
                                     <option value="0">--</option>
                                 </select>
                             </div>
                             <div class="form-group" id="agentsDiv">
                                 <label>Agents</label>
-                                <select class="form-control" id="agents">
+                                <select class="form-control" id="agents" name="agent">
                                     <option value="0">--</option>
                                 </select>
                             </div>
@@ -121,3 +121,4 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+</div>

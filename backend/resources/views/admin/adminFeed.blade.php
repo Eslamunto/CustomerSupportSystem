@@ -259,6 +259,8 @@
         var agentsURL = "{{url('agents/index')}}";
         var customerCheck = "{{url('/check/customer/')}}";
         var customerCreate ="{{route('ajaxNewCustomer')}}";
+        var newTicket = "{{route('newTicket')}}";
+        var checkTweet = "{{url('tweet/check/')}}";
     </script>
     {{HTML::script('dist/js/adminFeed.js')}}
 

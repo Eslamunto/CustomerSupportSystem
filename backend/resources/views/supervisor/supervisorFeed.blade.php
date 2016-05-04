@@ -53,48 +53,7 @@
                     <div class="tab-content">
                         <!-- My Tickets -->
                         <div class="tab-pane active" id="tab_1-1">
-<<<<<<< HEAD
-                            <div class="callout callout-default callout-ticket-bg clearfix">
-                                <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket">#7 Ticket Title</a></h5>
-                                <div class="pull-right">
-                                    <span class="label bg-yellow">Opened</span>
-                                    <span class="label bg-red">High</span>
-                                    <span class="label bg-aqua">3</span>
-                                </div>
-                            </div>
-                            <div class="callout callout-default callout-ticket-bg clearfix">
-                                <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket">#11 Ticket Title</a></h5>
-                                <div class="pull-right">
-                                    <span class="label bg-yellow">Opened</span>
-                                    <span class="label bg-red">High</span>
-                                    <span class="label bg-aqua">3</span>
-                                </div>
-                            </div>
-                            <div class="callout callout-default callout-ticket-bg clearfix">
-                                <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket">#20 Ticket Title</a></h5>
-                                <div class="pull-right">
-                                    <span class="label bg-yellow">Opened</span>
-                                    <span class="label bg-red">High</span>
-                                    <span class="label bg-aqua">3</span>
-                                </div>
-                            </div>
-                            <div class="callout callout-default callout-ticket-bg clearfix">
-                                <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket">#10 Ticket Title</a></h5>
-                                <div class="pull-right">
-                                    <span class="label bg-yellow">Opened</span>
-                                    <span class="label bg-red">High</span>
-                                    <span class="label bg-aqua">3</span>
-                                </div>
-                            </div>
-                            <div class="callout callout-default callout-ticket-bg clearfix">
-                                <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket">#2 Ticket Title</a></h5>
-                                <div class="pull-right">
-                                    <span class="label bg-yellow">Opened</span>
-                                    <span class="label bg-red">High</span>
-                                    <span class="label bg-aqua">3</span>
-                                </div>
-                            </div>
-=======
+
                             @foreach ($userAssignedTickets as $ticket)
                                 <div class="callout callout-default callout-ticket-bg clearfix">
                                     <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket-{{$ticket->id}}">{{ $ticket->title }} </a></h5>
@@ -106,48 +65,13 @@
                                         </div>
                                 </div>
                             @endforeach
->>>>>>> ab63cab1ed55301ba031cd56a17d423f04a1e102
+
                         </div><!-- /.tab-pane -->
 
                         <!-- Team Tickets -->
                         <div class="tab-pane" id="tab_2-2">
                             <div class="callout callout-default callout-ticket-bg clearfix">
                                 <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket">#7 Ticket Title</a></h5>
-<<<<<<< HEAD
-                                <div class="pull-right">
-                                    <span class="label bg-yellow">Opened</span>
-                                    <span class="label bg-red">High</span>
-                                    <span class="label bg-aqua">3</span>
-                                </div>
-                            </div>
-                            <div class="callout callout-default callout-ticket-bg clearfix">
-                                <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket">#11 Ticket Title</a></h5>
-                                <div class="pull-right">
-                                    <span class="label bg-yellow">Opened</span>
-                                    <span class="label bg-red">High</span>
-                                    <span class="label bg-aqua">3</span>
-                                </div>
-                            </div>
-                            <div class="callout callout-default callout-ticket-bg clearfix">
-                                <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket">#20 Ticket Title</a></h5>
-                                <div class="pull-right">
-                                    <span class="label bg-yellow">Opened</span>
-                                    <span class="label bg-red">High</span>
-                                    <span class="label bg-aqua">3</span>
-                                </div>
-                            </div>
-                            <div class="callout callout-default callout-ticket-bg clearfix">
-                                <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket">#10 Ticket Title</a></h5>
-                                <div class="pull-right">
-                                    <span class="label bg-yellow">Opened</span>
-                                    <span class="label bg-red">High</span>
-                                    <span class="label bg-aqua">3</span>
-                                </div>
-                            </div>
-                            <div class="callout callout-default callout-ticket-bg clearfix">
-                                <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket">#2 Ticket Title</a></h5>
-=======
->>>>>>> ab63cab1ed55301ba031cd56a17d423f04a1e102
                                 <div class="pull-right">
                                     <span class="label bg-yellow">Opened</span>
                                     <span class="label bg-red">High</span>
@@ -155,66 +79,7 @@
                                 </div>
                             </div>
                         </div><!-- /.tab-pane -->
-<<<<<<< HEAD
 
-                        <!-- Unassigned Tickets -->
-                        <div class="tab-pane" id="tab_3-2">
-                            <div class="callout callout-default callout-ticket-bg clearfix">
-                                <div class="col-md-6">
-                                    <h5 class="pull-left">#7 Ticket Title</h5>
-                                </div>
-                                <div class="col-md-3">
-                                    <span class="label bg-red">High</span>
-                                </div>
-                                <div class="col-md-3">
-                                    <button type="button" class="btn btn-danger btn-sm pull-right"><i class="fa fa-medkit"></i> Claim</button>
-                                </div>
-                            </div>
-                            <div class="callout callout-default callout-ticket-bg clearfix">
-                                <div class="col-md-6">
-                                    <h5 class="pull-left">#11 Ticket Title</h5>
-                                </div>
-                                <div class="col-md-3">
-                                    <span class="label bg-yellow">Medium</span>
-                                </div>
-                                <div class="col-md-3">
-                                    <button type="button" class="btn btn-danger btn-sm pull-right"><i class="fa fa-medkit"></i> Claim</button>
-                                </div>
-                            </div>
-                            <div class="callout callout-default callout-ticket-bg clearfix">
-                                <div class="col-md-6">
-                                    <h5 class="pull-left">#20 Ticket Title</h5>
-                                </div>
-                                <div class="col-md-3">
-                                    <span class="label bg-yellow">Medium</span>
-                                </div>
-                                <div class="col-md-3">
-                                    <button type="button" class="btn btn-danger btn-sm pull-right"><i class="fa fa-medkit"></i> Claim</button>
-                                </div>
-                            </div>
-                            <div class="callout callout-default callout-ticket-bg clearfix">
-                                <div class="col-md-6">
-                                    <h5 class="pull-left">#10 Ticket Title</h5>
-                                </div>
-                                <div class="col-md-3">
-                                    <span class="label bg-green">Low</span>
-                                </div>
-                                <div class="col-md-3">
-                                    <button type="button" class="btn btn-danger btn-sm pull-right"><i class="fa fa-medkit"></i> Claim</button>
-                                </div>
-                            </div>
-                            <div class="callout callout-default callout-ticket-bg clearfix">
-                                <div class="col-md-6">
-                                    <h5 class="pull-left">#2 Ticket Title</h5>
-                                </div>
-                                <div class="col-md-3">
-                                    <span class="label bg-green">Low</span>
-                                </div>
-                                <div class="col-md-3">
-                                    <button type="button" class="btn btn-danger btn-sm pull-right"><i class="fa fa-medkit"></i> Claim</button>
-                                </div>
-                            </div>
-=======
 <!-- ==================================================================================================================== -->
                         <div class="tab-pane" id="tab_3-2">
                                 @foreach ($unassignedTickets as $ticket)
@@ -233,7 +98,7 @@
                                         </div>
                                     </div>
                                 @endforeach
->>>>>>> ab63cab1ed55301ba031cd56a17d423f04a1e102
+
                         </div><!-- /.tab-pane -->
 <!-- ==================================================================================================================== -->
                     </div><!-- /.tab-content -->
@@ -379,18 +244,22 @@
         </div>
     </div>
 
-<<<<<<< HEAD
     @include('ticket.ticketModal')
     @include('ticket.addTicketFromTweetModal')
 
 @endsection
 @section('scripts')
-    <script>
-        var getDepartments = "{{route('departmentIndex')}}";
-        var getStatuses = "{{route('statusIndex')}}";
-        var getPriorities = "{{route('priorityIndex')}}";
-        var route = "{{route('getTweets')}}";
-        var agentsURL = "{{url('agents/index')}}";
-    </script>
-    {{HTML::script('dist/js/adminFeed.js')}}
+            {{HTML::script('http://malsup.github.com/jquery.form.js')}}
+            <script>
+                var getDepartments = "{{route('departmentIndex')}}";
+                var getStatuses = "{{route('statusIndex')}}";
+                var getPriorities = "{{route('priorityIndex')}}";
+                var route = "{{route('getTweets')}}";
+                var agentsURL = "{{url('agents/index')}}";
+                var customerCheck = "{{url('/check/customer/')}}";
+                var customerCreate ="{{route('ajaxNewCustomer')}}";
+                var newTicket = "{{route('newTicket')}}";
+                var checkTweet = "{{url('tweet/check/')}}";
+            </script>
+{{HTML::script('dist/js/adminFeed.js')}}
 @endsection

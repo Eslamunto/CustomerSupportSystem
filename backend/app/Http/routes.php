@@ -63,6 +63,15 @@ Route::group(['middleware' => 'auth'], function () {
         'uses' => 'SocialProviderController@twitterCallback'
     ]);
 
+    Route::POST('/ticket/create/new', [
+        'as' => 'newTicket',
+        'uses' => 'TicketController@ajaxCreate',
+    ]);
+    Route::GET('tweet/check/{id}', [
+        'as' => 'checkTweet',
+        'uses'=>'FeedController@checkTweet'
+    ]);
+
 
     Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
         //Admin home
@@ -217,7 +226,6 @@ Route::group(['middleware' => 'auth'], function () {
         //supervisor home
         Route::get('/', ["as" => "supervisorFeed", "uses" =>"FeedController@index"]);
 
-       
         //Supervisor Tickets History
         Route::get('/team/agents/{id}', [
             'as' => 'supervisorTeamAgents',

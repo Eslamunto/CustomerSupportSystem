@@ -55,18 +55,38 @@ window.onload = function () {
         $('#tweets').empty();
         $.each(data, function(i, field){
             var username = "\' ' "+field.user.screen_name+"\' ' ";
-            $('#tweets').append("<div class='box box-primary'>"+
-                " <div class='box-header with-border'>"+
-                "<h3 class='box-title text-primary'>"+field.user['name']+
-                "<small>@"+field.user['screen_name']+"</small> </h3>"+
-                "<div class='box-tools pull-right'>"+
-                "<button type='button' onClick=\'getTicketOpeningData("
-                +field.id+"\,\""+field.user.screen_name+ " \"" + " \,\" "+field.user.name+ " \"" + " \,\" "+field.text
-                +" \" \) \' class='btn btn-primary btn-sm' data-toggle='modal' data-target='#addTicket'>"+
-                "<i class='fa fa-plus'></i>  New Ticket </button> </div> </div>"+
-                "<div class='box-body'>"+
-                field.text
-                +"</div></div>")
+            var checkRoute = checkTweet + '/' + field.id;
+            $.ajax({
+                type: 'GET',
+                url: checkRoute,
+                success: function(){
+                    $('#tweets').append("<div class='box box-primary'>"+
+                        " <div class='box-header with-border'>"+
+                        "<h3 class='box-title text-primary'>"+field.user['name']+
+                        "<small>@"+field.user['screen_name']+"</small> </h3>"+
+                        "<div class='box-tools pull-right'>"+
+                        " </div> </div>"+
+                        "<div class='box-body'>"+
+                        field.text
+                        +"</div></div>");
+
+                },
+                error: function(){
+                    $('#tweets').append("<div class='box box-primary'>"+
+                        " <div class='box-header with-border'>"+
+                        "<h3 class='box-title text-primary'>"+field.user['name']+
+                        "<small>@"+field.user['screen_name']+"</small> </h3>"+
+                        "<div class='box-tools pull-right'>"+
+                        "<button type='button' onClick=\'getTicketOpeningData("
+                        +field.id+"\,\""+field.user.screen_name+ "\"" + " \,\" "+field.user.name+ " \"" + " \,\" "+field.text
+                        +" \" \) \' class='btn btn-primary btn-sm' data-toggle='modal' data-target='#addTicket'>"+
+                        "<i class='fa fa-plus'></i>  New Ticket </button> </div> </div>"+
+                        "<div class='box-body'>"+
+                        field.text
+                        +"</div></div>");
+                }
+            });
+
         });
     }).fail(function(){
         $('#tweets').empty();
@@ -109,5 +129,20 @@ window.onload = function () {
 
         e.preventDefault(); // avoid to execute the actual submit of the form.
     });
-
+    $('#newTicket').submit(function(e){
+        $.ajax({
+            type: "POST",
+            url: newTicket,
+            data: $('#newTicket').serializeArray(),
+            success: function(data){
+                alert(data);
+                $('#addTicket').modal('hide');
+                location.reload();
+            },
+            error: function(ts) {
+                alert(ts.response)
+            }
+        });
+        e.preventDefault();
+    });
 }
