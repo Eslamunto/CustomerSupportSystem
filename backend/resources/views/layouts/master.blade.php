@@ -145,7 +145,7 @@
                 <ul class="sidebar-menu">
                 @if(Auth::user()->role == 0)  
                     <li class="header">ADMIN</li>
-                    <li class="active"><a href="#"><i class="fa fa-rss"></i> <span>Feed</span></a></li>
+                    <li class="active"><a href="{{ Route('adminFeed') }}"><i class="fa fa-rss"></i> <span>Feed</span></a></li>
                     <li class="treeview">
                         <a href="#"><i class="fa fa-optin-monster"></i> <span>Employees</span> <i
                                 class="fa fa-angle-left pull-right"></i></a>
@@ -165,7 +165,7 @@
                     <ul class="sidebar-menu">
                     <li class="header">SUPPORT SUPERVISOR</li>
                     <!-- Optionally, you can add icons to the links -->
-                    <li class="active"><a href="#"><i class="fa fa-feed"></i> <span>Feed</span></a></li>
+                    <li class="active"><a href="{{ Route('supervisorFeed') }}"><i class="fa fa-feed"></i> <span>Feed</span></a></li>
                     <li class="treeview">
                       <a href="#"><i class="fa fa-optin-monster"></i> <span>Team Activity</span> <i class="fa fa-angle-left pull-right"></i></a>
                       <ul class="treeview-menu">
@@ -178,7 +178,7 @@
                     <li class="header"> SUPPORT AGENT</li>
                     <!-- Optionally, you can add icons to the links -->
                     <li class="active">
-                      <a href="#"><i class="fa fa-ticket"></i> <span>Tickets Feed</span></a>
+                      <a href="{{ Route('agentFeed') }}"><i class="fa fa-ticket"></i> <span>Tickets Feed</span></a>
                     </li>
                     <li>
                       <a href="#"><i class="fa fa-history"></i> <span>Tickets History</span></a>
