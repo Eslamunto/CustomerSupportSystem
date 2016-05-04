@@ -47,7 +47,6 @@ class User extends Authenticatable
             $user_notification->notification_id = $notification->id;
 
             $user_notification->save();
-            // $notification->users()->associate($this);
         }
      
         return $notification;

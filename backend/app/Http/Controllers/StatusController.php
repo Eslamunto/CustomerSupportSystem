@@ -41,7 +41,6 @@ class StatusController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'color' => 'required'
@@ -56,9 +55,9 @@ class StatusController extends Controller
             $status = Status::create($input);
 
             //Logic for notifications
-            $user = User::find(Auth::user()->id);
+            $user = Auth::user();
             $users_to_be_notified = User::where('id', '!=', $user->id)->get();
-            // dd($users_to_be_notified);
+        
             $user->newNotification($users_to_be_notified)
                 ->withType('new.Ticket.status')
                 ->withSubject('New Ticket Status')
@@ -102,7 +101,6 @@ class StatusController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
         $validator = Validator::make($request->all(), [
             'name' => 'required_without_all:color',
             'color' => 'required_without_all:name'
@@ -133,7 +131,6 @@ class StatusController extends Controller
      */
     public function destroy($id)
     {
-        //
         $status = Status::find($id);
         $status->delete();
 

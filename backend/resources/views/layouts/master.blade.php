@@ -45,9 +45,7 @@
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                     <!-- Messages: style can be found in dropdown.less-->
-                    <!-- User Notifications -->
-                    <!-- =============================================================================================== -->
-                    {{-- @yield('notifications') --}}
+                    <!-- =========================================User Notifications===================================== -->
                     <li class="dropdown notifications-menu">
                         @if (Auth::user()->role == 0)
                         <a href="{{ route('showNotifications', ['role' => 'admin', 'id' => Auth::user()->id]) }}" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
@@ -64,89 +62,25 @@
                         <ul class="dropdown-menu menu-scroll" style="width:500px;">
                             <li class="header">You have {{ $notifications_count }} new notifications</li>
                             <li>
-                            <!-- inner menu: contains the actual data -->
-                               {{--  <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 250px;"> --}}
-                                    <ul class="menu" style="overflow: hidden; width: 100%; height: 250px;">
-                                        @foreach($notifications as $notification)
-                                            <li>
-                                            <a href="#">
-                                             <h5>
-                                                <i class="fa fa-ticket text-aqua"></i> 
-                                                {{ $notification->subject }} 
-                                                @if($notification->is_read == 0)
-                                                    <span class="label bg-yellow pull-right" style="border-radius: 10px; width: 0px; height: 13px;">&nbsp</span>
-                                                @endif
-                                            </h5>
-                                            {{ $notification->body }}
-                                            </a>
-                                        </li>
-                                        @endforeach
-                                    </ul>
-                                    {{-- <div class="slimScrollBar" style="width: 3px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 195.122px; background: rgb(0, 0, 0);">
-                                    </div>
-                                    <div class="slimScrollRail" style="width: 3px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);">
-                                    </div> --}}
-                                {{-- </div> --}}
+                                <ul class="menu" style="overflow: hidden; width: 100%; height: 400px;">
+                                    @foreach($notifications as $notification)
+                                        <li>
+                                        <a href="#">
+                                         <h5>
+                                            <i class="fa fa-ticket text-aqua"></i> 
+                                            {{ $notification->subject }} 
+                                            @if($notification->is_read == 0)
+                                                <span class="label bg-yellow pull-right" style="border-radius: 10px; width: 0px; height: 13px;">&nbsp</span>
+                                            @endif
+                                        </h5>
+                                        {{ $notification->body }}
+                                        </a>
+                                    </li>
+                                    @endforeach
+                                </ul>
                             </li>
                         </ul>
                     </li>
-                    {{-- <li class="dropdown notifications-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                            <i class="fa fa-bell-o"></i>
-                            <span class="label label-warning">10</span>
-                        </a>
-                        <ul class="dropdown-menu" style="width:500px;">
-                            <li class="header">You have 10 notifications</li>
-                            <li>
-                            <!-- inner menu: contains the actual data -->
-                                <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 200px;">
-                                    <ul class="menu" style="overflow: hidden; width: 100%; height: 200px;">
-                                        <li>
-                                            <a href="#">
-                                            <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                            <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the page and may cause design problems
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                            <i class="fa fa-users text-red"></i> 5 new members joined
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                            <i class="fa fa-shopping-cart text-green"></i> 25 sales made
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                            <i class="fa fa-user text-red"></i> You changed your username
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                            <i class="fa fa-user text-red"></i> You changed your username
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                            <i class="fa fa-user text-red"></i> You changed your username
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    <div class="slimScrollBar" style="width: 3px; position: absolute; top: 5px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 195.122px; background: rgb(0, 0, 0);">
-                                    </div>
-                                    <div class="slimScrollRail" style="width: 3px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);">
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="footer"><a href="#">View all</a>
-                            </li>
-                        </ul>
-                    </li> --}}
                     <!-- =============================================================================================== -->
 
                     <!-- User Account Menu -->
@@ -326,9 +260,6 @@
 
         $('li.dropdown').on('click', function() {
             var $el = $(this);
-            // if ($el.hasClass('open')) {
-            //     var $a = $el.children('a.dropdown-toggle');
-            // }
             if ($el.hasClass('open')) {
                 var $a = $el.children('a.dropdown-toggle');
                 
@@ -337,15 +268,6 @@
                 }
             }
         });
-
-        $(document).ready(
-            function(){
-                $('#ScrollDiv').slimScroll({
-                    height: '250px',
-                    ailVisible: true,
-                    allowPageScroll: true,
-                });
-            });
     </script>
 
     @yield('scripts') 

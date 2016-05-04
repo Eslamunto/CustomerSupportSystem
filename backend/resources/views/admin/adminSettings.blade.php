@@ -210,8 +210,8 @@
     @include('status.editTicketStatus')
     @include('status.addTicketStatus')
     @include('socialProvider.editTwitterAccount')
-    @include('priority.addTicketPriority')
     @include('priority.editTicketPriority')
+    @include('priority.addTicketPriority')
 
 @endsection
 
@@ -220,11 +220,6 @@
         $('.update-status-button').on('click', function () {
             $('#statustName').attr('value', $(this).data('status-name'));
             $('#update-status-form').attr('action', $(this).data('update-link'));
-        });
-
-        $('.update-priority-button').on('click', function () {
-            $('#priorityName').attr('value', $(this).data('priority-name'));
-            $('#update-priority-form').attr('action', $(this).data('update-priority-link'));
         });
 
         $('[data-method]').click(function(e) {
@@ -246,6 +241,11 @@
                 // Append the inputs to the form, hide the form, append the form to the <body>, SUBMIT !
                 $form.append($inputMethod, $inputToken).hide().appendTo('body').submit();
             }
+        });
+
+        $('.update-priority-button').on('click', function () {
+            $('#update-priority-form').attr('action', $(this).data('update-priority-link'));
+            $('#priorityName').attr('value', $(this).data('priority-name'));
         });
 
         $(function() {

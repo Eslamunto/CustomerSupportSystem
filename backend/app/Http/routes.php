@@ -36,11 +36,7 @@ Route::group(['middleware' => 'auth'], function () {
         'uses' => 'SocialProviderController@twitterCallback'
     ]);
 
-    Route::get('/{role}/notifications/show/{id}', 
-    //     [ 'as' => 'showNotifications', function () {
-    //     echo "Iam inside route";
-    // }]
-        [
+    Route::get('/{role}/notifications/show/{id}', [
         'as' => 'showNotifications',
         'uses' => 'NotificationController@markNotificationsAsRead'
     ]

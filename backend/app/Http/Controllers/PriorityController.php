@@ -56,9 +56,9 @@ class PriorityController extends Controller
             $status = Priority::create($input);
 
             //Logic for notifications
-            $user = User::find(Auth::user()->id);
+            $user = Auth::user();
             $users_to_be_notified = User::where('id', '!=', $user->id)->get();
-            // dd($users_to_be_notified);
+            
             $user->newNotification($users_to_be_notified)
                 ->withType('new.Ticket.priority')
                 ->withSubject('New Ticket Priority')

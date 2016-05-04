@@ -28,11 +28,6 @@ class Notification extends Model
         return $this->belongsToMany('App\Notification', 'user_notifications', 'user_id', 'notification_id');
     }
 
-    public function getDates()
-    {
-        return ['created_at', 'updated_at', 'sent_at'];
-    }
-
     public function scopeUnread($query)
     {
         return $query->where('is_read', '=', 0);
@@ -84,7 +79,6 @@ class Notification extends Model
             ->join('notifications', 'user_notifications.notification_id', '=', 'notifications.id')
             ->where('user_notifications.user_id', $user_id)
             ->orderBy('is_read', 'asc');
-            // ->where('user_notifications.is_read', '=', 0);
 
         return $notifications_query;
     }

@@ -61,9 +61,9 @@ class TicketController extends Controller
         }
 
         //Logic for Notifications
-        $user_notifier = User::find(Auth::user()->id);
+        $user_notifier = Auth::user();
         $users_to_be_notified = [$user];
-        // dd($users_to_be_notified);
+        
         $user->newNotification($users_to_be_notified)
             ->withType('assign.Ticket')
             ->withSubject('Assigning Ticket')
@@ -173,11 +173,10 @@ class TicketController extends Controller
         $userTicket->save();
 
         //Logic for Notifications
-        $user_notifier = User::find(Auth::user()->id);
+        $user_notifier = Auth::user();
         $users_to_be_notified = [$supervisor];
         $user = User::find($supervisor->id);
-        // dd($users_to_be_notified);
-        // dd($user);
+
         $user->newNotification($users_to_be_notified)
             ->withType('escalate.Ticket')
             ->withSubject('Escalate Ticket')
@@ -205,6 +204,18 @@ class TicketController extends Controller
         $userTicket->userId = Input::get('selectedMember');
         $userTicket->ticketId = $id;
         $userTicket->save();
+
+        //Logic for Notifications
+        $user_notifier = Auth::user();
+        $users_to_be_notified = [$user];
+        
+        $user->newNotification($users_to_be_notified)
+            ->withType('inviteTo.Ticket')
+            ->withSubject('Inviting To Ticket')
+            ->withBody($user_notifier->name . ' invited you to Ticket "' . $ticket->title . '".')
+            ->regarding($ticket)
+            ->send();
+
         Session::flash('message', $user->name .' has been invited to '.$ticket->title.' Successfully');
         return redirect()->back();    
     }
@@ -232,6 +243,18 @@ class TicketController extends Controller
         $userTicket->userId = Input::get('selectedMember');
         $userTicket->ticketId = $id;
         $userTicket->save();
+
+        //Logic for Notifications
+        $user_notifier = Auth::user();
+        $users_to_be_notified = [$user];
+
+        $user->newNotification($users_to_be_notified)
+            ->withType('re-assign.Ticket')
+            ->withSubject('Re-assigning Ticket')
+            ->withBody($user_notifier->name . ' re-assigned Ticket "' . $ticket->title . '" to you.')
+            ->regarding($ticket)
+            ->send();
+
         Session::flash('message', $user->name .' has been re-assign to '.$ticket->title.' Successfully');
         return redirect()->back();    
 

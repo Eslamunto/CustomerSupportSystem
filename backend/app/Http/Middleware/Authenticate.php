@@ -38,10 +38,7 @@ class Authenticate
     public function prepareUserNotifications($view)
     {
         $user = User::find(Auth::user()->id);
-
-        // $notifications_query = Notification::getUserNotifications($user->id);
         $notifications = Notification::getUserNotifications($user->id)->get();
-        // $notifications_count = $notifications_query->count();
         $notifications_count = Notification::getNotificationsCount($user->id);
 
         $view->with(['notifications' => $notifications, 'notifications_count' => $notifications_count]);
