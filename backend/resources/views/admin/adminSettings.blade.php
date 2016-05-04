@@ -14,7 +14,7 @@
     @if($errors->any())
         <div class="alert alert-danger alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <h4> Error Creating new Ticket status </h4>
+            <h4> Opps an Error has occured !! </h4>
             <ul>
                 @foreach($errors->all() as $error)
                     <li>{{ $error }}</li>
@@ -146,7 +146,7 @@
                                                 </span>
                                             </td>
                                             <td>
-                                                <a href="" class="update-status-button" data-update-link="{{ Route('updateStatus', $status->id) }}" data-toggle="modal" data-target="#editStatus"> Edit </a> |
+                                                <a href="" class="update-status-button" data-update-link="{{ Route('updateStatus', $status->id) }}" data-toggle="modal" data-target="#editStatus" data-status-name="{{ $status->name }}"> Edit </a> |
                                                 <a href="{{ Route('deleteStatus', $status->id) }}" data-method="delete" data-token="{{ csrf_token() }}" data-confirm="Are you sure you want to delete '{{ $status->name }}' ?"> Delete </a>
                                             </td>
                                         </tr>
@@ -164,32 +164,42 @@
             <div class="col-md-6">
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h4 class="box-title">Priority</h4>
+                        <h4 class="box-title">Ticket Priority</h4>
+                        <button class="btn btn-xs bg-blue pull-right" data-toggle="modal" data-target="#addPriority">
+                            Add &nbsp&nbsp<i class="fa fa-plus"></i>
+                        </button>
                     </div>
                     <div class="box-body">
                         <!-- the events -->
                         <div id="external-events">
-                            <div class="external-event bg-green ui-draggable ui-draggable-handle" style="position: relative;">
-                                One
-                            </div>
-                            <div class="external-event bg-yellow ui-draggable ui-draggable-handle" style="position: relative;">
-                                Two
-                            </div>
-                            <div class="external-event bg-aqua ui-draggable ui-draggable-handle" style="position: relative;">
-                                Three
-                            </div>
-                            <div class="external-event bg-light-blue ui-draggable ui-draggable-handle" style="position: relative;">
-                                Four
-                            </div>
-                            <div class="external-event bg-red ui-draggable ui-draggable-handle" style="position: relative;">
-                                Paid
-                            </div>
-                            <div class="input-group">
-                                <input id="new-event" type="text" class="form-control" placeholder="Create New Priority">
-                                <div class="input-group-btn">
-                                    <button id="add-new-event" type="button" class="btn bg-blue btn-flat">Add</button>
-                                </div><!-- /btn-group -->
-                            </div>
+                            <table class="table table-striped">
+                                <thead>
+                                    <th>#</th>
+                                    <th>Title</th>
+                                    <th>Color</th>
+                                    <th>Action</th>
+                                </thead>
+                                <tbody>
+                                    <?php $count = 1 ?>
+                                    @foreach ($priorities as $priority)
+                                        <tr>
+                                            <td> {{ $count }} </td>
+                                            <td> {{ $priority->name }} </td>
+                                            <td>
+                                                <span class="label" style="background-color:{{ $priority->color }};">
+                                                    color
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <a href="" class="update-priority-button" data-update-priority-link="{{ Route('updatePriority', $priority->id) }}" data-toggle="modal" data-target="#editPriority" data-priority-name='{{ $priority->name }}' data-priority-color='{{ $priority->color }}'> Edit </a> |
+                                                <a href="{{ Route('deletePriority', $priority->id) }}" data-method="delete" data-token="{{ csrf_token() }}" data-confirm="Are you sure you want to delete '{{ $priority->name }}' ?"> Delete </a>
+                                            </td>
+                                        </tr>
+                                        <?php $count++ ?>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <br>
                         </div>
                     </div><!-- /.box-body -->
                 </div><!-- /. box -->
@@ -200,13 +210,21 @@
     @include('status.editTicketStatus')
     @include('status.addTicketStatus')
     @include('socialProvider.editTwitterAccount')
+    @include('priority.addTicketPriority')
+    @include('priority.editTicketPriority')
 
 @endsection
 
 @section('scripts')
     <script type="text/javascript">
         $('.update-status-button').on('click', function () {
+            $('#statustName').attr('value', $(this).data('status-name'));
             $('#update-status-form').attr('action', $(this).data('update-link'));
+        });
+
+        $('.update-priority-button').on('click', function () {
+            $('#priorityName').attr('value', $(this).data('priority-name'));
+            $('#update-priority-form').attr('action', $(this).data('update-priority-link'));
         });
 
         $('[data-method]').click(function(e) {
@@ -238,6 +256,14 @@
             $('#cp2').colorpicker();
          });
 
+        $(function() {
+            $('#cp3').colorpicker();
+         });
+
+        $(function() {
+            $('#cp4').colorpicker();
+         });
+
         $('.update-twitter').on('click', function() {
             $('#TwitterConsumer').attr('placeholder', ($(this).data('consumer')));
             $('#TwitterSecret').attr('placeholder', ($(this).data('secret')));
@@ -245,5 +271,6 @@
             $('#TwitterTokenSecret').attr('placeholder', ($(this).data('secret-token')));
             $('#update-twitter-form').attr('action', ($(this).data('update-link')));
         });
+
     </script>
 @endsection

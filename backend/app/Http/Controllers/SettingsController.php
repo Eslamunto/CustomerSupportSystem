@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 
 use App\SocialProvider as SocialProvider;
-
 use App\Status as Status;
+use App\Priority as Priority;
 
 class SettingsController extends Controller
 {
@@ -19,10 +19,10 @@ class SettingsController extends Controller
      */
     public function index()
     {
-        $twitter_account = SocialProvider::where('provider', 'twitter')->get();
+        $twitter_account = SocialProvider::where('provider', 'twitter')->get()->first();
         $statuses = Status::all();
+        $priorities = Priority::all();
 
-        return view('admin.adminSettings')->with('twitter_account', $twitter_account->first())
-        	->with('statuses', $statuses);
+        return view('admin.adminSettings', compact('twitter_account', 'statuses', 'priorities'));
     }
 }

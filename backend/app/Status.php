@@ -19,7 +19,7 @@ class Status extends Model
     * @var array
     */
     protected $fillable = [
-    'name', 'color',
+        'name', 'color',
     ];
 
     function ticket(){

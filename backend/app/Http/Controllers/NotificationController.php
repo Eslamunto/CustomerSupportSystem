@@ -13,19 +13,6 @@ use Illuminate\Support\Facades\Auth as Auth;
 
 class NotificationController extends Controller
 {
-    public function __construct()
-    {  
-        // $this->user = Auth::user();
-
-        if(Auth::user()->role == 0){
-            $this->middleware(['admin']);
-        }elseif(Auth::user()->role == 1){
-            $this->middleware(['supervisor']);
-        }elseif(Auth::user()->role == 2){
-            $this->middleware(['agent']);
-        }
-    }
-
     /**
      * Display a listing of the resource.
      *

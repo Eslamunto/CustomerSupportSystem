@@ -61,12 +61,12 @@
                                 <span class="label label-warning">{{ $notifications_count }}</span>
                             @endif
                         </a>
-                        <ul class="dropdown-menu" style="width:500px;">
+                        <ul class="dropdown-menu menu-scroll" style="width:500px;">
                             <li class="header">You have {{ $notifications_count }} new notifications</li>
                             <li>
                             <!-- inner menu: contains the actual data -->
-                                <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 200px;">
-                                    <ul class="menu" style="overflow: hidden; width: 100%; height: 200px;">
+                               {{--  <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 250px;"> --}}
+                                    <ul class="menu" style="overflow: hidden; width: 100%; height: 250px;">
                                         @foreach($notifications as $notification)
                                             <li>
                                             <a href="#">
@@ -82,13 +82,11 @@
                                         </li>
                                         @endforeach
                                     </ul>
-                                    <div class="slimScrollBar" style="width: 3px; position: absolute; top: 5px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 195.122px; background: rgb(0, 0, 0);">
+                                    {{-- <div class="slimScrollBar" style="width: 3px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 195.122px; background: rgb(0, 0, 0);">
                                     </div>
                                     <div class="slimScrollRail" style="width: 3px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);">
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="footer"><a href="#">View all</a>
+                                    </div> --}}
+                                {{-- </div> --}}
                             </li>
                         </ul>
                     </li>
@@ -339,6 +337,15 @@
                 }
             }
         });
+
+        $(document).ready(
+            function(){
+                $('#ScrollDiv').slimScroll({
+                    height: '250px',
+                    ailVisible: true,
+                    allowPageScroll: true,
+                });
+            });
     </script>
 
     @yield('scripts') 
