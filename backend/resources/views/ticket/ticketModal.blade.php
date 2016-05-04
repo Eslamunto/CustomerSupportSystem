@@ -152,7 +152,7 @@
                                 @endif
                                     {{csrf_field()}}
                                     <div class= "form-group">
-                                         @foreach ($userTeam as $user)
+                                         @foreach ($userAgents as $user)
                                              <div class="radio">
                                                 <label>
                                                     <input type="radio" name="selectedMember" value="{{$user->id}}"> {{$user->name}}
@@ -186,7 +186,7 @@
                                 @endif
                                     {{csrf_field()}}
                                     <div class= "form-group">
-                                         @foreach ($userTeam as $user)
+                                         @foreach ($userAgents as $user)
                                              <div class="radio">
                                                 <label>
                                                     <input type="radio" name="selectedMember" value="{{$user->id}}"> {{$user->name}}

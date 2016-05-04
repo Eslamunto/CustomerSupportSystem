@@ -37,15 +37,16 @@ class FeedController extends Controller
         $userAssignedTickets = $this->getUserAssignedTickets();
         $unassignedTickets = $this->getunAssignedTickets();
         $userTeam = $this->getUserTeam();
+        $userAgents = $this->getTeamAgents();
         $userAssignedTicketsCount = count($userAssignedTickets);
         $ticketStatus = Status::all();
         $ticketPriority = Priority::all();
          if(Auth::user()->role == 0){
-            return view('admin.adminFeed', compact('unassignedTickets', 'userAssignedTickets', 'userTeam', 'ticketStatus', 'ticketPriority', 'userAssignedTicketsCount'));
+            return view('admin.adminFeed', compact('unassignedTickets', 'userAssignedTickets', 'userTeam', 'userAgents','ticketStatus', 'ticketPriority', 'userAssignedTicketsCount'));
          }elseif(Auth::user()->role == 1){
-            return view('supervisor.supervisorFeed', compact('unassignedTickets', 'userAssignedTickets', 'userTeam', 'ticketStatus', 'ticketPriority'));
+            return view('supervisor.supervisorFeed', compact('unassignedTickets', 'userAssignedTickets', 'userTeam', 'userAgents', 'ticketStatus', 'ticketPriority'));
         }elseif(Auth::user()->role == 2){
-            return view('agent.agentFeed', compact('unassignedTickets', 'userAssignedTickets', 'userTeam', 'userAssignedTicketsCount', 'ticketStatus', 'ticketPriority'));
+            return view('agent.agentFeed', compact('unassignedTickets', 'userAssignedTickets', 'userTeam', 'userAgents', 'userAssignedTicketsCount', 'ticketStatus', 'ticketPriority'));
         }
 
     }
@@ -143,8 +144,46 @@ class FeedController extends Controller
             })
             ->get();
          }
-         return $userTeam;
-            // return User::all();
+         if($userTeam){
+                 return $userTeam;
+            }
+            else {
+                $team = array();
+                return $team;
+            }
+    }
+    public function getTeamAgents()
+    {
+        if(Auth::user()->role == 0){
+             $userAgents = DB::table('users')
+            ->join('team', 'users.teamId', '=', 'team.id')
+            ->join('departments', 'team.departmentId', '=', 'departments.id')  
+            ->select('users.*', 'departments.name AS departmentName', 'departments.id AS departmentId')
+            ->where(function($query)
+            {
+                $query->where('users.id', '!=', Auth::user()->id);
+            })
+            ->get();
+        }else {
+             $userAgents = DB::table('users')
+            ->join('team', 'users.teamId', '=', 'team.id')
+            ->join('departments', 'team.departmentId', '=', 'departments.id')  
+            ->select('users.*', 'departments.name AS departmentName', 'departments.id AS departmentId')
+            ->where(function($query)
+            {
+                $query->where('users.teamId', '=',  Auth::user()->teamId)
+                 ->where('users.id', '!=', Auth::user()->id)
+                ->where('users.role', '=', 2);
+            })
+            ->get();
+         }
+         if($userAgents){
+            return $userAgents;
+        }
+        else {
+            $team = array();
+            return $team;
+        }
     }
 
 }
