@@ -154,8 +154,8 @@
                                     <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket-{{$ticket->id}}">{{ $ticket->title }} </a></h5>
                                     @include('ticket.ticketModal', ['ticket' => $ticket])
                                     <div class="pull-right">
-                                        <span class="label bg-blue">{{$ticket->statusName}}</span>
-                                        <span class="label bg-yellow">{{$ticket->priorityName}}</span>
+                                        <span class="label" style="background-color:{{ $ticket->statusColor }}">{{$ticket->statusName}}</span>
+                                        <span class="label" style="background-color:{{ $ticket->priorityColor }}">{{$ticket->priorityName}}</span>
                                     </div>
                                 </div>
                             @endforeach

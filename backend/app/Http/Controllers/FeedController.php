@@ -80,7 +80,8 @@ class FeedController extends Controller
             ->join('users', 'user_tickets.userId', '=', 'users.id')
             ->join('status','ticket.statusId', '=', 'status.id')
             ->join('priority','ticket.priorityId', '=', 'priority.id')
-            ->select('ticket.*','status.name AS statusName', 'priority.id AS priorityId','priority.name AS priorityName', 'priority.id AS priorityId')
+            ->select('ticket.*','status.name AS statusName', 'status.color AS statusColor', 'priority.id AS priorityId',
+                'priority.name AS priorityName', 'priority.color AS priorityColor', 'priority.id AS priorityId')
             ->where('users.id', '=', Auth::user()->id)
             ->get();
             if($userAssignedTickets){
@@ -103,7 +104,8 @@ class FeedController extends Controller
             ->join('status','ticket.statusId', '=', 'status.id')
             ->join('priority','ticket.priorityId', '=', 'priority.id')
             ->leftjoin('user_tickets', 'ticket.id', '=', 'user_tickets.ticketId')
-            ->select('ticket.*','status.name AS statusName', 'priority.id AS priorityId','priority.name AS priorityName', 'priority.id AS priorityId')
+            ->select('ticket.*','status.name AS statusName', 'status.color AS statusColor', 'priority.id AS priorityId',
+                'priority.name AS priorityName', 'priority.color AS priorityColor', 'priority.id AS priorityId')
             ->whereNull('user_tickets.ticketId')
             ->get();
             if($unassignedTickets){
