@@ -8,9 +8,14 @@
 
 namespace App\Http\Controllers;
 
+//use Illuminate\Http\Request;
+use App\Status;
+use App\Ticket;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
+//use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
 use PayPal\Auth\OAuthTokenCredential;
@@ -26,12 +31,15 @@ use PayPal\Api\PaymentExecution;
 use PayPal\Api\Transaction;
 use Anouar\Paypalpayment\Facades\PaypalPayment;
 
+use Illuminate\Http\Request;
 
 class PaypalController extends Controller
 {
 
 
     private $_apiContext;
+
+    private $ticket_id;
 
 
     function __construct()
@@ -46,10 +54,22 @@ class PaypalController extends Controller
 //            config('paypal_payment.Account.ClientSecret'));
     }
 
+    /**
+     * @param Request $request
+     * @param string $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showTheData(Request $request, $id) {
 
-    public function pay()
+        return view('payment.index', ['ticket_id1' => $id, ]);
+    }
+
+    public function pay(Request $request)
     {
 
+        $this->ticket_id = Input::get('ticket_id');
+
+        Session::put('ticket_id', $this->ticket_id);
         $payer = new Payer();
         $payer->setPaymentMethod('paypal');
 
@@ -138,7 +158,13 @@ class PaypalController extends Controller
 
         if($result->getState() == 'approved')
         {
-            return 'SUCCESSSSSSSSSSS!!!!';
+            $ticket_id = Session::get('ticket_id');
+//            dd($newVariable);
+            $ticket = Ticket::find($ticket_id);
+            $status = Status::find(Input::get('VIP'));
+            $ticket->statusId = 1;
+            $ticket->save();
+            return 'Your payment was successful, your ticket has been given a higher priority and our nerds are working hard to get it done ASAP!!!!';
         }
 
         else {
