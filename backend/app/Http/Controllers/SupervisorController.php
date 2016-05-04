@@ -13,12 +13,14 @@ use Illuminate\Support\Facades\Session as Session;
 use App\Status as Status;
 use DB;
 
+
 class SupervisorController extends Controller
 {
     public function index(){
         $supervisors = User::where('role','=','1')->get();
         //$view = view('admin.adminA');
         $departments = Department::all();
+
         return response()
             ->view('admin.adminSupervisors', [ 'supervisors' => $supervisors, 'departments'=>$departments]);
 //        return response()
@@ -137,4 +139,5 @@ class SupervisorController extends Controller
 
         return view('supervisor.supervisorAgents', compact('agents', 'tickets_statuses', 'agents_tickets_with_Statuses'));
     }
+
 }

@@ -8,6 +8,8 @@ use App\Http\Requests;
 use App\Status as Status;
 use Illuminate\Support\Facades\Validator as Validator;
 use Illuminate\Support\Facades\Session as Session;
+use Illuminate\Support\Facades\Auth as Auth;
+use App\User as User;
 
 class StatusController extends Controller
 {
@@ -51,7 +53,18 @@ class StatusController extends Controller
                 ->withInput($request->all());
         } else {
             $input = $request->all();
-            Status::create($input);
+            $status = Status::create($input);
+
+            //Logic for notifications
+            $user = User::find(Auth::user()->id);
+            $users_to_be_notified = User::where('id', '!=', $user->id)->get();
+            // dd($users_to_be_notified);
+            $user->newNotification($users_to_be_notified)
+                ->withType('new.Ticket.status')
+                ->withSubject('New Ticket Status')
+                ->withBody($user->name . ' added ' . $request->name . ' status to the system.')
+                ->regarding($status)
+                ->send();
 
             Session::flash('message', 'Ticket Status ' . $request->name . ' is created Successfully !');
             return redirect()->route('adminSettings');

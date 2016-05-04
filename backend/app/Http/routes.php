@@ -36,6 +36,16 @@ Route::group(['middleware' => 'auth'], function () {
         'uses' => 'SocialProviderController@twitterCallback'
     ]);
 
+    Route::get('/{role}/notifications/show/{id}', 
+    //     [ 'as' => 'showNotifications', function () {
+    //     echo "Iam inside route";
+    // }]
+        [
+        'as' => 'showNotifications',
+        'uses' => 'NotificationController@markNotificationsAsRead'
+    ]
+    );
+
     Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
         //Admin home
         Route::get('/', function () {

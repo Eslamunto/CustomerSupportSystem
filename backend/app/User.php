@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\UserNotification as UserNotification;
 
 class User extends Authenticatable
 {
@@ -31,4 +32,24 @@ class User extends Authenticatable
         return $this->belongsToMany('App\User', 'user_tickets', 'userId', 'ticketId');
     }
 
+    public function notifications()
+    {
+        return $this->belongsToMany('App\User', 'user_notifications', 'user_id', 'notification_id');
+    }
+
+    public function newNotification($users)
+    {
+        $notification = Notification::create();
+
+        foreach ($users as $user) {
+            $user_notification = new UserNotification;
+            $user_notification->user_id = $user->id;
+            $user_notification->notification_id = $notification->id;
+
+            $user_notification->save();
+            // $notification->users()->associate($this);
+        }
+     
+        return $notification;
+    }
 }
