@@ -19,6 +19,8 @@ use App\UserTicket;
 use App\Ticket;
 use App\User;
 use Illuminate\Support\Facades\DB as DB;
+use App\SocialProvider as SocialProvider;
+use Abraham\TwitterOAuth\TwitterOAuth as TwitterOAuth;
 use App\Status;
 use App\Priority;
 use Log;
@@ -353,6 +355,30 @@ class TicketController extends Controller
 
             return response('Adding new ticket successfully ', 200);
         
+
+    }
+
+    public function reply(){
+        $tweetId = Input::get('tweetId');
+        $customerId = Input::get('customerId');
+        $customer = Customer::find($customerId);
+        $username = $customer->twitterUsername;
+        $replyBody = $username.' '.Input::get('reply');
+        $twitter_keys = SocialProvider::findOrFail(1);
+        $consumer_key = $twitter_keys->consumer_key;
+        $consumer_secret = $twitter_keys->consumer_secret;
+        $oauth_token = $twitter_keys->oauth_token;
+        $oauth_secret_token =  $twitter_keys->oauth_secret_token;
+        if(isset($oauth_token ) && isset( $oauth_secret_token)) {
+            $connection = new TwitterOAuth($consumer_key, $consumer_secret,
+                $oauth_token, $oauth_secret_token);
+            $reply = $connection->post("statuses/update", ['in_reply_to_status_id'=>$tweetId, 'status'=>$replyBody]);
+            $response = json_encode($reply);
+            $array = json_decode($response);
+            return json_encode($array);
+
+        }
+        return response("Error in reply to a tweet", 403);
 
     }
 
