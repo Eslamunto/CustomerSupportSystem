@@ -146,4 +146,8 @@ class DepartmentController extends Controller
 
         return Redirect::to('admin/department');
     }
+    public function getDepartments(){
+        $departments = Department::all();
+        return $departments->toJson();
+    }
 }

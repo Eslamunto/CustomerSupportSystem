@@ -14,6 +14,8 @@ class CreateTwitterRepliesTable extends Migration
     {
         Schema::create('twitter_replies', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('postId')->nullable()->unsigned();
+            $table->string('body',144);
             $table->timestamps();
         });
     }

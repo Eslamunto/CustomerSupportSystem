@@ -14,8 +14,9 @@ class UpdateTablePosts extends Migration
     {
         Schema::table('posts', function (Blueprint $table) {
             //
-            $table->renameColumn('post_id', 'postable_id');
             $table->renameColumn('post_type', 'postable_type');
+            $table->foreign('postId')->references('id')->on('twitter_posts')
+                ->onDelete('set null')->onUpdate('cascade');
         });
     }
 
@@ -28,8 +29,7 @@ class UpdateTablePosts extends Migration
     {
         Schema::table('posts', function (Blueprint $table) {
             //
-            $table->renameColumn('postable_id', 'post_id');
-            $table->renameColumn('postable_type', 'post_type');
+            $table->dropForeign('posts_postid_foreign');
         });
     }
 }

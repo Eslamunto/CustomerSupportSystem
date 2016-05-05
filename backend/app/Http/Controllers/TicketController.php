@@ -6,8 +6,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Customer;
-use Illuminate\Support\Facades\Redirect;
+use App\Customer ;
+use App\Post;
+use App\TwitterPost;
 use Illuminate\Support\Facades\Validator as Validator;
 use Illuminate\Support\Facades\Session as Session;
 use App\Http\Requests;
@@ -20,8 +21,6 @@ use App\User;
 use Illuminate\Support\Facades\DB as DB;
 use App\Status;
 use App\Priority;
-use App\Team;
-
 use Log;
 
 class TicketController extends Controller
@@ -306,5 +305,55 @@ class TicketController extends Controller
     {
         return $validator->errors()->all();
     }
-    
+    public function ajaxCreate(){
+           //Ticket varables
+            $title = Input::get('title');
+            $customerId = Input::get('customerId');
+            $description = Input::get('description');
+            $priority = Input::get('priority');
+            $department = Input::get('department');
+            $statusId = Input::get('status');
+            //Post variables
+            $tweetId = Input::get('tweetId');
+            $tweetBody = Input::get('tweetBody');
+
+            //UserTicket variables
+            $agent = Input::get('agent');
+
+            //create twitter post
+            $twitterPost = new TwitterPost();
+            $twitterPost->tweetId = $tweetId;
+            $twitterPost->tweetBody = $tweetBody;
+            $twitterPost->save();
+
+            //create post
+            $post = new Post();
+            $post->postId = $twitterPost->id;
+            $post->postable_type = 't';
+            $post->save();
+
+            // store
+
+            $ticket = new Ticket();
+            $ticket->statusId = $statusId;
+            $ticket->priorityId = $priority;
+            $ticket->customerId = $customerId;
+            $ticket->departmentId = $department;
+            $ticket->title = $title;
+            $ticket->description = $description;
+            $ticket->postId = $post->id;
+            $ticket->save();
+
+            if ($agent != 0){
+                $assign = new UserTicket();
+                $assign->userId = $agent;
+                $assign->ticketId=$ticket->id;
+                $assign->save();
+            }
+
+            return response('Adding new ticket successfully ', 200);
+        
+
+    }
+
 }

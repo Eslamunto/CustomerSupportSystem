@@ -205,7 +205,7 @@
                         <span>Connect to Twitter</span></button>
                     </li> 
                 @endif   
-                </ul><!-- /.sidebar-menu -->
+                </ul><!-- /.sidebar-menu --></ul>
             </section>
             <!-- /.sidebar -->
         </aside>
