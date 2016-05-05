@@ -375,7 +375,6 @@ class TicketController extends Controller
             $reply = $connection->post("statuses/update", ['in_reply_to_status_id'=>$tweetId, 'status'=>$replyBody]);
             $response = json_encode($reply);
             $array = json_decode($response);
-            
             return json_encode($array);
 
         }

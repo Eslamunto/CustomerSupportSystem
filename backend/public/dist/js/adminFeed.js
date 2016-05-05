@@ -14,13 +14,15 @@ function getTicketOpeningData(id, screen_name, name, body){
 }
 function reply(id){
     var formId = '#replyForm-'+id;
+    var replyID = '#replies-'+id
+
     $.ajax({
         type: "GET",
         url: tweetReply,
         data: $(formId).serializeArray(),
         success: function(response){
             var reply = jQuery.parseJSON(response);
-            $('#replies').append("<li>"+
+            $(replyID).append("<li>"+
            " <i class='fa fa-twitter bg-aqua'></i>"+
                " <div class='timeline-item'>" +
                 "<span class='time'><i class='fa fa-clock-o'></i>"+ reply.created_at +"</span>"+
@@ -31,6 +33,7 @@ function reply(id){
                 reply.text+
             "</div> </div> </li>"
             );
+
 
 
         },

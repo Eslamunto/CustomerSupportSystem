@@ -52,7 +52,7 @@
                 <!-- Conversational Tweets -->
                 <div class="conv-timeline">
                     <div class="scroll-timeline">
-                        <ul class="timeline" id="replies">
+                        <ul class="timeline" id="replies-{{$ticket->id}}">
                             <!-- timeline time label -->
                             <li class="time-label">
                                 <span class="bg-blue">
