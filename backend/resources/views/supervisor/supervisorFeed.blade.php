@@ -114,7 +114,7 @@
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs pull-right">
                         <li class="active"><a href="#tab_1-1" data-toggle="tab">My Tickets</a></li>
-                        <li><a href="#tab_2-2" data-toggle="tab">Team Tickets</a></li>
+                        {{-- <li><a href="#tab_2-2" data-toggle="tab">Team Tickets</a></li> --}}
                         <li><a href="#tab_3-2" data-toggle="tab">Unassigned Tickets</a></li>
                         <li class="pull-left header"><i class="fa fa-ticket"></i> Tickets</li>
                     </ul>
@@ -134,7 +134,7 @@
                         </div><!-- /.tab-pane -->
 
                         <!-- Team Tickets -->
-                        <div class="tab-pane" id="tab_2-2">
+                        {{-- <div class="tab-pane" id="tab_2-2">
                             <div class="callout callout-default callout-ticket-bg clearfix">
                                 <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket">#7 Ticket Title</a></h5>
                                 <div class="pull-right">
@@ -142,7 +142,7 @@
                                     <span class="label bg-yellow">High</span>
                                 </div>
                             </div>
-                        </div><!-- /.tab-pane -->
+                        </div> --}}<!-- /.tab-pane -->
 <!-- ==================================================================================================================== -->
                         <div class="tab-pane" id="tab_3-2">
                                 @foreach ($unassignedTickets as $ticket)
