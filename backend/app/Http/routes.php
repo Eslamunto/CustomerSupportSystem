@@ -71,6 +71,10 @@ Route::group(['middleware' => 'auth'], function () {
         'as' => 'checkTweet',
         'uses'=>'FeedController@checkTweet'
     ]);
+    Route::get('ticket/reply',[
+        'as' => 'tweetReply',
+        'uses'=>'TicketController@reply'
+    ]);
 
 
     Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {

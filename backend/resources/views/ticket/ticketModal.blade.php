@@ -50,7 +50,7 @@
                 <!-- Conversational Tweets -->
                 <div class="conv-timeline">
                     <div class="scroll-timeline">
-                        <ul class="timeline">
+                        <ul class="timeline" id="replies">
                             <!-- timeline time label -->
                             <li class="time-label">
                                 <span class="bg-blue">
@@ -63,69 +63,28 @@
                                 <!-- timeline icon -->
                                 <i class="fa fa-twitter bg-aqua"></i>
                                 <div class="timeline-item">
-                                    <span class="time"><i class="fa fa-clock-o"></i> 02:05</span>
-                                    <h3 class="timeline-header"><a href="#">Customer</a> ...</h3>
+                                    <span class="time"><i class="fa fa-clock-o"></i> {{$ticket->created_at}}</span>
+                                    <h3 class="timeline-header"><a>{{$ticket->customerName}}</a></h3>
                                     <div class="timeline-body">
-                                        Customer's tweet complain
-                                        ...
+                                        {{$ticket->tweetBody}}
                                     </div>
                                 </div>
                             </li>
-                            <!-- END timeline item -->
-                            <!-- timeline item -->
-                            <li>
-                                <!-- timeline icon -->
-                                <i class="fa fa-twitter bg-blue"></i>
-                                <div class="timeline-item">
-                                    <span class="time"><i class="fa fa-clock-o"></i> 05:20</span>
-                                    <h3 class="timeline-header"><a href="#">Support Team</a> ...</h3>
-                                    <div class="timeline-body">
-                                        Support Agent's reply
-                                        ...
-                                    </div>
-                                </div>
-                            </li>
-                            <!-- END timeline item -->
-                            <!-- timeline item -->
-                            <li>
-                                <!-- timeline icon -->
-                                <i class="fa fa-twitter bg-aqua"></i>
-                                <div class="timeline-item">
-                                    <span class="time"><i class="fa fa-clock-o"></i> 10:00</span>
-                                    <h3 class="timeline-header"><a href="#">Customer</a> ...</h3>
-                                    <div class="timeline-body">
-                                        Customer's reply
-                                        ...
-                                    </div>
-                                </div>
-                            </li>
-                            <!-- END timeline item -->
-                            <!-- timeline item -->
-                            <li>
-                                <!-- timeline icon -->
-                                <i class="fa fa-twitter bg-blue"></i>
-                                <div class="timeline-item">
-                                    <span class="time"><i class="fa fa-clock-o"></i> 11:15</span>
-                                    <h3 class="timeline-header"><a href="#">Support Team</a> ...</h3>
-                                    <div class="timeline-body">
-                                        Support agent's reply
-                                        ...
-                                    </div>
-                                </div>
-                            </li>
-                            <!-- END timeline item -->
-                            <li>
-                                <i class="fa fa-clock-o bg-gray"></i>
-                            </li>
+
                         </ul>
                     </div> 
 
                     <div class="tweet-reply">
                         <div class="input-group">
-                            <input class="form-control" placeholder="Type message...">
-                            <div class="input-group-btn">
-                                <button class="btn bg-blue">reply</button>
-                            </div>
+                            <form role="form" id="replyForm-{{$ticket->id}}">
+                                <input type="hidden" name="tweetId" value="{{$ticket->tweetId}}">
+                                <input type="hidden" name="customerId" value="{{$ticket->customerId}}">
+                                <input class="form-control" name="reply" placeholder="Type message...">
+                            </form>
+                                <div class="input-group-btn">
+                                    <button class="btn bg-blue" onclick="reply({{$ticket->id}})">Reply</button>
+                                </div>
+
                         </div>
                     </div>
                 </div>

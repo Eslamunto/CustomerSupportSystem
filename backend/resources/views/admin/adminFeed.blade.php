@@ -243,7 +243,7 @@
             </div>
         </div>
     </div>
-<<<<<<< HEAD
+
 
     @include('ticket.ticketModal')
     @include('ticket.addTicketFromTweetModal')
@@ -261,6 +261,7 @@
         var customerCreate ="{{route('ajaxNewCustomer')}}";
         var newTicket = "{{route('newTicket')}}";
         var checkTweet = "{{url('tweet/check/')}}";
+        var tweetReply = "{{route('tweetReply')}}";
     </script>
     {{HTML::script('dist/js/adminFeed.js')}}
 
