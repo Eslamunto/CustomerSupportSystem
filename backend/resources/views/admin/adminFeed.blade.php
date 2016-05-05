@@ -252,7 +252,6 @@
     </div>
 
     @include('ticket.assignTicketModal')
-    @include('ticket.addTicketModal')
     @include('ticket.addTicketFromTweetModal')
 
 @endsection

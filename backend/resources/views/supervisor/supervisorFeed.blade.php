@@ -58,7 +58,7 @@
                     <div class="tab-content">
                         <!-- My Tickets -->
                         <div class="tab-pane active" id="tab_1-1">
-
+                        @if(count($userAssignedTickets) > 0)
                             @foreach ($userAssignedTickets as $ticket)
                                 <div class="callout callout-default callout-ticket-bg clearfix">
                                     <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket-{{$ticket->id}}">{{ $ticket->title }} </a></h5>
@@ -69,7 +69,7 @@
                                         </div>
                                 </div>
                             @endforeach
-
+                        @endif
                         </div><!-- /.tab-pane -->
 
                         <!-- Team Tickets -->
@@ -84,6 +84,7 @@
                         </div> --}}<!-- /.tab-pane -->
 <!-- ==================================================================================================================== -->
                         <div class="tab-pane" id="tab_3-2">
+                            @if(count($unassignedTickets) > 0)
                                 @foreach ($unassignedTickets as $ticket)
                                     <div class="callout callout-default callout-ticket-bg clearfix" style="background-color: #FFEDED">
                                         <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket-{{$ticket->id}}">{{ $ticket->title }} </a></h5>
@@ -99,7 +100,7 @@
                                         </div>
                                     </div>
                                 @endforeach
-
+                            @endif
                         </div><!-- /.tab-pane -->
 <!-- ==================================================================================================================== -->
                     </div><!-- /.tab-content -->
@@ -244,9 +245,10 @@
             </div>
         </div>
     </div>
-
-    @include('ticket.ticketModal')
+    
+    @include('ticket.assignTicketModal')
     @include('ticket.addTicketFromTweetModal')
+
 
 @endsection
 @section('scripts')
