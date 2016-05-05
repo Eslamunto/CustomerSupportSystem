@@ -83,8 +83,8 @@ class FeedController extends Controller
             ->join('posts', 'ticket.postId', '=', 'posts.id')
             ->join('customer', 'ticket.customerId', '=', 'customer.id')
             ->join('twitter_posts', 'posts.postId','=','twitter_posts.id')
-            ->select('ticket.*','status.name AS statusName', 'priority.id AS priorityId',
-                'priority.name AS priorityName', 'priority.id AS priorityId',
+            ->select('ticket.*','status.name AS statusName', 'status.color AS statusColor', 'priority.id AS priorityId',
+                'priority.name AS priorityName',  'priority.color AS priorityColor', 'priority.id AS priorityId',
                 'twitter_posts.tweetId AS tweetId' , 'twitter_posts.tweetBody AS tweetBody',
                 'twitter_posts.created_at AS created_at', 'customer.name AS customerName')
 
@@ -113,8 +113,8 @@ class FeedController extends Controller
             ->join('twitter_posts', 'posts.postId','=','twitter_posts.id')
             ->join('customer', 'ticket.customerId', '=', 'customer.id')
             ->leftjoin('user_tickets', 'ticket.id', '=', 'user_tickets.ticketId')
-            ->select('ticket.*','status.name AS statusName', 'priority.id AS priorityId',
-                'priority.name AS priorityName', 'priority.id AS priorityId',
+            ->select('ticket.*','status.name AS statusName', 'status.color AS statusColor','priority.id AS priorityId',
+                'priority.name AS priorityName', 'priority.color AS priorityColor', 'priority.id AS priorityId',
                 'twitter_posts.tweetId AS tweetId', 'twitter_posts.tweetBody AS tweetBody',
                 'twitter_posts.created_at AS created_at', 'customer.name AS customerName')
             ->whereNull('user_tickets.ticketId')
