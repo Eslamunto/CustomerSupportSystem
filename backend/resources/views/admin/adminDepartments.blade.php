@@ -14,6 +14,7 @@
                 </button> 
             </div>
         </div>
+
         <div class="box-body">
             <table id="systemDepartments" class="table table-bordered table-striped">
                 <thead>
