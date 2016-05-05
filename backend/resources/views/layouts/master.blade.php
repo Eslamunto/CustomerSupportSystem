@@ -145,7 +145,7 @@
                 <ul class="sidebar-menu">
                 @if(Auth::user()->role == 0)  
                     <li class="header">ADMIN</li>
-                    <li class="active"><a href="{{ Route('adminFeed') }}"><i class="fa fa-rss"></i> <span>Feed</span></a></li
+                    <li class="active"><a href="{{ Route('adminFeed') }}"><i class="fa fa-rss"></i> <span>Feed</span></a></li>
                     <li class="treeview">
                         <a href="#"><i class="fa fa-optin-monster"></i> <span>Employees</span> <i
                                 class="fa fa-angle-left pull-right"></i></a>
