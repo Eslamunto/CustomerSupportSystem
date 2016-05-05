@@ -13,6 +13,7 @@ use App\Status;
 use App\Ticket;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 //use Illuminate\Support\Facades\Request;
@@ -161,8 +162,8 @@ class PaypalController extends Controller
             $ticket_id = Session::get('ticket_id');
 //            dd($newVariable);
             $ticket = Ticket::find($ticket_id);
-            $status = Status::find(Input::get('VIP'));
-            $ticket->statusId = 1;
+            $ticket_status= DB::table('status')->where('name', 'vip')->first();
+            $ticket->statusId = $ticket_status->id;
             $ticket->save();
             return 'Your payment was successful, your ticket has been given a higher priority and our nerds are working hard to get it done ASAP!!!!';
         }

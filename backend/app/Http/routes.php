@@ -30,6 +30,15 @@ Route::group(['middleware' => 'auth'], function () {
         'uses' => 'SocialProviderController@twitterAuthenticateAndAuthorize'
     ]);
 
+
+    Route::post('/sendDM', [
+        'as' => 'sendDM',
+        'uses' => 'SendDMController@sendDM'
+    ]);
+
+
+    //Twitter CallBack
+
     Route::get('/getTweets',[
         'as' => 'getTweets',
         'uses' => 'FeedController@getTweets'
@@ -58,6 +67,7 @@ Route::group(['middleware' => 'auth'], function () {
         'as' => 'ajaxNewCustomer',
         'uses' => "CustomerController@ajaxCreate"
     ]);
+
     Route::get('/callback', [
         'as' => 'twitterCallback',
         'uses' => 'SocialProviderController@twitterCallback'
@@ -244,6 +254,19 @@ Route::group(['middleware' => 'auth'], function () {
             'as' => 'reAssignTicketAdmin',
             'uses' => 'TicketController@reAssign'
         ]);
+
+
+        Route::post('/changeColor/', [
+            'as' => 'changecolor',
+            'uses' => 'SettingsController@changeColor'
+        ]);
+
+
+//        ROOUTE FOR UPLOAD FILE
+        Route::any('/logoUpload',[
+            'as' => 'logoUpload',
+            'uses' => 'SettingsController@uploadLogo'
+        ]);
     });
 
 
@@ -363,6 +386,3 @@ Route::post('/pay/{id}', ['as' => 'pay',
 
 Route::get('payment_status', ['as' => 'paymentStatus',
     'uses' => 'PaypalController@paymentStatus']);
-
-
-

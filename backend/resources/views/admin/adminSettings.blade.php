@@ -83,11 +83,16 @@
                                 <li><a class="text-muted" href="#"><i class="fa fa-square"></i></a></li>
                                 <li><a class="text-navy" href="#"><i class="fa fa-square"></i></a></li>
                             </ul>
+
                         </div><!-- /btn-group -->
                         <div class="input-group">
-                            <div class="input-group-btn">
-                                <button id="add-new-event" type="button" class="btn bg-blue btn-flat">Change</button>
-                            </div><!-- /btn-group -->
+                            {{--<form method="post" action="{{ Route('changecolor') }}">--}}
+                                {{--<input type="text" name="color">--}}
+                                <button  id="add-new-event" type="submit" class="btn bg-blue btn-flat">Change</button>
+                            {{--</form>--}}
+                            {{--<div class="input-group-btn">--}}
+                                {{--<button id="add-new-event" type="button" class="btn bg-blue btn-flat">Change</button>--}}
+                            {{--</div><!-- /btn-group -->--}}
                         </div><!-- /input-group -->
                     </div>
                 </div>
@@ -103,9 +108,12 @@
                         <br>
                         <div id="external-events">
                             <div class="input-group">
-                                <input id="new-event" type="text" class="form-control" placeholder="Update Website Logo">
+                                {{--<input id="new-event" type="text" class="form-control" placeholder="Update Website Logo">--}}
                                 <div class="input-group-btn">
-                                    <button id="add-new-event" type="button" class="btn bg-blue btn-flat">Update</button>
+                                    <form method="post" action="{{ Route('logoUpload') }}" enctype="multipart/form-data">
+                                        <input id="logoFile" style="display: inline;" type="file" name="fileToUpload" value="logoFile" class="btn bg-blue btn-flat">
+                                        <button  style="margin-left: 5px;" id="add-new-event" type="submit" class="btn bg-blue btn-flat">Update</button>
+                                    </form>
                                 </div><!-- /btn-group -->
                             </div>
                         </div>
