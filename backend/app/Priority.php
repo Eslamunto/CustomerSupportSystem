@@ -12,6 +12,16 @@ class Priority extends Model
      * @var string
      */
     protected $table = 'priority';
+
+    /**
+    * Fillable fields
+    *
+    * @var array
+    */
+    protected $fillable = [
+    	'name', 'color',
+    ];
+
     function ticket(){
         return $this->hasMany('App\Ticket');
     }

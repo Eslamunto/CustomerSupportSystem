@@ -60,13 +60,33 @@ class TicketController extends Controller
         }else {
             Session::flash('message', 'Ticket: '.$ticket->title .' has been successfully assigneed to Agent '.$user->name);
         }
+
+        //Logic for Notifications
+        $user_notifier = Auth::user();
+        $users_to_be_notified = [$user];
+        
+        $user->newNotification($users_to_be_notified)
+            ->withType('assign.Ticket')
+            ->withSubject('Assigning Ticket')
+            ->withBody($user_notifier->name . ' assigned Ticket "' . $ticket->title . '" to '. $user->name)
+            ->regarding($ticket)
+            ->send();
        
         return redirect()->back();
     }
      public function claim(Request $request, $id)
     {   
+
+        $isAssigned = UserTicket::where('ticketId', $id)
+        ->where('userId',Auth::user()->id)
+        ->count();
+        $user = User::find(Auth::user()->id);
         $ticket = Ticket::find($id);
-        
+        if($isAssigned > 0){
+        Session::flash('error','Error processing your request, '. $user->name .' is already assigned to '.$ticket->title);
+        return redirect()->back();    
+        }
+
         $userAssignedTickets = DB::table('ticket')
             ->join('user_tickets', 'ticket.id', '=', 'user_tickets.ticketId')
             ->join('users', 'user_tickets.userId', '=', 'users.id')
@@ -76,7 +96,7 @@ class TicketController extends Controller
 
         if(Auth::user()->role == 2){
             if ($userAssignedTickets >=3 ){
-                Session::flash('error', 'Sorry! Currently you can not claim any tickets. As an agent, you can not claim a ticket while having more than 3 assigned ones');
+                Session::flash('error', 'Sorry! Currently you can not claim any tickets. As an agent, you already have 3 assigned ones');
             }
             else{
                 $userTicket = new UserTicket;
@@ -102,6 +122,25 @@ class TicketController extends Controller
         $status = Status::find(Input::get('selectedStatus'));
         $ticket->statusId = Input::get('selectedStatus');
         $ticket->save();
+
+        $users_assigned_to_ticket = UserTicket::where('ticketId', '=', $ticket->id)->get();
+        $users = [];
+        foreach ($users_assigned_to_ticket as $user_ticket) {
+            array_push($users, User::find($user_ticket->userId));
+        }
+        
+        $status = Status::find(Input::get('selectedStatus'));
+
+        //Logic for Notifications
+        $user_notifier = Auth::user();
+        
+        $user_notifier->newNotification($users)
+            ->withType('change.assigned.Ticket.status')
+            ->withSubject('Changing Assigned Ticket Status')
+            ->withBody($user_notifier->name . ' changed Ticket "' . $ticket->title . '" status to '. $status->name)
+            ->regarding($ticket)
+            ->send();
+
         Session::flash('message', 'The Status of '.$ticket->title .' has been set to '. $status->name.' status Successfully');
         return redirect()->back();  
     }
@@ -112,11 +151,33 @@ class TicketController extends Controller
         $priority = Priority::find(Input::get('selectedPriority'));
         $ticket->priorityId = Input::get('selectedPriority');
         $ticket->save();
+
+        $users_assigned_to_ticket = UserTicket::where('ticketId', '=', $ticket->id)->get();
+        $users = [];
+        foreach ($users_assigned_to_ticket as $user_ticket) {
+            array_push($users, User::find($user_ticket->userId));
+        }
+        
+        $priority = Priority::find(Input::get('selectedPriority'));
+
+        //Logic for Notifications
+        $user_notifier = Auth::user();
+        
+        $user_notifier->newNotification($users)
+            ->withType('change.assigned.Ticket.priority')
+            ->withSubject('Changing Assigned Ticket Priority')
+            ->withBody($user_notifier->name . ' changed Ticket "' . $ticket->title . '" priority to '. $priority->name)
+            ->regarding($ticket)
+            ->send();
+
         Session::flash('message', 'The Priority of '.$ticket->title .' has been set to '. $priority->name.' priority Successfully');
         return redirect()->back();  
     }
     public function esclateTicket(Request $request, $id)
     {
+
+
+
         if(Auth::user()->role == 2)
         {
         $supervisor = DB::table('users')
@@ -124,7 +185,7 @@ class TicketController extends Controller
         ->select('users.*')
         ->where('team.id', '=', Auth::user()->teamId)
         ->first();
-                //dd($supervisor);
+               
         }
         else 
         {
@@ -133,17 +194,109 @@ class TicketController extends Controller
             ->where('users.role', '=', 0)
             ->first();
         }
-        
 
+        $isAssigned = UserTicket::where('ticketId', $id)
+        ->where('userId',$supervisor->id)
+        ->count();
+        $user = User::find($supervisor->id);
+        $ticket = Ticket::find($id);
+        if($isAssigned > 0){
+        Session::flash('error','Error processing your request, '. $user->name .' is already assigned to '.$ticket->title);
+        return redirect()->back();    
+        }
         // $supervisor = User::find($supervisor->id);
         $userTicket = new UserTicket;
         $userTicket->userId = $supervisor->id;
-        $ticket = Ticket::find($id);
         $userTicket->ticketId = $ticket->id;
         //dd($userTicket);
         $userTicket->save();
+
+        //Logic for Notifications
+        $user_notifier = Auth::user();
+        $users_to_be_notified = [$supervisor];
+        $user = User::find($supervisor->id);
+
+        $user->newNotification($users_to_be_notified)
+            ->withType('escalate.Ticket')
+            ->withSubject('Escalate Ticket')
+            ->withBody($user_notifier->name . ' escalated Ticket "' . $ticket->title . '" to you.')
+            ->regarding($ticket)
+            ->send();
+
         Session::flash('message', $ticket->title .' has been esclated to your supervisor Successfully');
         return redirect()->back();  
+    }
+    public function inviteToTicket(Request $request, $id)
+    {  
+        $isAssigned = UserTicket::where('ticketId', $id)
+        ->where('userId',Input::get('selectedMember'))
+        ->count();
+        $user = User::find(Input::get('selectedMember'));
+        $ticket = Ticket::find($id);
+        if($isAssigned > 0){
+        Session::flash('error','Error processing your request, '. $user->name .' is already assigned to '.$ticket->title);
+        return redirect()->back();    
+        }
+        $ticket = Ticket::find($id);
+        $user = User::find(Input::get('selectedMember'));
+        $userTicket = new UserTicket;
+        $userTicket->userId = Input::get('selectedMember');
+        $userTicket->ticketId = $id;
+        $userTicket->save();
+
+        //Logic for Notifications
+        $user_notifier = Auth::user();
+        $users_to_be_notified = [$user];
+        
+        $user->newNotification($users_to_be_notified)
+            ->withType('inviteTo.Ticket')
+            ->withSubject('Inviting To Ticket')
+            ->withBody($user_notifier->name . ' invited you to Ticket "' . $ticket->title . '".')
+            ->regarding($ticket)
+            ->send();
+
+        Session::flash('message', $user->name .' has been invited to '.$ticket->title.' Successfully');
+        return redirect()->back();    
+    }
+     public function reAssign(Request $request, $id)
+    { 
+        
+        $isAssigned = UserTicket::where('ticketId', $id)
+        ->where('userId',Input::get('selectedMember'))
+        ->count();
+        $user = User::find(Input::get('selectedMember'));
+        $ticket = Ticket::find($id);
+        if($isAssigned > 0){
+        Session::flash('error','Error processing your request, '. $user->name .' is already assigned to '.$ticket->title);
+        return redirect()->back();    
+        }
+        
+        $myTicket = UserTicket::where('ticketId', $id)
+        ->where('userId',Auth::user()->id)
+        ->first();
+        $myTicket->delete();
+
+        $ticket = Ticket::find($id);
+        $user = User::find(Input::get('selectedMember'));
+        $userTicket = new UserTicket;
+        $userTicket->userId = Input::get('selectedMember');
+        $userTicket->ticketId = $id;
+        $userTicket->save();
+
+        //Logic for Notifications
+        $user_notifier = Auth::user();
+        $users_to_be_notified = [$user];
+
+        $user->newNotification($users_to_be_notified)
+            ->withType('re-assign.Ticket')
+            ->withSubject('Re-assigning Ticket')
+            ->withBody($user_notifier->name . ' re-assigned Ticket "' . $ticket->title . '" to you.')
+            ->regarding($ticket)
+            ->send();
+
+        Session::flash('message', $user->name .' has been re-assign to '.$ticket->title.' Successfully');
+        return redirect()->back();    
+
     }
     public function destroy($id)
     {
