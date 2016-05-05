@@ -36,11 +36,13 @@
                             <tbody>
                                 <tr>
                                     <th>Status</th>
-                                    <th><span class="label bg-blue">{{$ticket->statusName}}</span></th>
+                                    <th><span class="label" style="background-color:{{ $ticket->statusColor }}">{{$ticket->statusName}}</span>
+                                    </th>
                                 </tr>
                                 <tr>
                                     <th>Priority</th>
-                                    <th><span class="label bg-yellow">{{$ticket->priorityName}}</span></th>
+                                    <th><span class="label" style="background-color:{{ $ticket->priorityColor }}">{{$ticket->priorityName}}</span>
+                                    </th>
                                 </tr>
                             </tbody>
                         </table>
