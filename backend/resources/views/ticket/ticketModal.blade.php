@@ -36,11 +36,13 @@
                             <tbody>
                                 <tr>
                                     <th>Status</th>
-                                    <th><span class="label bg-yellow">{{$ticket->statusName}}</span></th>
+                                    <th><span class="label" style="background-color:{{ $ticket->statusColor }}">{{$ticket->statusName}}</span>
+                                    </th>
                                 </tr>
                                 <tr>
                                     <th>Priority</th>
-                                    <th><span class="label bg-red">{{$ticket->priorityName}}</span></th>
+                                    <th><span class="label" style="background-color:{{ $ticket->priorityColor }}">{{$ticket->priorityName}}</span>
+                                    </th>
                                 </tr>
                             </tbody>
                         </table>
@@ -143,28 +145,22 @@
                         </div>
                         <div id="collapseZero-{{$ticket->id}}" class="panel-collapse collapse" aria-expanded="true">
                             <div class="box-body">
-                                <form role="form">
+                               @if(Auth::user()->role == 0)
+                                    <form role="form" action="{{Route('reAssignTicketAdmin', $ticket->id)}}"  method="POST">
+                                @elseif (Auth::user()->role == 1)
+                                    <form role="form" action="{{Route('reAssignTicketSupervisor', $ticket->id)}}"  method="POST">
+                                @else
+                                    <form role="form" action="{{Route('reAssignTicketAgent', $ticket->id)}}"  method="POST">
+                                @endif
+                                    {{csrf_field()}}
                                     <div class= "form-group">
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="one"> Team Agent 1
-                                            </label>
-                                        </div>
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="two"> Team Agent 2
-                                            </label>
-                                        </div>
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="optionsRadios" id="optionsRadios3" value="three"> Team Agent 3
-                                            </label>
-                                        </div>
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="optionsRadios" id="optionsRadios4" value="four"> Team Agent 4
-                                            </label>
-                                        </div>
+                                         @foreach ($userAgents as $user)
+                                             <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="selectedMember" value="{{$user->id}}"> {{$user->name}}
+                                                </label>
+                                            </div>
+                                        @endforeach
                                     </div>
                                     <button type="submit" class="btn btn-xs btn-success btn-block">Re-assign</button>
                                 </form> 
@@ -183,28 +179,22 @@
                         </div>
                         <div id="collapseOne-{{$ticket->id}}" class="panel-collapse collapse" aria-expanded="true">
                             <div class="box-body">
-                                <form role="form">
+                                @if(Auth::user()->role == 0)
+                                    <form role="form" action="{{Route('inviteTicketAdmin', $ticket->id)}}"  method="POST">
+                                @elseif (Auth::user()->role == 1)
+                                    <form role="form" action="{{Route('inviteTicketSupervisor', $ticket->id)}}"  method="POST">
+                                @else
+                                    <form role="form" action="{{Route('inviteTicketAgent', $ticket->id)}}"  method="POST">
+                                @endif
+                                    {{csrf_field()}}
                                     <div class= "form-group">
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox"> Team Agent 1
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox"> Team Agent 2
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox"> Team Agent 3
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox"> Team Agent 4
-                                            </label>
-                                        </div>
+                                         @foreach ($userAgents as $user)
+                                             <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="selectedMember" value="{{$user->id}}"> {{$user->name}}
+                                                </label>
+                                            </div>
+                                        @endforeach
                                     </div>
                                     <button type="submit" class="btn btn-xs btn-danger btn-block">Invite</button>
                                 </form> 
@@ -276,7 +266,7 @@
                                         </div>
                                         @endforeach
                                     </div>
-                                    <button type="submit" class="btn btn-xs btn-primary btn-block">Change</button>
+                                    <button type="submit" class="btn btn-xs btn-warning btn-block">Change</button>
                                 </form> 
                             </div>
                         </div>

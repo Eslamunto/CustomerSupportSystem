@@ -15,17 +15,18 @@
                         <form id="update-status-form" role="form" action="{{ Route('newStatus') }}" method="POST">
                             {{ csrf_field() }}
                             <div class="form-group">
-                                <label for="TicketName">Ticket Title</label>
+                                <label for="TicketName">Ticket Status Title</label>
                                 <input type="text" class="form-control" id="TicketName" placeholder="Ticket Title" name="name">
                             </div>
                             <div class="form-group">
+                                <label>Ticket Status Color</label>
                                 <div id="cp1" class="input-group colorpicker-component">
                                     <input type="text" value="#00AABB" class="form-control" name="color"/>
                                     <span class="input-group-addon"><i></i></span>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary btn-sm bg-blue pull-right">
-                                <i class="fa fa-plus"></i> Add Ticket
+                                <i class="fa fa-plus"></i> Add Status
                             </button>
                         </form>
                     </div><!-- /.box-body -->
