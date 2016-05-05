@@ -32,7 +32,7 @@ class SendDMController extends Controller
 
         $connection = new TwitterOAuth($consumer_key, $consumer_secret, $oauth_token, $oauth_token_secret);
 
-        $options = array("screen_name" => $twitter_handle, "text" => "http:localhost:8000/pay/" . $ticket_id);
+        $options = array("screen_name" => $twitter_handle, "text" => "http://localhost:8000/pay/" . $ticket_id);
         $connection->post('direct_messages/new', $options);
 //      TODO: Render it as a message in the main view!
         return "Tweet was sent to the customer";
