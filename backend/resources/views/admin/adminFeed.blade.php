@@ -54,17 +54,19 @@
                     <div class="tab-content">
                         <!-- My Tickets -->
                         <div class="tab-pane active" id="tab_1-1">
-                            @foreach ($userAssignedTickets as $ticket)
-                                <div class="callout callout-default callout-ticket-bg clearfix">
-                                    <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket-{{$ticket->id}}">{{ $ticket->title }} </a></h5>
-                                    @include('ticket.ticketModal', ['ticket' => $ticket])
-                                    <div class="pull-right">
-                                        <span class="label bg-yellow">{{$ticket->statusName}}</span>
-                                        <span class="label bg-red">{{$ticket->priorityName}}</span>
-                                        <span class="label bg-aqua">3</span>
+                            @if(count($userAssignedTickets) > 0)
+                                @foreach ($userAssignedTickets as $ticket)
+                                    <div class="callout callout-default callout-ticket-bg clearfix">
+                                        <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket-{{$ticket->id}}">{{ $ticket->title }} </a></h5>
+                                        @include('ticket.ticketModal', ['ticket' => $ticket])
+                                        <div class="pull-right">
+                                            <span class="label bg-yellow">{{$ticket->statusName}}</span>
+                                            <span class="label bg-red">{{$ticket->priorityName}}</span>
+                                            <span class="label bg-aqua">3</span>
+                                        </div>
                                     </div>
-                                </div>
-                            @endforeach
+                                @endforeach
+                            @endif
                         </div><!-- /.tab-pane -->
 
                         <!-- Team Tickets -->
@@ -80,6 +82,7 @@
                         </div><!-- /.tab-pane -->
 <!-- ==================================================================================================================== -->
                         <div class="tab-pane" id="tab_3-2">
+                            @if(count($unassignedTickets) > 0)
                                 @foreach ($unassignedTickets as $ticket)
                                     <div class="callout callout-default callout-ticket-bg clearfix">
                                         <h5 class="pull-left"><a href="" data-toggle="modal" data-target="#ticket-{{$ticket->id}}">{{ $ticket->title }} </a></h5>
@@ -99,6 +102,7 @@
                                         </div>
                                     </div>
                                 @endforeach
+                            @endif
                         </div><!-- /.tab-pane -->
 <!-- ==================================================================================================================== -->
                     </div><!-- /.tab-content -->
@@ -243,9 +247,8 @@
             </div>
         </div>
     </div>
-<<<<<<< HEAD
 
-    @include('ticket.ticketModal')
+    
     @include('ticket.addTicketFromTweetModal')
 
 @endsection

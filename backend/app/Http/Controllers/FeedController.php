@@ -33,9 +33,11 @@ class FeedController extends Controller
       public function index()
     {
         $userAssignedTickets = $this->getUserAssignedTickets();
+        // dd($userAssignedTickets);
         $unassignedTickets = $this->getunAssignedTickets();
         $userTeam = $this->getUserTeam();
         $userAssignedTicketsCount = count($userAssignedTickets);
+        // dd($userAssignedTicketsCount);
         $ticketStatus = Status::all();
         $ticketPriority = Priority::all();
          if(Auth::user()->role == 0){
