@@ -166,13 +166,13 @@
                     <li class="header">SUPPORT SUPERVISOR</li>
                     <!-- Optionally, you can add icons to the links -->
                     <li class="active"><a href="{{ Route('supervisorFeed') }}"><i class="fa fa-feed"></i> <span>Feed</span></a></li>
-                    <li class="treeview">
-                      <a href="#"><i class="fa fa-optin-monster"></i> <span>Team Activity</span> <i class="fa fa-angle-left pull-right"></i></a>
-                      <ul class="treeview-menu">
-                        <li><a href="{{ route('supervisorTeamAgents', Auth::user()->id) }}"><i class="fa fa-user"></i> <span>Support Agents</span></a></li>
-                        <li><a href="#"><i class="fa fa-ticket"></i> <span>Tickets History</span></a></li>
-                      </ul>
-                    </li>
+                    {{-- <li class="treeview">
+                      <a href="#"><i class="fa fa-optin-monster"></i> <span>Team Activity</span> <i class="fa fa-angle-left pull-right"></i></a> --}}
+                      {{-- <ul class="treeview-menu"> --}}
+                        <li><a href="{{ route('supervisorTeamAgents', Auth::user()->id) }}"><i class="fa fa-user"></i> <span>Support Agents Activity</span></a></li>
+                        {{-- <li><a href="#"><i class="fa fa-ticket"></i> <span>Tickets History</span></a></li> --}}
+                      {{-- </ul> --}}
+                    {{-- </li> --}}
                     <li><a href="{{route('createCustomerSupervisor')}}"><i class="fa fa-group"></i> <span>Customers</span></a></li>
                 @else 
                     <li class="header"> SUPPORT AGENT</li>
@@ -180,9 +180,9 @@
                     <li class="active">
                       <a href="{{ Route('agentFeed') }}"><i class="fa fa-ticket"></i> <span>Tickets Feed</span></a>
                     </li>
-                    <li>
+                    {{-- <li>
                       <a href="#"><i class="fa fa-history"></i> <span>Tickets History</span></a>
-                    </li>
+                    </li> --}}
                     <li>
                       <a href="{{route('createCustomerAgent')}}"><i class="fa fa-group"></i> <span>Cutomers</span></a>
                     </li>
