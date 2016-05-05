@@ -215,6 +215,12 @@ Route::group(['middleware' => 'auth'], function () {
             'as' => 'reAssignTicketAdmin',
             'uses' => 'TicketController@reAssign'
         ]);
+
+//        ROOUTE FOR UPLOAD FILE
+        Route::any('/logoUpload',[
+            'as' => 'logoUpload',
+            'uses' => 'SettingsController@uploadLogo'
+        ]);
     });
 
 

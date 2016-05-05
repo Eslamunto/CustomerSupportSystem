@@ -105,7 +105,10 @@
                             <div class="input-group">
                                 <input id="new-event" type="text" class="form-control" placeholder="Update Website Logo">
                                 <div class="input-group-btn">
-                                    <button id="add-new-event" type="button" class="btn bg-blue btn-flat">Update</button>
+                                    <form method="post" action="{{ Route('logoUpload') }}" enctype="multipart/form-data">
+                                        <input id="logoFile" type="file" name="fileToUpload" value="logoFile" class="btn bg-blue btn-flat">
+                                        <button  id="add-new-event" type="submit" class="btn bg-blue btn-flat">Update</button>
+                                    </form>
                                 </div><!-- /btn-group -->
                             </div>
                         </div>

@@ -70,7 +70,7 @@ desired effect
   <!-- mini logo for sidebar mini 50x50 pixels -->
   <span class="logo-mini"><b>C</b>S</span>
   <!-- logo for regular state and mobile devices -->
-  <span class="logo-lg"><b>Customer</b>Support</span>
+  <span class="logo-lg"><img width="100" length="50" src={{asset('dist/img/logo.png')}}></span>
 </a>
 
 <!-- Header Navbar -->
