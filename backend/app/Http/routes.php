@@ -30,6 +30,7 @@ Route::group(['middleware' => 'auth'], function () {
         'uses' => 'SocialProviderController@twitterAuthenticateAndAuthorize'
     ]);
 
+
     Route::post('/sendDM', [
         'as' => 'sendDM',
         'uses' => 'SendDMController@sendDM'
@@ -37,16 +38,54 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     //Twitter CallBack
+
+    Route::get('/getTweets',[
+        'as' => 'getTweets',
+        'uses' => 'FeedController@getTweets'
+    ]);
+    Route::get('/status/index', [
+        'as' => 'statusIndex',
+        'uses' => 'StatusController@index'
+    ]);
+    Route::get('/priority/index', [
+        'as' => 'priorityIndex',
+        'uses' => 'PriorityController@index'
+    ]);
+    Route::get('/agents/index/{departmentId}', [
+        'as' => 'agentsIndexAPI',
+        'uses' => 'AgentController@indexAPI'
+    ]);
+    Route::get('/departments/index',[
+        'as' => 'departmentIndex',
+        'uses' => 'DepartmentController@getDepartments'
+    ]);
+    route::get('/check/customer/{username}',[
+        'as' => 'checkCustomer',
+        'uses' => 'CustomerController@show'
+    ]);
+    route::post('/customer/create/new',[
+        'as' => 'ajaxNewCustomer',
+        'uses' => "CustomerController@ajaxCreate"
+    ]);
+
     Route::get('/callback', [
         'as' => 'twitterCallback',
         'uses' => 'SocialProviderController@twitterCallback'
     ]);
 
+    Route::POST('/ticket/create/new', [
+        'as' => 'newTicket',
+        'uses' => 'TicketController@ajaxCreate',
+    ]);
+    Route::GET('tweet/check/{id}', [
+        'as' => 'checkTweet',
+        'uses'=>'FeedController@checkTweet'
+    ]);
+
     Route::get('/{role}/notifications/show/{id}', [
         'as' => 'showNotifications',
         'uses' => 'NotificationController@markNotificationsAsRead'
-    ]
-    );
+    ]);
 
     Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
         //Admin home

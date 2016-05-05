@@ -9,6 +9,8 @@
 namespace App\Http\Controllers;
 
 use App\Customer;
+use App\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator as Validator;
 use Illuminate\Support\Facades\Session as Session;
@@ -35,7 +37,20 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        //
+
+    }
+
+    /**
+     * @param $userName
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
+    public function show($userName){
+        $userName = ($userName[0] == '@')? $userName:'@'.$userName;
+        $customer = Customer::where('twitterUsername','=', $userName)->get();
+        if(count($customer) != 0){
+            return $customer->toJson();
+        }
+        return response("This is a new user please create a new user account", 404);
     }
     /**
      * Store a newly created resource in storage.
@@ -46,7 +61,7 @@ class CustomerController extends Controller
 
     public function postCreate(Request $request){
 
-        // dd($request);
+
 
         $validator =  $this->validate($request, [
             'customerName' => 'required|max:255',
@@ -83,7 +98,30 @@ class CustomerController extends Controller
         }
     }
 
+    public function ajaxCreate(){
+        $rules = array(
+            'name'       => 'required',
+            'email'      => 'email',
+            'telephone' => 'numeric',
+            'username' => 'required'
+        );
+        $validator = Validator::make(Input::all(), $rules);
+        if ($validator->fails()) {
+            return response($validator, 400);
+        } else {
+            // store
+            $customer = new Customer;
+            $customer->name = Input::get('name');
+            $customer->email = Input::get('email');
+            $customer->phone = Input::get('telephone');
+            $customer->twitterUsername = '@'.Input::get('username');
+            $customer->facebookUsername = '';
+            $customer->save();
+            // redirect
 
+            return response($customer->twitterUsername, 200);
+        }
+    }
     public function postUpdate(Request $request, $id)
     {
         $validator =  $this->validate($request, [

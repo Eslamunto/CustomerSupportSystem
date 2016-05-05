@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
-
 use App\Priority as Priority;
 use Illuminate\Support\Facades\Validator as Validator;
 use Illuminate\Support\Facades\Session as Session;
 use Illuminate\Support\Facades\Auth as Auth;
 use App\User as User;
+use App\Http\Requests;
+use Illuminate\Http\Request;
 
 class PriorityController extends Controller
 {
@@ -19,9 +17,9 @@ class PriorityController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index(){
+        $priorities = Priority::all();
+        return $priorities->toJson();
     }
 
     /**

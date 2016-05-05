@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Validator as Validator;
 use Illuminate\Support\Facades\Input as Input;
 use Illuminate\Support\Facades\Hash as Hash;
 use Illuminate\Support\Facades\Session as Session;
-
+use Illuminate\Support\Facades\DB as DB;
 
 class AgentController extends Controller
 {
@@ -22,6 +22,16 @@ class AgentController extends Controller
             ->view('admin.adminAgents', [ 'agents' => $agents, 'departments'=>$departments]);
 //        return response()
 //            ->view('admin.agentTest', [ 'agents' => $agents]);
+    }
+    public function indexAPI($departmentId){
+        $agents = DB::table('users')
+            ->join('team', 'users.teamId', '=', 'team.id')
+            ->join('departments', 'team.departmentId', '=', 'departments.id')
+            ->select('users.*')
+            ->where('users.role','=','2')
+            ->where('departments.id', '=', $departmentId)
+            ->get();
+        return $agents;
     }
     public function show($id){
         $agent = User::find($id);
@@ -108,4 +118,5 @@ class AgentController extends Controller
 
         return redirect()->route('indexAgents');
     }
+
 }

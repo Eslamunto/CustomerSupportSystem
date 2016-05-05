@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateTableUsers extends Migration
+class UpdateTwitterRepliesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,8 +12,10 @@ class UpdateTableUsers extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->foreign('teamId')->references('id')->on('team')
+
+        Schema::table('twitter_replies', function (Blueprint $table) {
+            //
+            $table->foreign('postId')->references('id')->on('posts')
                 ->onDelete('set null')->onUpdate('cascade');
         });
     }
@@ -25,9 +27,9 @@ class UpdateTableUsers extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('replies', function (Blueprint $table) {
             //
-            $table->dropForeign('users_teamId_foreign');
+            $table->dropForeign('twitter_replies_postid_foreign');
         });
     }
 }

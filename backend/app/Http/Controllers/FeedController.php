@@ -3,27 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\SocialProvider;
+use App\TwitterPost;
 use Illuminate\Http\Request;
 use Abraham\TwitterOAuth\TwitterOAuth;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth as Auth;
 use Illuminate\Support\Facades\DB as DB;
-use App\Ticket as Ticket;
-use App\Team as Team;
-use App\User as User;
 use App\Status as Status;
 use App\Priority as Priority;
 use App\UserTicket as UserTicket;
 
+
 class FeedController extends Controller
 {
-    private $connection;
-
     /**
      * FeedController constructor.
      */
     public function __construct()
-    {  
+
+    {
         if(Auth::user()->role == 0){
             $this->middleware(['admin']);
          }elseif(Auth::user()->role == 1){
@@ -35,10 +33,12 @@ class FeedController extends Controller
       public function index()
     {
         $userAssignedTickets = $this->getUserAssignedTickets();
+        // dd($userAssignedTickets);
         $unassignedTickets = $this->getunAssignedTickets();
         $userTeam = $this->getUserTeam();
         $userAgents = $this->getTeamAgents();
         $userAssignedTicketsCount = count($userAssignedTickets);
+        // dd($userAssignedTicketsCount);
         $ticketStatus = Status::all();
         $ticketPriority = Priority::all();
          if(Auth::user()->role == 0){
@@ -80,7 +80,8 @@ class FeedController extends Controller
             ->join('users', 'user_tickets.userId', '=', 'users.id')
             ->join('status','ticket.statusId', '=', 'status.id')
             ->join('priority','ticket.priorityId', '=', 'priority.id')
-            ->select('ticket.*','status.name AS statusName', 'priority.id AS priorityId','priority.name AS priorityName', 'priority.id AS priorityId')
+            ->select('ticket.*','status.name AS statusName', 'status.color AS statusColor', 'priority.id AS priorityId',
+                'priority.name AS priorityName', 'priority.color AS priorityColor', 'priority.id AS priorityId')
             ->where('users.id', '=', Auth::user()->id)
             ->get();
             if($userAssignedTickets){
@@ -103,7 +104,8 @@ class FeedController extends Controller
             ->join('status','ticket.statusId', '=', 'status.id')
             ->join('priority','ticket.priorityId', '=', 'priority.id')
             ->leftjoin('user_tickets', 'ticket.id', '=', 'user_tickets.ticketId')
-            ->select('ticket.*','status.name AS statusName', 'priority.id AS priorityId','priority.name AS priorityName', 'priority.id AS priorityId')
+            ->select('ticket.*','status.name AS statusName', 'status.color AS statusColor', 'priority.id AS priorityId',
+                'priority.name AS priorityName', 'priority.color AS priorityColor', 'priority.id AS priorityId')
             ->whereNull('user_tickets.ticketId')
             ->get();
             if($unassignedTickets){
@@ -185,5 +187,14 @@ class FeedController extends Controller
             return $team;
         }
     }
+
+    public function checkTweet($tweetId){
+        $tweet = TwitterPost::where('tweetId','=', $tweetId)->get();
+        if(count($tweet) == 0){
+            return response('this is a new tweet', 404);
+        }
+        return response('this tweet is opend before as a ticket', 200);
+    }
+
 
 }

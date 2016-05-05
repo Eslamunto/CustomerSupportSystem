@@ -14,8 +14,7 @@ class AddEmailToTableCustomer extends Migration
     {
         Schema::table('customer', function (Blueprint $table) {
             //
-            $table->string('email')->after('name');
-            $table->unique('email');
+            $table->string('email')->after('name')->nullable();
         });
     }
 
