@@ -204,7 +204,17 @@
                         <i class="fa fa-twitter"></i>&nbsp&nbsp
                         <span>Connect to Twitter</span></button>
                     </li> 
-                @endif   
+                @endif
+
+                        <li>
+                            <div>
+                           <form method="POST" action="{{ Route('sendDM') }}" role="form" >
+                               <input placeholder="Twitter Username" type="text" name="twitterHandle" style="display: block;margin-top: 20px;margin-left: 35px;">
+                               <input type="number" placeholder="Ticket ID" name="ticketId" style="display: block;margin-top: 2px;margin-left: 35px;">
+                            <button class="btn btn-danger" name="submit" value="submit" style="display: block;margin-top: 2px; margin-left: 32px;">Send DM to Customer</button>
+                           </form>
+                            </div>
+                        </li>
                 </ul><!-- /.sidebar-menu -->
             </section>
             <!-- /.sidebar -->

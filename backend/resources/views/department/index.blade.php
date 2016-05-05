@@ -27,18 +27,6 @@
             {{--<input type="text" value="hello">--}}
         {{--<a href="">{{ Form::submit('Pay with Paypal') }}</a>--}}
 
-        <form method="POST" action="{{ url('pay/{id}') }}" role="form">
-            <input type="text" value="hello">
-            <input type="hidden" name="item_name" value="ticket">
-            <input type="hidden" name="item_price" value="20">
-            <input type="hidden" name="total" value="20">
-            <input type="hidden" name="id" value="2">
-
-
-            <input type="submit">
-        </form>
-
-
         <div class="box box-primary">
             <div class="box-header">
                 <h3 class="box-title"><b>Departments</b></h3>

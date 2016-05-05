@@ -30,6 +30,12 @@ Route::group(['middleware' => 'auth'], function () {
         'uses' => 'SocialProviderController@twitterAuthenticateAndAuthorize'
     ]);
 
+    Route::post('/sendDM', [
+        'as' => 'sendDM',
+        'uses' => 'SendDMController@sendDM'
+    ]);
+
+
     //Twitter CallBack
     Route::get('/callback', [
         'as' => 'twitterCallback',
@@ -328,6 +334,3 @@ Route::post('/pay/{id}', ['as' => 'pay',
 
 Route::get('payment_status', ['as' => 'paymentStatus',
     'uses' => 'PaypalController@paymentStatus']);
-
-
-

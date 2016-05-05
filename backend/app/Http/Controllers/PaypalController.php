@@ -163,7 +163,6 @@ class PaypalController extends Controller
 //            dd($newVariable);
             $ticket = Ticket::find($ticket_id);
             $ticket_status= DB::table('status')->where('name', 'vip')->first();
-            
             $ticket->statusId = $ticket_status->id;
             $ticket->save();
             return 'Your payment was successful, your ticket has been given a higher priority and our nerds are working hard to get it done ASAP!!!!';
