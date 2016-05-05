@@ -216,6 +216,13 @@ Route::group(['middleware' => 'auth'], function () {
             'uses' => 'TicketController@reAssign'
         ]);
 
+
+        Route::post('/changeColor/', [
+            'as' => 'changecolor',
+            'uses' => 'SettingsController@changeColor'
+        ]);
+
+
 //        ROOUTE FOR UPLOAD FILE
         Route::any('/logoUpload',[
             'as' => 'logoUpload',

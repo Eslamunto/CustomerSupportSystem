@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 
+use App\Settings;
 use Illuminate\Http\Request;
 
 
@@ -35,7 +36,7 @@ class SettingsController extends Controller
         if ($request->hasFile('fileToUpload')) {
 
             $request->file('fileToUpload')->move($destinationPath, $fileName);
-            echo 'File copied successfully';
+            return redirect()->back();
         }
 
         else {
@@ -43,4 +44,16 @@ class SettingsController extends Controller
         }
 
     }
+
+//    public function changeColor(Request $request) {
+//        $color = Input::get('color');
+////        dd($color);
+//
+//        $settings = new Settings();
+//        $settings->color = Input::get('color');
+//        $settings->save();
+//
+//        return 'color saved!';
+//
+//    }
 }
